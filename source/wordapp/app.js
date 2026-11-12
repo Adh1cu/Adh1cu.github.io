@@ -2,264 +2,440 @@
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const cleanZh = s => String(s || '').replace(/\\r\\n|\\n|\\r|\r|\n/g, '；').replace(/；{2,}/g, '；');
 const DAY = 86400000;
 const NEW_PER_DAY = 20;
 
-let WORDS = [], EXAMPLES = {}, SCENES = [], WORDMAP = {};
+/* ---------- data ---------- */
+let WORDS = [], EXAMPLES = {}, SCENES = [], PHRASES = [], LOOKUP = {};
+let WORDMAP = {};   // lower -> word entry (1500 main words)
+
+async function loadJSON(url, fallback) {
+  try { const r = await fetch(url); if (!r.ok) throw 0; return await r.json(); }
+  catch { return fallback; }
+}
+
+/* ---------- persistent state ---------- */
+let srs = {}, dayRec = { date: '', introduced: 0 }, favs = [];
+try { srs = JSON.parse(localStorage.getItem('bw.srs.v1') || '{}'); } catch {}
+try { dayRec = JSON.parse(localStorage.getItem('bw.day.v1') || '{"date":"","introduced":0}'); } catch {}
+try { favs = JSON.parse(localStorage.getItem('bw.fav.v1') || '[]'); } catch {}
+const favSet = new Set(favs);
+function todayStr() { return new Date().toDateString(); }
+if (dayRec.date !== todayStr()) { dayRec = { date: todayStr(), introduced: 0 }; persistDay(); }
+function persistSrs() { localStorage.setItem('bw.srs.v1', JSON.stringify(srs)); }
+function persistDay() { localStorage.setItem('bw.day.v1', JSON.stringify(dayRec)); }
+function persistFav() { localStorage.setItem('bw.fav.v1', JSON.stringify([...favSet])); }
+function isFav(w) { return favSet.has(w); }
+function toggleFav(w) {
+  if (favSet.has(w)) favSet.delete(w); else favSet.add(w);
+  persistFav(); return favSet.has(w);
+}
+
+/* ---------- TTS ---------- */
 let rate = parseFloat(localStorage.getItem('bw.rate') || '0.92');
-
-/* ---------- 数据 ---------- */
-async function loadData(){
-  const [w, e, s] = await Promise.all([
-    fetch('data/words.json').then(r => r.json()),
-    fetch('data/examples.json').then(r => r.json()).catch(() => ({})),
-    fetch('data/scenes.json').then(r => r.json()),
-  ]);
-  WORDS = w; EXAMPLES = e; SCENES = s;
-  WORDS.forEach(x => WORDMAP[x.w.toLowerCase()] = x);
-}
-
-/* ---------- SRS 存储 ---------- */
-const srs = JSON.parse(localStorage.getItem('bw.srs.v1') || '{}');
-const saveSRS = () => localStorage.setItem('bw.srs.v1', JSON.stringify(srs));
-function dayKey(){ return new Date().toDateString(); }
-function dayState(){
-  let d = JSON.parse(localStorage.getItem('bw.day.v1') || 'null');
-  if (!d || d.date !== dayKey()) d = { date: dayKey(), introduced: 0, finished: 0 };
-  return d;
-}
-const saveDay = d => localStorage.setItem('bw.day.v1', JSON.stringify(d));
-function grade(word, g){
-  const now = Date.now();
-  const cur = srs[word] || { r: 0, iv: 0, due: 0 };
-  if (g === 'again'){ cur.iv = 0; cur.due = now + 10 * 60000; }
-  else if (g === 'hard'){ cur.iv = cur.iv === 0 ? 1 : Math.max(1, Math.round(cur.iv * 14) / 10); cur.due = now + cur.iv * DAY; cur.r++; }
-  else { cur.iv = cur.iv === 0 ? 2.5 : Math.round(cur.iv * 22) / 10; cur.due = now + cur.iv * DAY; cur.r++; }
-  srs[word] = cur; saveSRS();
-}
-const dueWords = () => Object.keys(srs).filter(w => (srs[w].due || 0) <= Date.now());
-const newWordsPool = () => WORDS.filter(x => !srs[x.w]).map(x => x.w);
-
-/* ---------- 朗读 ---------- */
-let voiceUS = null;
-function pickVoice(){
+let voice = null;
+function pickVoice() {
   const vs = speechSynthesis.getVoices();
-  voiceUS = vs.find(v => v.lang === 'en-US') || vs.find(v => v.lang && v.lang.startsWith('en')) || null;
+  voice = vs.find(v => v.lang === 'en-US') || vs.find(v => v.lang && v.lang.startsWith('en')) || null;
 }
-if ('speechSynthesis' in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
-let speakingEl = null;
-function speak(text, btn){
+if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+let playingBtn = null;
+function clearPlaying() { if (playingBtn) { playingBtn.classList.remove('playing'); playingBtn = null; } }
+function speak(text, btn) {
   if (!('speechSynthesis' in window)) return;
-  speechSynthesis.cancel();
+  speechSynthesis.cancel(); clearPlaying();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-US'; if (voiceUS) u.voice = voiceUS; u.rate = rate;
-  if (btn){ speakingEl = btn; btn.classList.add('playing'); u.onend = u.onerror = () => btn.classList.remove('playing'); }
+  u.lang = 'en-US'; if (voice) u.voice = voice; u.rate = rate;
+  if (btn) { btn.classList.add('playing'); playingBtn = btn; u.onend = u.onerror = () => { if (playingBtn === btn) clearPlaying(); }; }
   speechSynthesis.speak(u);
 }
-$('#rateToggle').addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b) return;
-  rate = parseFloat(b.dataset.rate); localStorage.setItem('bw.rate', rate);
-  $$('#rateToggle button').forEach(x => x.classList.toggle('on', x === b));
-});
-$$('#rateToggle button').forEach(x => x.classList.toggle('on', parseFloat(x.dataset.rate) === rate));
-
-/* ---------- 背词会话 ---------- */
-let queue = [], qi = 0, sessionNew = 0, sessionTotal = 0, failedOnce = new Set();
-function refreshToday(){
-  const due = dueWords().length;
-  const d = dayState();
-  const left = Math.max(0, NEW_PER_DAY - d.introduced);
-  $('#dueCount').textContent = due + left > 0 ? `${due} 复习 + ${left} 新词` : '全部完成 🎉';
-  $('#newLeft').textContent = left + ' 个';
-  const total = NEW_PER_DAY + due;
-  $('#todayBar').style.width = total ? Math.min(100, Math.round(d.finished / total * 100)) + '%' : '100%';
-}
-function startSession(){
-  const d = dayState();
-  const reviews = dueWords();
-  const news = newWordsPool().slice(0, Math.max(0, NEW_PER_DAY - d.introduced));
-  queue = [...reviews.map(w => ({ w, kind: '复习' })), ...news.map(w => ({ w, kind: '新词' }))];
-  qi = 0; sessionNew = news.length; sessionTotal = queue.length; failedOnce = new Set();
-  $('#doneArea').classList.add('hidden');
-  if (!queue.length){ showDone(0, 0); return; }
-  $('#startBtn').textContent = '继续学习';
-  $('.today').classList.add('hidden');
-  $('#cardArea').classList.remove('hidden');
-  showCard();
-}
-function current(){ return queue[qi]; }
-function showCard(){
-  const item = current(); if (!item){ finishSession(); return; }
-  const w = WORDMAP[item.w.toLowerCase()] || { w: item.w };
-  $('#cardPos').textContent = `${qi + 1} / ${queue.length}`;
-  $('#cardKind').textContent = item.kind;
-  $('#cWord').textContent = w.w;
-  $('#cPhon').textContent = w.ph || '';
-  $('#cCover').classList.remove('hidden');
-  $('#cBody').classList.add('hidden');
-}
-$('#revealBtn').addEventListener('click', () => {
-  const item = current(); const w = WORDMAP[item.w.toLowerCase()] || { w: item.w };
-  $('#cZh').textContent = w.zh || '';
-  $('#cEn').textContent = w.en || '';
-  const exs = EXAMPLES[item.w.toLowerCase()] || [];
-  $('#cExamples').innerHTML = exs.length ? exs.map(x => `
-    <div class="ex"><div class="tx"><div class="e">${esc(x.en)}</div><div class="z">${esc(x.zh)}</div></div>
-    <button class="speak" data-say="${esc(x.en)}">🔊</button></div>`).join('')
-    : '<div class="z">（暂无例句）</div>';
-  $('#cCover').classList.add('hidden');
-  $('#cBody').classList.remove('hidden');
-});
-$('#cSpeak').addEventListener('click', e => speak($('#cWord').textContent, e.currentTarget));
-document.addEventListener('click', e => {
-  const b = e.target.closest('[data-say]'); if (b) speak(b.dataset.say, b);
-});
-$$('.grades button').forEach(b => b.addEventListener('click', () => {
-  const item = current(); const g = b.dataset.g;
-  const isNew = item.kind === '新词';
-  grade(item.w, g);
-  const d = dayState();
-  if (isNew && !item.counted){ d.introduced++; item.counted = true; }
-  if (g === 'again' && !failedOnce.has(item.w + qi)){ failedOnce.add(item.w + qi); queue.push({ w: item.w, kind: '错词重练', counted: true }); }
-  else d.finished++;
-  saveDay(d);
-  qi++; showCard(); refreshToday();
-}));
-function finishSession(){
-  $('#cardArea').classList.add('hidden');
-  $('.today').classList.remove('hidden');
-  showDone(sessionTotal, sessionNew);
-}
-function showDone(total, news){
-  $('#doneSub').textContent = total ? `本轮共 ${total} 个词，其中新词 ${news} 个。错词已在本轮末尾重练。` : '今天没有到期词，新词额度也用完了，明天见。';
-  $('#doneArea').classList.remove('hidden');
-  refreshToday(); renderStats();
-}
-$('#startBtn').addEventListener('click', startSession);
-$('#againBtn').addEventListener('click', startSession);
-
-/* ---------- 查词 ---------- */
-$('#dictInput').addEventListener('input', e => {
-  const q = e.target.value.trim().toLowerCase();
-  const box = $('#dictResults'); $('#dictDetail').innerHTML = '';
-  if (!q){ box.innerHTML = ''; return; }
-  const starts = [], contains = [];
-  for (const x of WORDS){
-    const lw = x.w.toLowerCase();
-    if (lw.startsWith(q)) starts.push(x);
-    else if (lw.includes(q)) contains.push(x);
-    if (starts.length >= 20) break;
-  }
-  const res = [...starts, ...contains].slice(0, 20);
-  box.innerHTML = res.length ? '' : '<div class="empty">词库里暂时没有这个词</div>';
-  res.forEach(x => {
-    const el = document.createElement('button');
-    el.className = 'result-item glass';
-    el.innerHTML = `<div><div class="rw">${esc(x.w)}</div><div class="rz">${esc((x.zh || '').slice(0, 26))}</div></div>${x.tag ? `<span class="tagchip">${esc(x.tag.toUpperCase())}</span>` : ''}`;
-    el.addEventListener('click', () => showWordDetail(x));
-    box.appendChild(el);
-  });
-});
-function exHtml(word){
-  const exs = EXAMPLES[word.toLowerCase()] || [];
-  if (!exs.length) return '';
-  return `<div class="examples">${exs.map(x => `
-    <div class="ex"><div class="tx"><div class="e">${esc(x.en)}</div><div class="z">${esc(x.zh)}</div></div>
-    <button class="speak" data-say="${esc(x.en)}">🔊</button></div>`).join('')}</div>`;
-}
-function showWordDetail(x){
-  $('#dictDetail').innerHTML = `
-    <div class="card glass" style="margin-top:12px">
-      <div class="word-row"><div><div class="word" style="font-size:30px">${esc(x.w)}</div>
-      <div class="phon">${esc(x.ph || '')}</div></div>
-      <button class="speak big" id="dSpeak">🔊</button></div>
-      <div class="zh">${esc(x.zh || '')}</div>
-      <div class="en">${esc(x.en || '')}</div>
-      ${exHtml(x.w)}
-    </div>`;
-  $('#dSpeak').addEventListener('click', e => speak(x.w, e.currentTarget));
-  $('#dictDetail').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-/* ---------- 场景 ---------- */
-let curScene = null, playing = false;
-function renderScenes(){
-  const box = $('#sceneList'); box.innerHTML = '';
-  SCENES.forEach(sc => {
-    const el = document.createElement('button');
-    el.className = 'scene-item glass';
-    el.innerHTML = `<div class="ic">${sc.icon}</div><div><div class="tt">${esc(sc.title)}</div><div class="ss">${esc(sc.sub)}</div></div><div class="cnt">${sc.sentences.length} 句</div>`;
-    el.addEventListener('click', () => openScene(sc));
-    box.appendChild(el);
-  });
-}
-function openScene(sc){
-  curScene = sc; stopPlay();
-  $('#sceneList').classList.add('hidden');
-  $('#sceneDetail').classList.remove('hidden');
-  $('#sdTitle').textContent = `${sc.icon} ${sc.title}`;
-  $('#sdSub').textContent = sc.sub;
-  const box = $('#sdSentences'); box.innerHTML = '';
-  sc.sentences.forEach((s, i) => {
-    const el = document.createElement('div');
-    el.className = 'sent glass'; el.id = 'sent' + i;
-    el.innerHTML = `<div class="n">${i + 1}</div><div class="tx"><div class="e">${esc(s.en)}</div><div class="z">${esc(s.zh)}</div></div><button class="speak" data-say="${esc(s.en)}">🔊</button>`;
-    box.appendChild(el);
-  });
-  window.scrollTo({ top: 0 });
-}
-$('#sceneBack').addEventListener('click', () => {
-  stopPlay();
-  $('#sceneDetail').classList.add('hidden');
-  $('#sceneList').classList.remove('hidden');
-});
-$('#hideZhBtn').addEventListener('click', e => {
-  const box = $('#sdSentences'); const hide = !box.classList.contains('hidezh');
-  box.classList.toggle('hidezh', hide);
-  box.querySelectorAll('.z').forEach(z => z.style.visibility = hide ? 'hidden' : '');
-  e.currentTarget.textContent = hide ? '显示中文' : '遮住中文自测';
-});
-function stopPlay(){ playing = false; speechSynthesis.cancel(); $$('.sent.now').forEach(x => x.classList.remove('now')); $('#playAllBtn').textContent = '▶ 整场连读'; }
-$('#playAllBtn').addEventListener('click', () => {
-  if (playing){ stopPlay(); return; }
-  if (!curScene) return;
-  playing = true; $('#playAllBtn').textContent = '⏸ 停止连读';
+let seqToken = 0;
+function speakSeq(texts, onIdx) {
+  const my = ++seqToken;
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel(); clearPlaying();
   let i = 0;
   const next = () => {
-    if (!playing) return;
-    if (i >= curScene.sentences.length){ stopPlay(); return; }
-    $$('.sent.now').forEach(x => x.classList.remove('now'));
-    const el = $('#sent' + i); if (el){ el.classList.add('now'); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-    const u = new SpeechSynthesisUtterance(curScene.sentences[i].en);
-    u.lang = 'en-US'; if (voiceUS) u.voice = voiceUS; u.rate = rate;
-    u.onend = u.onerror = () => { i++; next(); };
+    if (my !== seqToken) return;
+    if (i >= texts.length) { onIdx(-1); return; }
+    onIdx(i);
+    const u = new SpeechSynthesisUtterance(texts[i]);
+    u.lang = 'en-US'; if (voice) u.voice = voice; u.rate = rate;
+    i++; u.onend = next; u.onerror = next;
     speechSynthesis.speak(u);
   };
-  speechSynthesis.cancel(); next();
-});
-
-/* ---------- 进度 ---------- */
-function renderStats(){
-  const keys = Object.keys(srs);
-  $('#stLearned').textContent = keys.length;
-  $('#stMastered').textContent = keys.filter(w => srs[w].r >= 3 && srs[w].iv >= 7).length;
-  $('#stScenes').textContent = SCENES.length;
+  next();
+  return () => { if (my === seqToken) { seqToken++; speechSynthesis.cancel(); onIdx(-1); } };
 }
-$('#resetBtn').addEventListener('click', () => {
-  if (confirm('确定清空全部学习进度？')){ ['bw.srs.v1', 'bw.day.v1'].forEach(k => localStorage.removeItem(k)); location.reload(); }
+function stopAllSpeech() { seqToken++; if ('speechSynthesis' in window) speechSynthesis.cancel(); clearPlaying(); }
+
+/* ---------- tappable words ---------- */
+function tokenize(en) {
+  return esc(en).replace(/[A-Za-z][A-Za-z'\-]*/g, m => `<span class="w" data-w="${encodeURIComponent(m.toLowerCase())}">${m}</span>`);
+}
+document.addEventListener('click', e => {
+  const w = e.target.closest('.w');
+  if (w) { e.stopPropagation(); openSheet(decodeURIComponent(w.dataset.w)); }
 });
 
-/* ---------- 标签页 ---------- */
-$$('.tabbar button').forEach(b => b.addEventListener('click', () => {
-  stopPlay();
-  $$('.tabbar button').forEach(x => x.classList.toggle('on', x === b));
-  $$('.tab').forEach(t => t.classList.toggle('active', t.id === 'tab-' + b.dataset.tab));
-  $('.title').textContent = { learn: '背词', dict: '查词', scenes: '场景', me: '进度' }[b.dataset.tab];
-  if (b.dataset.tab === 'me') renderStats();
-  if (b.dataset.tab === 'learn') refreshToday();
-  window.scrollTo({ top: 0 });
-}));
+/* ---------- word detail sheet ---------- */
+let sheetTarget = null; // headword to star
+function resolveWord(raw) {
+  const t = String(raw || '').toLowerCase().trim();
+  if (!t) return null;
+  if (WORDMAP[t]) { const e = WORDMAP[t]; return { head: t, ph: e.ph, zh: e.zh, en: e.en, main: true }; }
+  const lk = LOOKUP[t];
+  if (lk) return { head: lk.to || t, shown: t, ph: lk.ph, zh: lk.zh, en: '', main: false };
+  return { head: t, ph: '', zh: '', en: '', main: false };
+}
+function openSheet(raw) {
+  const r = resolveWord(raw); if (!r) return;
+  sheetTarget = r.head;
+  $('#shWord').textContent = r.head;
+  $('#shPh').textContent = r.ph ? '/' + r.ph + '/' : '';
+  const toEl = $('#shTo');
+  if (r.shown && r.shown !== r.head) { toEl.textContent = `你点的是 “${r.shown}”，这是它的原形`; toEl.classList.remove('hidden'); }
+  else toEl.classList.add('hidden');
+  $('#shZh').textContent = cleanZh(r.zh) || '暂无释义（可能是不规则变化或专有名词）';
+  $('#shEn').textContent = r.en || '';
+  const exs = r.main ? (EXAMPLES[r.head] || []) : [];
+  $('#shExamples').innerHTML = exs.length
+    ? '<div class="ex-list">' + exs.map(x => `<div class="ex"><div class="tx"><div class="e">${tokenize(x.en)}</div><div class="z">${esc(x.zh)}</div></div><button class="speak-btn sm" data-speak="${esc(x.en)}" type="button">🔊</button></div>`).join('') + '</div>'
+    : '';
+  bindSpeak($('#shExamples'));
+  updateSheetStar();
+  $('#shSpeak').onclick = e => speak(r.head, e.currentTarget);
+  $('#sheetWrap').classList.remove('hidden');
+}
+function updateSheetStar() {
+  const b = $('#shStar');
+  const on = sheetTarget && isFav(sheetTarget);
+  b.textContent = on ? '★' : '☆'; b.classList.toggle('on', !!on);
+}
+$('#shStar').addEventListener('click', () => {
+  if (!sheetTarget) return;
+  toggleFav(sheetTarget); updateSheetStar(); syncCardStar(); renderCollection();
+});
+$('#shClose').addEventListener('click', () => $('#sheetWrap').classList.add('hidden'));
+$('#sheetBackdrop').addEventListener('click', () => $('#sheetWrap').classList.add('hidden'));
 
-/* ---------- 启动 ---------- */
-loadData().then(() => { refreshToday(); renderScenes(); renderStats(); })
-  .catch(() => { $('#dueCount').textContent = '数据加载失败'; });
+/* speak buttons rendered dynamically: <button data-speak="text"> */
+function bindSpeak(root) {
+  root.querySelectorAll('[data-speak]').forEach(b => {
+    b.onclick = e => { e.stopPropagation(); speak(b.dataset.speak, b); };
+  });
+}
+
+/* ---------- SRS ---------- */
+function applyGrade(key, g) {
+  const now = Date.now();
+  let e = srs[key]; const isNew = !e;
+  if (!e) e = srs[key] = { r: 0, iv: 0, due: now };
+  if (g === 'again') { e.r = 0; e.iv = 0; e.due = now + 10 * 60000; }
+  else if (g === 'hard') { e.r += 1; e.iv = Math.max(1, e.iv ? e.iv * 1.4 : 1); e.due = now + e.iv * DAY; }
+  else { e.r += 1; e.iv = e.iv ? e.iv * 2.2 : 2.5; e.due = now + e.iv * DAY; }
+  persistSrs(); return isNew;
+}
+function dueItems() {
+  const now = Date.now(), out = [];
+  for (const [key, e] of Object.entries(srs)) {
+    if (e.due > now) continue;
+    if (key.startsWith('w:')) { const w = key.slice(2); if (WORDMAP[w]) out.push({ t: 'w', word: w, due: e.due }); }
+    else if (key.startsWith('p:')) {
+      const rest = key.slice(2), cut = rest.lastIndexOf(':');
+      const pack = PHRASES.find(p => p.id === rest.slice(0, cut));
+      const idx = +rest.slice(cut + 1);
+      if (pack && pack.phrases[idx]) out.push({ t: 'p', pack, idx, due: e.due });
+    }
+  }
+  return out.sort((a, b) => a.due - b.due);
+}
+function unlearnedWords() { return WORDS.filter(w => !srs['w:' + w.w.toLowerCase()]); }
+function quotaLeft() { return Math.max(0, NEW_PER_DAY - dayRec.introduced); }
+
+/* ---------- session engine ---------- */
+let S = null; // {origin, title, queue, idx, counts, total}
+function startSession(origin, items, title) {
+  stopAllSpeech();
+  S = { origin, title, queue: items.slice(), idx: 0, counts: { again: 0, hard: 0, good: 0 }, total: items.length };
+  showView('session');
+  $('#sessionDone').classList.add('hidden');
+  $('#cardBox').classList.remove('hidden');
+  if (!S.queue.length) { finishSession(); return; }
+  renderCard();
+}
+function sessionKey(item) { return item.t === 'w' ? 'w:' + item.word : 'p:' + item.pack.id + ':' + item.idx; }
+function currentItem() { return S.queue[S.idx]; }
+function syncCardStar() {
+  const b = $('#cardStar');
+  if (!S || !currentItem() || currentItem().t !== 'w') { b.classList.add('hidden'); return; }
+  b.classList.remove('hidden');
+  const on = isFav(currentItem().word);
+  b.textContent = on ? '★' : '☆'; b.classList.toggle('on', on);
+}
+$('#cardStar').addEventListener('click', () => {
+  const it = currentItem(); if (!it || it.t !== 'w') return;
+  toggleFav(it.word); syncCardStar(); updateSheetStar(); renderCollection();
+});
+function renderCard() {
+  const it = currentItem(); if (!it) return finishSession();
+  $('#cardPos').textContent = (S.idx + 1) + ' / ' + S.queue.length;
+  $('#sessBar').style.width = (S.total ? Math.round(S.idx / S.queue.length * 100) : 0) + '%';
+  $('#gradeRow').classList.add('hidden');
+  syncCardStar();
+  const box = $('#cardBox');
+  if (it.t === 'w') {
+    const e = WORDMAP[it.word];
+    box.innerHTML = `<div class="card glass">
+      <div class="kick">单词 WORD</div>
+      <div class="word-top"><div><div class="w-word">${esc(e.w)}</div><div class="ph">${e.ph ? '/' + esc(e.ph) + '/' : ''}</div></div>
+      <button class="speak-btn" data-speak="${esc(e.w)}" type="button">🔊</button></div>
+      <div id="coverArea"><div class="cover">先想一想：它是什么意思？<br><button class="btn primary" id="revealBtn" type="button">显示释义</button></div></div>
+      <div id="backArea" class="hidden">
+        <div class="zh">${esc(cleanZh(e.zh))}</div>
+        ${e.en ? `<div class="en-def">${esc(e.en)}</div>` : ''}
+        ${(EXAMPLES[it.word] || []).length ? '<div class="ex-list">' + EXAMPLES[it.word].map(x => `<div class="ex"><div class="tx"><div class="e">${tokenize(x.en)}</div><div class="z">${esc(x.zh)}</div></div><button class="speak-btn sm" data-speak="${esc(x.en)}" type="button">🔊</button></div>`).join('') + '</div>' : ''}
+      </div></div>`;
+  } else {
+    const p = it.pack.phrases[it.idx];
+    box.innerHTML = `<div class="card glass">
+      <div class="kick">短语 PHRASE · ${esc(it.pack.title)}</div>
+      <div class="word-top"><div><div class="p-word">${tokenize(p.en)}</div></div>
+      <button class="speak-btn" data-speak="${esc(p.en)}" type="button">🔊</button></div>
+      <div id="coverArea"><div class="cover">先想一想：中文是什么意思？<br><button class="btn primary" id="revealBtn" type="button">显示释义</button></div></div>
+      <div id="backArea" class="hidden">
+        <div class="zh">${esc(p.zh)}</div>
+        <div class="ex-list"><div class="ex"><div class="tx"><div class="e">${tokenize(p.ex.en)}</div><div class="z">${esc(p.ex.zh)}</div></div><button class="speak-btn sm" data-speak="${esc(p.ex.en)}" type="button">🔊</button></div></div>
+      </div></div>`;
+  }
+  bindSpeak(box);
+  $('#revealBtn').onclick = () => {
+    $('#coverArea').classList.add('hidden');
+    $('#backArea').classList.remove('hidden');
+    $('#gradeRow').classList.remove('hidden');
+  };
+}
+$$('#gradeRow .grade').forEach(b => b.addEventListener('click', () => {
+  if (!S) return;
+  const it = currentItem(); const g = b.dataset.g;
+  S.counts[g]++;
+  const isNew = applyGrade(sessionKey(it), g);
+  if (isNew && it.t === 'w' && (S.origin === 'learn' || S.origin === 'collection')) {
+    dayRec.introduced++; persistDay();
+  }
+  if (g === 'again' && !it._rq) { it._rq = true; S.queue.push(it); }
+  S.idx++;
+  if (S.idx >= S.queue.length) finishSession(); else renderCard();
+}));
+function finishSession() {
+  stopAllSpeech();
+  $('#cardBox').classList.add('hidden');
+  $('#gradeRow').classList.add('hidden');
+  $('#cardStar').classList.add('hidden');
+  $('#sessBar').style.width = '100%';
+  $('#cardPos').textContent = '';
+  const d = $('#sessionDone');
+  d.classList.remove('hidden');
+  $('#doneTitle').textContent = S && S.total ? S.title + '，学完了' : '暂时没有内容';
+  $('#doneStats').textContent = S && S.total
+    ? `共 ${S.total} 个 · 认识 ${S.counts.good} · 模糊 ${S.counts.hard} · 不认识 ${S.counts.again}（不认识的已安排 10 分钟后复习）`
+    : '去 Learn 学点新内容，这里就会有复习任务了。';
+}
+$('#doneBtn').addEventListener('click', () => { const o = S ? S.origin : 'learn'; S = null; switchTab(o); });
+$('#quitSession').addEventListener('click', () => { const o = S ? S.origin : 'learn'; S = null; stopAllSpeech(); switchTab(o); });
+
+/* ---------- views & tabs ---------- */
+function showView(name) {
+  ['learn', 'review', 'collection', 'session'].forEach(v => $('#view-' + v).classList.toggle('hidden', v !== name));
+  $$('.tabbar button').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+  window.scrollTo(0, 0);
+}
+function switchTab(name) {
+  stopAllSpeech();
+  showView(name);
+  if (name === 'learn') renderLearnHome();
+  if (name === 'review') renderReview();
+  if (name === 'collection') renderCollection();
+}
+$$('.tabbar button').forEach(b => b.addEventListener('click', () => { S = null; switchTab(b.dataset.tab); }));
+
+/* ---------- Learn home ---------- */
+function renderLearnHome() {
+  const left = Math.min(quotaLeft(), unlearnedWords().length);
+  $('#newLeft').textContent = left;
+  $('#dueBadge').textContent = dueItems().length;
+  $('#todayBar').style.width = Math.min(100, dayRec.introduced / NEW_PER_DAY * 100) + '%';
+}
+$('#hubVocab').addEventListener('click', () => {
+  const items = unlearnedWords().slice(0, quotaLeft()).map(w => ({ t: 'w', word: w.w.toLowerCase() }));
+  startSession('learn', items, '今日单词');
+});
+$('#hubScenario').addEventListener('click', () => {
+  $('#learnHome').classList.add('hidden');
+  $('#phraseSection').classList.add('hidden');
+  $('#scenarioSection').classList.remove('hidden');
+  renderSceneList(); window.scrollTo(0, 0);
+});
+$('#hubPhrase').addEventListener('click', () => {
+  $('#learnHome').classList.add('hidden');
+  $('#scenarioSection').classList.add('hidden');
+  $('#phraseSection').classList.remove('hidden');
+  renderPhraseList(); window.scrollTo(0, 0);
+});
+$('#scBack').addEventListener('click', backToLearnHome);
+$('#phBack').addEventListener('click', backToLearnHome);
+function backToLearnHome() {
+  stopAllSpeech();
+  $('#scenarioSection').classList.add('hidden');
+  $('#phraseSection').classList.add('hidden');
+  $('#learnHome').classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+/* search */
+$('#searchInput').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  const box = $('#searchResults');
+  if (!q) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+  const hits = [];
+  for (const w of WORDS) { if (w.w.toLowerCase().startsWith(q)) hits.push(w); if (hits.length >= 20) break; }
+  if (hits.length < 20) for (const w of WORDS) { const lw = w.w.toLowerCase(); if (!lw.startsWith(q) && lw.includes(q)) { hits.push(w); if (hits.length >= 20) break; } }
+  box.innerHTML = hits.length
+    ? hits.map(w => `<button class="result-row" data-word="${esc(w.w.toLowerCase())}" type="button"><span><span class="rw">${esc(w.w)}</span><div class="rz">${esc(cleanZh(w.zh).slice(0, 42))}</div></span><span class="tag">${esc(w.tag || '')}</span></button>`).join('')
+    : '<div class="result-row"><span class="rz">没找到这个词</span></div>';
+  box.classList.remove('hidden');
+  box.querySelectorAll('[data-word]').forEach(b => b.onclick = () => openSheet(b.dataset.word));
+});
+
+/* ---------- Scenario ---------- */
+let curScene = null, stopSeq = null, zhHidden = false;
+function renderSceneList() {
+  $('#sceneDetail').classList.add('hidden');
+  const list = $('#sceneList');
+  list.classList.remove('hidden');
+  list.innerHTML = SCENES.map((s, i) => `<button class="scene-item glass" data-i="${i}" type="button"><span class="ic">${esc(s.icon)}</span><span><div class="tt">${esc(s.title)}</div><div class="ss">${esc(s.sub)}</div></span><span class="cnt">${s.sentences.length} 句 ›</span></button>`).join('');
+  list.querySelectorAll('.scene-item').forEach(b => b.onclick = () => openScene(+b.dataset.i));
+}
+function openScene(i) {
+  curScene = SCENES[i]; zhHidden = false;
+  $('#hideZhBtn').textContent = '遮住中文自测';
+  $('#sceneList').classList.add('hidden');
+  $('#sceneDetail').classList.remove('hidden');
+  renderSentences(); window.scrollTo(0, 0);
+}
+function renderSentences() {
+  const list = $('#sentList');
+  list.innerHTML = curScene.sentences.map((s, i) => `<div class="sent glass" data-i="${i}"><span class="n">${i + 1}</span><div class="tx"><div class="e">${tokenize(s.en)}</div><div class="z" ${zhHidden ? 'style="visibility:hidden"' : ''}>${esc(s.zh)}</div></div><button class="speak-btn sm" data-speak="${esc(s.en)}" type="button">🔊</button></div>`).join('');
+  bindSpeak(list);
+}
+$('#hideZhBtn').addEventListener('click', () => {
+  zhHidden = !zhHidden;
+  $('#hideZhBtn').textContent = zhHidden ? '显示中文' : '遮住中文自测';
+  renderSentences();
+});
+$('#playAllBtn').addEventListener('click', () => {
+  if (stopSeq) { stopSeq(); stopSeq = null; $('#playAllBtn').textContent = '▶ 整场连读'; return; }
+  const rows = $$('#sentList .sent');
+  $('#playAllBtn').textContent = '⏸ 停止连读';
+  stopSeq = speakSeq(curScene.sentences.map(s => s.en), i => {
+    rows.forEach(r => r.classList.toggle('now', +r.dataset.i === i));
+    if (i >= 0 && rows[i]) rows[i].scrollIntoView({ block: 'center', behavior: 'smooth' });
+    if (i === -1) { stopSeq = null; $('#playAllBtn').textContent = '▶ 整场连读'; }
+  });
+});
+
+/* ---------- Phrase ---------- */
+let curPack = null;
+function renderPhraseList() {
+  $('#phraseDetail').classList.add('hidden');
+  const list = $('#phraseList');
+  list.classList.remove('hidden');
+  list.innerHTML = PHRASES.map((p, i) => {
+    const learned = p.phrases.filter((_, j) => srs['p:' + p.id + ':' + j]).length;
+    return `<button class="scene-item glass" data-i="${i}" type="button"><span class="ic">${esc(p.icon)}</span><span><div class="tt">${esc(p.title)}</div><div class="ss">${esc(p.sub)}</div></span><span class="cnt">${learned ? '已学 ' + learned + '/' : ''}${p.phrases.length} 句 ›</span></button>`;
+  }).join('');
+  list.querySelectorAll('.scene-item').forEach(b => b.onclick = () => openPack(+b.dataset.i));
+}
+function openPack(i) {
+  curPack = PHRASES[i];
+  $('#phraseList').classList.add('hidden');
+  $('#phraseDetail').classList.remove('hidden');
+  const rows = $('#phraseRows');
+  rows.innerHTML = curPack.phrases.map(p => `<div class="phrase-row glass"><div class="row-flex"><div class="tx"><div class="pe">${tokenize(p.en)}</div><div class="pz">${esc(p.zh)}</div></div><button class="speak-btn sm" data-speak="${esc(p.en)}" type="button">🔊</button></div><div class="px">${tokenize(p.ex.en)}<div class="pxz">${esc(p.ex.zh)}</div></div></div>`).join('');
+  bindSpeak(rows);
+  window.scrollTo(0, 0);
+}
+$('#learnPackBtn').addEventListener('click', () => {
+  if (!curPack) return;
+  startSession('learn', curPack.phrases.map((_, j) => ({ t: 'p', pack: curPack, idx: j })), '短语 · ' + curPack.title);
+});
+
+/* ---------- Review ---------- */
+function fmtTime(ts) {
+  return new Date(ts).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+function renderReview() {
+  const due = dueItems();
+  const dw = due.filter(d => d.t === 'w').length, dp = due.length - dw;
+  $('#reviewCount').textContent = due.length;
+  $('#reviewSub').textContent = due.length ? `个到期要复习（单词 ${dw} · 短语 ${dp}）` : '现在没有到期的复习 🎉';
+  $('#reviewStart').disabled = !due.length;
+  let next = Infinity;
+  for (const e of Object.values(srs)) if (e.due < next) next = e.due;
+  $('#nextDueHint').textContent = !isFinite(next) ? '还没开始学：先去 Learn 学第一组词吧。'
+    : due.length ? '' : '下一个复习：' + fmtTime(next);
+  const keys = Object.keys(srs);
+  $('#statWords').textContent = keys.filter(k => k.startsWith('w:')).length;
+  $('#statPhrases').textContent = keys.filter(k => k.startsWith('p:')).length;
+  $('#statMastered').textContent = Object.values(srs).filter(e => e.r >= 3 && e.iv >= 7).length;
+  $('#statFav').textContent = favSet.size;
+}
+$('#reviewStart').addEventListener('click', () => startSession('review', dueItems(), '复习'));
+$('#resetBtn').addEventListener('click', () => {
+  if (!confirm('确定要清空全部学习进度和收藏吗？')) return;
+  srs = {}; persistSrs();
+  dayRec = { date: todayStr(), introduced: 0 }; persistDay();
+  favSet.clear(); persistFav();
+  renderReview(); renderLearnHome(); renderCollection();
+  alert('已清空。');
+});
+
+/* ---------- Collection ---------- */
+function renderCollection() {
+  const list = $('#favList');
+  const words = [...favSet].sort();
+  $('#favEmpty').classList.toggle('hidden', words.length > 0);
+  $('#favLearnBtn').disabled = !words.length;
+  $('#favLearnBtn').textContent = words.length ? `学习收藏词（${words.length}）` : '学习收藏词';
+  list.innerHTML = words.map(w => {
+    const r = resolveWord(w) || { ph: '', zh: '' };
+    return `<div class="fav-row glass" data-word="${esc(w)}"><div class="tx"><div class="fw">${esc(w)}</div><div class="fz">${esc(cleanZh(r.zh).slice(0, 40))}</div></div><button class="speak-btn sm" data-speak="${esc(w)}" type="button">🔊</button><button class="star-btn on" data-unfav="${esc(w)}" type="button">★</button></div>`;
+  }).join('');
+  bindSpeak(list);
+  list.querySelectorAll('[data-unfav]').forEach(b => b.onclick = e => { e.stopPropagation(); toggleFav(b.dataset.unfav); renderCollection(); syncCardStar(); updateSheetStar(); });
+  list.querySelectorAll('.fav-row').forEach(r => r.onclick = () => openSheet(r.dataset.word));
+}
+$('#favLearnBtn').addEventListener('click', () => {
+  const items = [...favSet].sort().filter(w => WORDMAP[w]).map(w => ({ t: 'w', word: w }));
+  startSession('collection', items, '收藏词');
+});
+
+/* ---------- rate toggle ---------- */
+function renderRate() {
+  $('#rateSlow').classList.toggle('on', rate < 0.85);
+  $('#rateNorm').classList.toggle('on', rate >= 0.85);
+}
+$('#rateSlow').addEventListener('click', () => { rate = 0.75; localStorage.setItem('bw.rate', rate); renderRate(); });
+$('#rateNorm').addEventListener('click', () => { rate = 0.92; localStorage.setItem('bw.rate', rate); renderRate(); });
+
+/* ---------- boot ---------- */
+(async function init() {
+  [WORDS, EXAMPLES, SCENES, PHRASES, LOOKUP] = await Promise.all([
+    loadJSON('data/words.json', []), loadJSON('data/examples.json', {}),
+    loadJSON('data/scenes.json', []), loadJSON('data/phrases.json', []),
+    loadJSON('data/lookup.json', {}),
+  ]);
+  WORDS.forEach(w => { WORDMAP[w.w.toLowerCase()] = w; });
+  renderRate(); renderLearnHome();
+})();

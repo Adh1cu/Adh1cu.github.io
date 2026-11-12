@@ -4,110 +4,151 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>背词 · 场景英语</title>
+<title>背词 · WordApp</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="topbar glass">
-  <div class="title">背词</div>
-  <div class="rate-toggle" id="rateToggle" title="朗读语速">
-    <button data-rate="0.75">慢</button>
-    <button data-rate="0.92" class="on">常</button>
+  <div class="brand">🎧 背词</div>
+  <div class="rate-toggle" role="group" aria-label="朗读语速">
+    <button id="rateSlow" type="button">慢</button>
+    <button id="rateNorm" type="button">常</button>
   </div>
 </header>
 
 <main>
-  <!-- 背词 -->
-  <section id="tab-learn" class="tab active">
-    <div class="today glass">
-      <div class="today-row"><span>今日待学</span><b id="dueCount">–</b></div>
-      <div class="today-row"><span>今日新词额度</span><b id="newLeft">–</b></div>
-      <div class="bar"><div id="todayBar"></div></div>
-      <button class="primary" id="startBtn">开始学习</button>
-    </div>
-
-    <div id="cardArea" class="hidden">
-      <div class="progress-line"><span id="cardPos"></span><span id="cardKind"></span></div>
-      <div class="card glass">
-        <div class="word-row">
-          <div>
-            <div class="word" id="cWord">word</div>
-            <div class="phon" id="cPhon"></div>
-          </div>
-          <button class="speak big" id="cSpeak">🔊</button>
-        </div>
-        <div id="cCover" class="cover">
-          <p>先在心里想一想它的意思</p>
-          <button class="primary" id="revealBtn">显示释义</button>
-        </div>
-        <div id="cBody" class="hidden">
-          <div class="zh" id="cZh"></div>
-          <div class="en" id="cEn"></div>
-          <div class="examples" id="cExamples"></div>
-          <div class="grades">
-            <button class="g again" data-g="again">不认识</button>
-            <button class="g hard" data-g="hard">模糊</button>
-            <button class="g good" data-g="good">认识</button>
-          </div>
-        </div>
+  <!-- ========== LEARN ========== -->
+  <section id="view-learn" class="view">
+    <div id="learnHome">
+      <div class="strip glass">
+        <div class="strip-num"><b id="newLeft">–</b><span>今日新词</span></div>
+        <div class="strip-bar"><div id="todayBar"></div></div>
+        <div class="strip-num"><b id="dueBadge">–</b><span>到期复习</span></div>
       </div>
+
+      <div class="search-row">
+        <input id="searchInput" type="search" placeholder="🔍 查词：输入英文单词" autocomplete="off">
+      </div>
+      <div id="searchResults" class="glass hidden"></div>
+
+      <button class="hub glass" id="hubVocab" type="button">
+        <span class="hub-ic">📚</span>
+        <span class="hub-tx"><b>Vocabulary</b><small>单词 · 每天 20 个新词</small></span>
+        <span class="hub-arrow">›</span>
+      </button>
+      <button class="hub glass" id="hubScenario" type="button">
+        <span class="hub-ic">🎬</span>
+        <span class="hub-tx"><b>Scenario</b><small>场景 · 生活场景整句练</small></span>
+        <span class="hub-arrow">›</span>
+      </button>
+      <button class="hub glass" id="hubPhrase" type="button">
+        <span class="hub-ic">💬</span>
+        <span class="hub-tx"><b>Phrase</b><small>短语 · 高频口头短句</small></span>
+        <span class="hub-arrow">›</span>
+      </button>
+      <p class="hint">学习时点例句里的任意单词，都能展开详解并收藏。</p>
     </div>
 
-    <div id="doneArea" class="hidden done glass">
-      <div class="done-emoji">🎆</div>
-      <div class="done-title">这一轮学完了</div>
-      <div class="done-sub" id="doneSub"></div>
-      <button class="primary" id="againBtn">再来一轮</button>
-    </div>
-  </section>
-
-  <!-- 查词 -->
-  <section id="tab-dict" class="tab">
-    <div class="search glass">
-      <input id="dictInput" type="search" placeholder="输入英文单词查词…" autocomplete="off">
-    </div>
-    <div id="dictResults"></div>
-    <div id="dictDetail"></div>
-  </section>
-
-  <!-- 场景 -->
-  <section id="tab-scenes" class="tab">
-    <div id="sceneList"></div>
-    <div id="sceneDetail" class="hidden">
-      <button class="back" id="sceneBack">← 全部场景</button>
-      <div class="scene-head glass">
-        <div class="scene-title" id="sdTitle"></div>
-        <div class="scene-sub" id="sdSub"></div>
+    <div id="scenarioSection" class="hidden">
+      <div class="subhead"><button class="back" id="scBack" type="button">‹</button><h2>Scenario 场景</h2></div>
+      <div id="sceneList"></div>
+      <div id="sceneDetail" class="hidden">
         <div class="scene-actions">
-          <button class="primary" id="playAllBtn">▶ 整场连读</button>
-          <button class="ghost" id="hideZhBtn">遮住中文自测</button>
+          <button id="playAllBtn" class="btn primary" type="button">▶ 整场连读</button>
+          <button id="hideZhBtn" class="btn" type="button">遮住中文自测</button>
         </div>
+        <div id="sentList"></div>
       </div>
-      <div id="sdSentences"></div>
+    </div>
+
+    <div id="phraseSection" class="hidden">
+      <div class="subhead"><button class="back" id="phBack" type="button">‹</button><h2>Phrase 短语</h2></div>
+      <div id="phraseList"></div>
+      <div id="phraseDetail" class="hidden">
+        <div class="scene-actions">
+          <button id="learnPackBtn" class="btn primary" type="button">开始学这一包</button>
+        </div>
+        <div id="phraseRows"></div>
+      </div>
     </div>
   </section>
 
-  <!-- 进度 -->
-  <section id="tab-me" class="tab">
-    <div class="stats glass">
-      <div class="stat"><b id="stLearned">0</b><span>已学单词</span></div>
-      <div class="stat"><b id="stMastered">0</b><span>已掌握</span></div>
-      <div class="stat"><b id="stScenes">10</b><span>场景包</span></div>
+  <!-- ========== REVIEW ========== -->
+  <section id="view-review" class="view hidden">
+    <div class="panel glass">
+      <div class="big-num" id="reviewCount">–</div>
+      <div class="panel-sub" id="reviewSub">个到期要复习</div>
+      <button id="reviewStart" class="btn primary big" type="button">开始复习</button>
+      <p class="hint" id="nextDueHint"></p>
     </div>
-    <div class="glass note">
-      <p>每天新词 20 个（在代码里可改）。复习按遗忘曲线排队：不认识的词 10 分钟后、本轮末尾都会再出现；认识的词间隔会越拉越长。</p>
-      <p>进度保存在这台设备的浏览器里。等交互定型后，同一套代码会打包成 IPA 进 LiveContainer。</p>
+    <div class="panel glass stats">
+      <div><b id="statWords">0</b><span>已学单词</span></div>
+      <div><b id="statPhrases">0</b><span>已学短语</span></div>
+      <div><b id="statMastered">0</b><span>已掌握</span></div>
+      <div><b id="statFav">0</b><span>收藏</span></div>
     </div>
-    <button class="danger" id="resetBtn">清空全部进度（测试用）</button>
+    <button id="resetBtn" class="btn danger" type="button">清空全部进度</button>
+  </section>
+
+  <!-- ========== COLLECTION ========== -->
+  <section id="view-collection" class="view hidden">
+    <div class="coll-head">
+      <h2>我的收藏</h2>
+      <button id="favLearnBtn" class="btn primary" type="button">学习收藏词</button>
+    </div>
+    <div id="favList"></div>
+    <p class="hint" id="favEmpty">还没有收藏。学习、查词或点开例句里的单词，都能点 ☆ 收藏。</p>
+  </section>
+
+  <!-- ========== SESSION ========== -->
+  <section id="view-session" class="view hidden">
+    <div class="session-top">
+      <button id="quitSession" class="back" type="button">✕</button>
+      <div class="strip-bar grow"><div id="sessBar"></div></div>
+      <span id="cardPos" class="pos"></span>
+      <button id="cardStar" class="star-btn hidden" type="button">☆</button>
+    </div>
+    <div id="cardBox"></div>
+    <div id="gradeRow" class="grades hidden">
+      <button class="grade bad" data-g="again" type="button">不认识</button>
+      <button class="grade mid" data-g="hard" type="button">模糊</button>
+      <button class="grade good" data-g="good" type="button">认识</button>
+    </div>
+    <div id="sessionDone" class="panel glass hidden">
+      <div class="big-emoji">🎆</div>
+      <h2 id="doneTitle">这一轮学完了</h2>
+      <p id="doneStats" class="panel-sub"></p>
+      <button id="doneBtn" class="btn primary big" type="button">完成</button>
+    </div>
   </section>
 </main>
 
+<!-- ========== WORD DETAIL SHEET ========== -->
+<div id="sheetWrap" class="sheet-wrap hidden">
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+  <div class="sheet glass">
+    <div class="sheet-head">
+      <div>
+        <span id="shWord" class="sh-word"></span>
+        <span id="shPh" class="ph"></span>
+      </div>
+      <div class="sheet-btns">
+        <button id="shSpeak" class="speak-btn" type="button">🔊</button>
+        <button id="shStar" class="star-btn" type="button">☆</button>
+        <button id="shClose" class="speak-btn" type="button">✕</button>
+      </div>
+    </div>
+    <div id="shTo" class="sh-to hidden"></div>
+    <div id="shZh" class="zh"></div>
+    <div id="shEn" class="en-def"></div>
+    <div id="shExamples"></div>
+  </div>
+</div>
+
 <nav class="tabbar glass">
-  <button data-tab="learn" class="on">📖<span>背词</span></button>
-  <button data-tab="dict">🔍<span>查词</span></button>
-  <button data-tab="scenes">🎬<span>场景</span></button>
-  <button data-tab="me">📊<span>进度</span></button>
+  <button data-tab="learn" class="on" type="button"><span>📚</span>Learn</button>
+  <button data-tab="review" type="button"><span>🔁</span>Review</button>
+  <button data-tab="collection" type="button"><span>⭐</span>Collection</button>
 </nav>
 
 <script src="app.js"></script>
