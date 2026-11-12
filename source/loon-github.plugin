@@ -1,11 +1,11 @@
 #!name=GitHub
-#!desc=GitHub 分流：主站、API、静态资源直连（国内直连最快）；raw 文件、Release 附件、代码下载、Pages 走代理（这几个直连经常抽风）
+#!desc=GitHub 分流：全部走代理（主站、API、静态资源、raw、Release、Pages 统一走代理；国内直连主站不稳定，走代理最稳）
 #!author=Adh1cu
 
 [Rule]
 DOMAIN,codeload.github.com,PROXY
 DOMAIN-SUFFIX,githubusercontent.com,PROXY
-DOMAIN-SUFFIX,github.com,DIRECT
-DOMAIN-SUFFIX,githubassets.com,DIRECT
+DOMAIN-SUFFIX,github.com,PROXY
+DOMAIN-SUFFIX,githubassets.com,PROXY
 DOMAIN-SUFFIX,github.io,PROXY
-DOMAIN-SUFFIX,githubstatus.com,DIRECT
+DOMAIN-SUFFIX,githubstatus.com,PROXY
