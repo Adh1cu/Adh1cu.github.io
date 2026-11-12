@@ -113,15 +113,20 @@
     <div id="revealRow" class="sess-foot hidden">
       <button id="revealBtn" class="text-action" type="button">看答案</button>
     </div>
-    <div id="gradeRow" class="sess-foot grades hidden">
-      <button class="grade bad" data-g="again" type="button">不认识</button>
-      <button class="grade mid" data-g="hard" type="button">模糊</button>
-      <button class="grade good" data-g="good" type="button">认识</button>
+    <div id="nextRow" class="sess-foot hidden">
+      <button id="nextBtn" class="text-action teal" type="button">下一词</button>
+    </div>
+    <div id="blitzRow" class="sess-foot hidden">
+      <div class="blitz-btns">
+        <button id="blitzDont" class="blitz-btn" type="button">不认识</button>
+        <button id="blitzKnow" class="blitz-btn" type="button">认识</button>
+      </div>
     </div>
     <div id="sessionDone" class="sess-done hidden">
       <div class="big-emoji" data-icon="checkCircle"></div>
       <h2 id="doneTitle">这一轮学完了</h2>
       <p id="doneStats"></p>
+      <button id="moreBtn" class="btn primary" type="button">继续下一组</button>
       <button id="doneBtn" class="text-action" type="button">完成</button>
     </div>
   </section>

@@ -157,22 +157,66 @@ function unlearnedWords() { return WORDS.filter(w => !srs['w:' + w.w.toLowerCase
 function quotaLeft() { return Math.max(0, NEW_PER_DAY - dayRec.introduced); }
 
 /* ---------- session engine ---------- */
-let S = null; // {origin, title, queue, idx, counts, total}
-function startSession(origin, items, title) {
+const SET_SIZE = 10;
+let S = null; // {origin, title, provider, set, idx, fails, stats, startedAt, phase, blitz}
+
+function firstSense(zh) {
+  const seg = String(zh || '').split('；')[0].trim();
+  const m = seg.match(/^([A-Za-z]+\.)\s*(.*)$/);
+  let pos = '', text = m ? m[2] : seg;
+  if (m) pos = m[1];
+  text = text.split(/[,，、]/).filter(Boolean).slice(0, 2).join('，');
+  if (text.length > 30) text = text.slice(0, 30);
+  return { pos, text };
+}
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function overlaps(a, b) { if (!a || !b) return false; return a === b || (a.length >= 3 && b.includes(a.slice(0, 3))) || (b.length >= 3 && a.includes(b.slice(0, 3))); }
+
+function buildOptions(it) {
+  if (it.t === 'w') {
+    const correct = firstSense(cleanZh(WORDMAP[it.word].zh));
+    const learned = WORDS.filter(w => srs['w:' + w.w.toLowerCase()] && w.w.toLowerCase() !== it.word);
+    const rest = WORDS.filter(w => !srs['w:' + w.w.toLowerCase()] && w.w.toLowerCase() !== it.word);
+    const pool = shuffle(learned.slice()).concat(shuffle(rest.slice()));
+    const opts = [{ ...correct, right: true }];
+    for (const w of pool) {
+      if (opts.length >= 4) break;
+      const s = firstSense(cleanZh(w.zh));
+      if (!s.text || overlaps(s.text, correct.text) || opts.some(o => overlaps(o.text, s.text))) continue;
+      opts.push({ ...s, right: false });
+    }
+    return shuffle(opts);
+  }
+  const samePack = shuffle(it.pack.phrases.filter((_, j) => j !== it.idx).slice());
+  const others = [];
+  PHRASES.forEach(p => p.phrases.forEach(ph => { if (!it.pack.phrases.includes(ph)) others.push(ph); }));
+  const opts = [{ pos: '', text: it.pack.phrases[it.idx].zh, right: true }];
+  for (const ph of samePack.concat(shuffle(others))) {
+    if (opts.length >= 4) break;
+    if (opts.some(o => o.text === ph.zh)) continue;
+    opts.push({ pos: '', text: ph.zh, right: false });
+  }
+  return shuffle(opts);
+}
+
+function hideFooters() { ['revealRow', 'nextRow', 'blitzRow'].forEach(id => $('#' + id).classList.add('hidden')); }
+function startSession(origin, provider, title) {
   stopAllSpeech();
-  S = { origin, title, queue: items.slice(), idx: 0, counts: { again: 0, hard: 0, good: 0 }, total: items.length };
+  S = { origin, title, provider, set: [], idx: 0, fails: [], stats: { right: 0, wrong: 0, peek: 0 }, startedAt: Date.now(), phase: 'quiz', blitz: null };
   showView('session');
   $('#sessionDone').classList.add('hidden');
-  $('#revealRow').classList.add('hidden');
   $('#cardBox').classList.remove('hidden');
-  if (!S.queue.length) { finishSession(); return; }
-  renderCard();
+  hideFooters();
+  const items = provider.take();
+  if (!items || !items.length) { finishSession(true); return; }
+  S.set = items;
+  renderQuiz();
 }
 function sessionKey(item) { return item.t === 'w' ? 'w:' + item.word : 'p:' + item.pack.id + ':' + item.idx; }
-function currentItem() { return S.queue[S.idx]; }
+function currentItem() { return S.set[S.idx]; }
 function syncCardStar() {
   const b = $('#cardStar');
-  if (!S || !currentItem() || currentItem().t !== 'w') { b.classList.add('hidden'); return; }
+  if (!S || S.phase === 'blitz' || S.phase === 'done' || !currentItem() || currentItem().t !== 'w') { b.classList.add('hidden'); return; }
   b.classList.remove('hidden');
   const on = isFav(currentItem().word);
   b.innerHTML = icon(on ? 'starFill' : 'star'); b.classList.toggle('on', on);
@@ -181,71 +225,164 @@ $('#cardStar').addEventListener('click', () => {
   const it = currentItem(); if (!it || it.t !== 'w') return;
   toggleFav(it.word); syncCardStar(); updateSheetStar(); renderCollection();
 });
-function renderCard() {
-  const it = currentItem(); if (!it) return finishSession();
-  $('#cardPos').textContent = (S.idx + 1) + ' / ' + S.queue.length;
-  $('#gradeRow').classList.add('hidden');
-  $('#revealRow').classList.remove('hidden');
-  syncCardStar();
-  const box = $('#cardBox');
+
+function itemHeader(it) {
   if (it.t === 'w') {
     const e = WORDMAP[it.word];
-    box.innerHTML = `<div class="card">
-      <div class="w-word">${esc(e.w)}</div>
-      <div class="ph-row"><button class="ph-pill" data-speak="${esc(e.w)}" type="button">美 ${icon('speaker')}</button><span class="ph">${e.ph ? '/' + esc(e.ph) + '/' : ''}</span></div>
-      <div id="coverArea"><div class="cover-hint">先回想一下词义，想不起来就「看答案」</div></div>
-      <div id="backArea" class="hidden">
-        <div class="zh">${esc(cleanZh(e.zh))}</div>
-        ${e.en ? `<div class="en-def">${esc(e.en)}</div>` : ''}
-        ${(EXAMPLES[it.word] || []).length ? '<div class="ex-list">' + EXAMPLES[it.word].map(x => `<div class="ex"><div class="tx"><div class="e">${tokenize(x.en)}</div><div class="z">${esc(x.zh)}</div></div><button class="speak-btn sm" data-speak="${esc(x.en)}" type="button">${icon('speaker')}</button></div>`).join('') + '</div>' : ''}
-      </div></div>`;
-  } else {
-    const p = it.pack.phrases[it.idx];
-    box.innerHTML = `<div class="card">
-      <div class="p-word">${tokenize(p.en)}</div>
-      <div class="ph-row"><button class="ph-pill" data-speak="${esc(p.en)}" type="button">${icon('speaker')} 朗读</button><span class="ph">${esc(it.pack.title)}</span></div>
-      <div id="coverArea"><div class="cover-hint">先回想一下中文意思，想不起来就「看答案」</div></div>
-      <div id="backArea" class="hidden">
-        <div class="zh">${esc(p.zh)}</div>
-        <div class="ex-list"><div class="ex"><div class="tx"><div class="e">${tokenize(p.ex.en)}</div><div class="z">${esc(p.ex.zh)}</div></div><button class="speak-btn sm" data-speak="${esc(p.ex.en)}" type="button">${icon('speaker')}</button></div></div>
-      </div></div>`;
+    return `<div class="w-word">${esc(e.w)}</div>
+      <div class="ph-row"><button class="ph-pill" data-speak="${esc(e.w)}" type="button">美 ${icon('speaker')}</button><span class="ph">${e.ph ? '/' + esc(e.ph) + '/' : ''}</span></div>`;
   }
-  bindSpeak(box);
+  const p = it.pack.phrases[it.idx];
+  return `<div class="p-word">${tokenize(p.en)}</div>
+    <div class="ph-row"><button class="ph-pill" data-speak="${esc(p.en)}" type="button">${icon('speaker')} 朗读</button><span class="ph">${esc(it.pack.title)}</span></div>`;
+}
+
+function renderQuiz() {
+  const it = currentItem(); if (!it) return startBlitzOrDone();
+  S.phase = 'quiz';
+  $('#cardPos').textContent = (S.idx + 1) + ' / ' + S.set.length;
+  syncCardStar();
+  const hint = it.t === 'w' ? '先回想词义再选择，想不起来「看答案」' : '先回想中文意思再选择，想不起来「看答案」';
+  const opts = buildOptions(it);
+  it._opts = opts;
+  $('#cardBox').innerHTML = `<div class="card">${itemHeader(it)}
+    <div class="cover-hint">${hint}</div>
+    <div class="opts">${opts.map((o, i) => `<button class="opt" data-i="${i}" type="button">${o.pos ? `<span class="pos">${esc(o.pos)}</span>` : ''}<span class="def">${esc(o.text)}</span></button>`).join('')}</div>
+  </div>`;
+  bindSpeak($('#cardBox'));
+  hideFooters();
+  $('#revealRow').classList.remove('hidden');
+  $$('#cardBox .opt').forEach(b => b.addEventListener('click', () => answerQuiz(+b.dataset.i)));
+}
+function answerQuiz(chosen) {
+  if (!S || S.phase !== 'quiz') return;
+  const it = currentItem();
+  finishAnswer(it._opts[chosen] && it._opts[chosen].right ? 'right' : 'wrong', chosen);
+}
+function finishAnswer(result, chosen) {
+  const it = currentItem();
+  S.stats[result]++;
+  const isNew = applyGrade(sessionKey(it), result === 'right' ? 'good' : 'again');
+  if (isNew && it.t === 'w' && (S.origin === 'learn' || S.origin === 'collection')) { dayRec.introduced++; persistDay(); }
+  if (result !== 'right') S.fails.push(it);
+  S.phase = 'lock';
+  $$('#cardBox .opt').forEach((b, i) => {
+    b.disabled = true;
+    if (it._opts[i].right) b.classList.add('right');
+    else if (i === chosen) b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+  hideFooters();
+  setTimeout(renderDetail, result === 'right' ? 480 : 950);
 }
 $('#revealBtn').addEventListener('click', () => {
-  $('#revealRow').classList.add('hidden');
-  const ca = $('#coverArea'); if (ca) ca.classList.add('hidden');
-  const ba = $('#backArea'); if (ba) ba.classList.remove('hidden');
-  $('#gradeRow').classList.remove('hidden');
+  if (!S || S.phase !== 'quiz') return;
+  finishAnswer('peek', -1);
 });
-$$('#gradeRow .grade').forEach(b => b.addEventListener('click', () => {
-  if (!S) return;
-  const it = currentItem(); const g = b.dataset.g;
-  S.counts[g]++;
-  const isNew = applyGrade(sessionKey(it), g);
-  if (isNew && it.t === 'w' && (S.origin === 'learn' || S.origin === 'collection')) {
-    dayRec.introduced++; persistDay();
+
+function tokenizeT(en, target) {
+  return esc(en).replace(/[A-Za-z][A-Za-z'\-]*/g, m => {
+    const low = m.toLowerCase();
+    const head = (resolveWord(low) || {}).head;
+    return `<span class="${head === target ? 'w tgt' : 'w'}" data-w="${encodeURIComponent(low)}">${m}</span>`;
+  });
+}
+function renderDetail() {
+  const it = currentItem(); if (!it) return startBlitzOrDone();
+  S.phase = 'detail';
+  hideFooters();
+  $('#nextRow').classList.remove('hidden');
+  const last = S.idx >= S.set.length - 1;
+  $('#nextBtn').textContent = last ? (S.fails.length ? '重练错词' : '完成本组') : '下一词';
+  if (it.t === 'w') {
+    const e = WORDMAP[it.word];
+    $('#cardBox').innerHTML = `<div class="card">${itemHeader(it)}
+      <div class="zh">${esc(cleanZh(e.zh))}</div>
+      ${e.en ? `<div class="en-def">${esc(e.en)}</div>` : ''}
+      ${(EXAMPLES[it.word] || []).length ? '<div class="ex-list">' + EXAMPLES[it.word].map(x => `<div class="ex"><div class="tx"><div class="e">${tokenizeT(x.en, it.word)}</div><div class="z">${esc(x.zh)}</div></div><button class="speak-btn sm" data-speak="${esc(x.en)}" type="button">${icon('speaker')}</button></div>`).join('') + '</div>' : ''}
+    </div>`;
+  } else {
+    const p = it.pack.phrases[it.idx];
+    $('#cardBox').innerHTML = `<div class="card">${itemHeader(it)}
+      <div class="zh">${esc(p.zh)}</div>
+      <div class="ex-list"><div class="ex"><div class="tx"><div class="e">${tokenize(p.ex.en)}</div><div class="z">${esc(p.ex.zh)}</div></div><button class="speak-btn sm" data-speak="${esc(p.ex.en)}" type="button">${icon('speaker')}</button></div></div>
+    </div>`;
   }
-  if (g === 'again' && !it._rq) { it._rq = true; S.queue.push(it); }
+  bindSpeak($('#cardBox'));
+  window.scrollTo(0, 0);
+}
+$('#nextBtn').addEventListener('click', () => {
+  if (!S || S.phase !== 'detail') return;
   S.idx++;
-  if (S.idx >= S.queue.length) finishSession(); else renderCard();
-}));
-function finishSession() {
+  if (S.idx >= S.set.length) startBlitzOrDone(); else renderQuiz();
+});
+
+function startBlitzOrDone() {
+  hideFooters();
+  if (S.fails.length) {
+    S.phase = 'blitz';
+    S.blitz = { queue: S.fails.slice(), i: 0, passes: {} };
+    $('#cardStar').classList.add('hidden');
+    renderBlitz();
+  } else finishSession(false);
+}
+function renderBlitz() {
+  const bz = S.blitz;
+  if (bz.i >= bz.queue.length) return finishSession(false);
+  const it = bz.queue[bz.i];
+  $('#cardPos').textContent = '错词 ' + (bz.i + 1) + ' / ' + bz.queue.length;
+  const front = it.t === 'w'
+    ? `<div class="w-word">${esc(WORDMAP[it.word].w)}</div><div class="ph-row"><button class="ph-pill" data-speak="${esc(it.word)}" type="button">美 ${icon('speaker')}</button></div>`
+    : `<div class="p-word">${tokenize(it.pack.phrases[it.idx].en)}</div><div class="ph-row"><button class="ph-pill" data-speak="${esc(it.pack.phrases[it.idx].en)}" type="button">${icon('speaker')} 朗读</button></div>`;
+  $('#cardBox').innerHTML = `<div class="card"><div class="sess-kick">错词闪击 · 快速过一遍</div>${front}<div class="blitz-zh" id="blitzZh"></div></div>`;
+  bindSpeak($('#cardBox'));
+  hideFooters();
+  $('#blitzRow').classList.remove('hidden');
+}
+function blitzAnswer(know) {
+  if (!S || S.phase !== 'blitz') return;
+  const bz = S.blitz, it = bz.queue[bz.i];
+  const key = sessionKey(it);
+  if (know) { bz.i++; renderBlitz(); return; }
+  $('#blitzZh').textContent = it.t === 'w' ? cleanZh(WORDMAP[it.word].zh) : it.pack.phrases[it.idx].zh;
+  bz.passes[key] = (bz.passes[key] || 0) + 1;
+  $('#blitzRow').classList.add('hidden');
+  setTimeout(() => {
+    bz.i++;
+    if (bz.passes[key] < 2) bz.queue.push(it);
+    renderBlitz();
+  }, 1000);
+}
+$('#blitzKnow').addEventListener('click', () => blitzAnswer(true));
+$('#blitzDont').addEventListener('click', () => blitzAnswer(false));
+
+function fmtDur(ms) { const s = Math.round(ms / 1000); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+function finishSession(empty) {
   stopAllSpeech();
+  S.phase = 'done';
   $('#cardBox').classList.add('hidden');
-  $('#gradeRow').classList.add('hidden');
-  $('#revealRow').classList.add('hidden');
+  hideFooters();
   $('#cardStar').classList.add('hidden');
   $('#cardPos').textContent = '';
-  const d = $('#sessionDone');
-  d.classList.remove('hidden');
-  $('#doneTitle').textContent = S && S.total ? S.title + '，学完了' : '暂时没有内容';
-  $('#doneStats').textContent = S && S.total
-    ? `共 ${S.total} 个 · 认识 ${S.counts.good} · 模糊 ${S.counts.hard} · 不认识 ${S.counts.again}（不认识的已安排 10 分钟后复习）`
-    : '去 Learn 学点新内容，这里就会有复习任务了。';
+  $('#sessionDone').classList.remove('hidden');
+  $('#doneTitle').textContent = empty ? '暂时没有内容' : S.title + ' · 本组完成';
+  $('#doneStats').textContent = empty
+    ? '去 Learn 学点新内容，这里就会有复习任务了。'
+    : `本组 ${S.set.length} 个 · 一次答对 ${S.stats.right} · 答错 ${S.stats.wrong} · 看答案 ${S.stats.peek}${S.fails.length ? ` · 错词 ${S.fails.length} 个已闪击重练` : ''} · 用时 ${fmtDur(Date.now() - S.startedAt)}`;
+  $('#moreBtn').classList.toggle('hidden', !!empty || !S.provider.more());
 }
+$('#moreBtn').addEventListener('click', () => {
+  if (!S) return;
+  const items = S.provider.take();
+  if (!items || !items.length) return;
+  S.set = items; S.idx = 0; S.fails = []; S.stats = { right: 0, wrong: 0, peek: 0 }; S.startedAt = Date.now();
+  $('#sessionDone').classList.add('hidden');
+  $('#cardBox').classList.remove('hidden');
+  renderQuiz();
+});
 $('#doneBtn').addEventListener('click', () => { const o = S ? S.origin : 'learn'; S = null; switchTab(o); });
 $('#quitSession').addEventListener('click', () => { const o = S ? S.origin : 'learn'; S = null; stopAllSpeech(); switchTab(o); });
+
 
 /* ---------- views & tabs ---------- */
 function showView(name) {
@@ -270,8 +407,11 @@ function renderLearnHome() {
   $('#todayBar').style.width = Math.min(100, dayRec.introduced / NEW_PER_DAY * 100) + '%';
 }
 $('#hubVocab').addEventListener('click', () => {
-  const items = unlearnedWords().slice(0, quotaLeft()).map(w => ({ t: 'w', word: w.w.toLowerCase() }));
-  startSession('learn', items, '今日单词');
+  const provider = {
+    take() { const q = quotaLeft(); if (q <= 0) return null; const items = unlearnedWords().slice(0, Math.min(SET_SIZE, q)).map(w => ({ t: 'w', word: w.w.toLowerCase() })); return items.length ? items : null; },
+    more() { return quotaLeft() > 0 && unlearnedWords().length > 0; }
+  };
+  startSession('learn', provider, '今日单词');
 });
 $('#hubScenario').addEventListener('click', () => {
   $('#learnHome').classList.add('hidden');
@@ -371,7 +511,13 @@ function openPack(i) {
 }
 $('#learnPackBtn').addEventListener('click', () => {
   if (!curPack) return;
-  startSession('learn', curPack.phrases.map((_, j) => ({ t: 'p', pack: curPack, idx: j })), '短语 · ' + curPack.title);
+  const all = curPack.phrases.map((_, j) => ({ t: 'p', pack: curPack, idx: j }));
+  let off = 0;
+  const provider = {
+    take() { const s = all.slice(off, off + SET_SIZE); off += s.length; return s.length ? s : null; },
+    more() { return off < all.length; }
+  };
+  startSession('learn', provider, '短语 · ' + curPack.title);
 });
 
 /* ---------- Review ---------- */
@@ -394,7 +540,13 @@ function renderReview() {
   $('#statMastered').textContent = Object.values(srs).filter(e => e.r >= 3 && e.iv >= 7).length;
   $('#statFav').textContent = favSet.size;
 }
-$('#reviewStart').addEventListener('click', () => startSession('review', dueItems(), '复习'));
+$('#reviewStart').addEventListener('click', () => {
+  const provider = {
+    take() { const d = dueItems().slice(0, SET_SIZE); return d.length ? d : null; },
+    more() { return dueItems().length > 0; }
+  };
+  startSession('review', provider, '复习');
+});
 $('#resetBtn').addEventListener('click', () => {
   if (!confirm('确定要清空全部学习进度和收藏吗？')) return;
   srs = {}; persistSrs();
@@ -420,8 +572,13 @@ function renderCollection() {
   list.querySelectorAll('.fav-row').forEach(r => r.onclick = () => openSheet(r.dataset.word));
 }
 $('#favLearnBtn').addEventListener('click', () => {
-  const items = [...favSet].sort().filter(w => WORDMAP[w]).map(w => ({ t: 'w', word: w }));
-  startSession('collection', items, '收藏词');
+  const all = [...favSet].sort().filter(w => WORDMAP[w]).map(w => ({ t: 'w', word: w }));
+  let off = 0;
+  const provider = {
+    take() { const s = all.slice(off, off + SET_SIZE); off += s.length; return s.length ? s : null; },
+    more() { return off < all.length; }
+  };
+  startSession('collection', provider, '收藏词');
 });
 
 /* ---------- rate toggle ---------- */

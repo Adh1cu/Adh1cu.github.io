@@ -304,3 +304,19 @@ h2{font-size:19px; margin:0; color:var(--ink); font-weight:700;}
 .sent{padding:13px 15px;}
 .fav-row{padding:12px 15px;}
 :root{--shadow:0 6px 20px rgba(41,47,68,.07);}
+
+/* ---------- v3 quiz / blitz ---------- */
+.opts{margin-top:24px;display:flex;flex-direction:column;gap:11px}
+.opt{text-align:left;width:100%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.07);border-radius:16px;padding:13px 16px;color:#fff;cursor:pointer;transition:background .15s,border-color .15s,opacity .15s}
+.opt .pos{display:block;color:rgba(255,255,255,.45);font-size:12.5px;margin-bottom:2px}
+.opt .def{font-size:16.5px;line-height:1.45}
+.opt.right{background:rgba(47,180,87,.35);border-color:rgba(47,180,87,.7)}
+.opt.wrong{background:rgba(224,82,82,.35);border-color:rgba(224,82,82,.65)}
+.opt.dim{opacity:.5}
+.text-action.teal::after{background:#2fd48c}
+.sess-kick{color:rgba(255,255,255,.45);font-size:13px;letter-spacing:1px;margin-bottom:14px}
+.blitz-zh{margin-top:18px;font-size:18px;line-height:1.5;color:#fff;min-height:28px}
+.blitz-btns{display:flex;gap:12px;width:100%}
+.blitz-btn{flex:1;padding:15px 0;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.10);color:#fff;font-size:16.5px;font-weight:600;cursor:pointer}
+.ex .e .tgt{font-weight:800}
+.sess-done .btn{display:block;margin:0 auto 16px;min-width:210px}
