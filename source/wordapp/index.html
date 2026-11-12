@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>背词 · 场景英语</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar glass">
+  <div class="title">背词</div>
+  <div class="rate-toggle" id="rateToggle" title="朗读语速">
+    <button data-rate="0.75">慢</button>
+    <button data-rate="0.92" class="on">常</button>
+  </div>
+</header>
+
+<main>
+  <!-- 背词 -->
+  <section id="tab-learn" class="tab active">
+    <div class="today glass">
+      <div class="today-row"><span>今日待学</span><b id="dueCount">–</b></div>
+      <div class="today-row"><span>今日新词额度</span><b id="newLeft">–</b></div>
+      <div class="bar"><div id="todayBar"></div></div>
+      <button class="primary" id="startBtn">开始学习</button>
+    </div>
+
+    <div id="cardArea" class="hidden">
+      <div class="progress-line"><span id="cardPos"></span><span id="cardKind"></span></div>
+      <div class="card glass">
+        <div class="word-row">
+          <div>
+            <div class="word" id="cWord">word</div>
+            <div class="phon" id="cPhon"></div>
+          </div>
+          <button class="speak big" id="cSpeak">🔊</button>
+        </div>
+        <div id="cCover" class="cover">
+          <p>先在心里想一想它的意思</p>
+          <button class="primary" id="revealBtn">显示释义</button>
+        </div>
+        <div id="cBody" class="hidden">
+          <div class="zh" id="cZh"></div>
+          <div class="en" id="cEn"></div>
+          <div class="examples" id="cExamples"></div>
+          <div class="grades">
+            <button class="g again" data-g="again">不认识</button>
+            <button class="g hard" data-g="hard">模糊</button>
+            <button class="g good" data-g="good">认识</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="doneArea" class="hidden done glass">
+      <div class="done-emoji">🎆</div>
+      <div class="done-title">这一轮学完了</div>
+      <div class="done-sub" id="doneSub"></div>
+      <button class="primary" id="againBtn">再来一轮</button>
+    </div>
+  </section>
+
+  <!-- 查词 -->
+  <section id="tab-dict" class="tab">
+    <div class="search glass">
+      <input id="dictInput" type="search" placeholder="输入英文单词查词…" autocomplete="off">
+    </div>
+    <div id="dictResults"></div>
+    <div id="dictDetail"></div>
+  </section>
+
+  <!-- 场景 -->
+  <section id="tab-scenes" class="tab">
+    <div id="sceneList"></div>
+    <div id="sceneDetail" class="hidden">
+      <button class="back" id="sceneBack">← 全部场景</button>
+      <div class="scene-head glass">
+        <div class="scene-title" id="sdTitle"></div>
+        <div class="scene-sub" id="sdSub"></div>
+        <div class="scene-actions">
+          <button class="primary" id="playAllBtn">▶ 整场连读</button>
+          <button class="ghost" id="hideZhBtn">遮住中文自测</button>
+        </div>
+      </div>
+      <div id="sdSentences"></div>
+    </div>
+  </section>
+
+  <!-- 进度 -->
+  <section id="tab-me" class="tab">
+    <div class="stats glass">
+      <div class="stat"><b id="stLearned">0</b><span>已学单词</span></div>
+      <div class="stat"><b id="stMastered">0</b><span>已掌握</span></div>
+      <div class="stat"><b id="stScenes">10</b><span>场景包</span></div>
+    </div>
+    <div class="glass note">
+      <p>每天新词 20 个（在代码里可改）。复习按遗忘曲线排队：不认识的词 10 分钟后、本轮末尾都会再出现；认识的词间隔会越拉越长。</p>
+      <p>进度保存在这台设备的浏览器里。等交互定型后，同一套代码会打包成 IPA 进 LiveContainer。</p>
+    </div>
+    <button class="danger" id="resetBtn">清空全部进度（测试用）</button>
+  </section>
+</main>
+
+<nav class="tabbar glass">
+  <button data-tab="learn" class="on">📖<span>背词</span></button>
+  <button data-tab="dict">🔍<span>查词</span></button>
+  <button data-tab="scenes">🎬<span>场景</span></button>
+  <button data-tab="me">📊<span>进度</span></button>
+</nav>
+
+<script src="app.js"></script>
+</body>
+</html>
