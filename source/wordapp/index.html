@@ -103,23 +103,26 @@
 
   <!-- ========== SESSION ========== -->
   <section id="view-session" class="view hidden">
-    <div class="session-top">
-      <button id="quitSession" class="back" type="button"><span data-icon="xmark"></span></button>
-      <div class="strip-bar grow"><div id="sessBar"></div></div>
-      <span id="cardPos" class="pos"></span>
-      <button id="cardStar" class="star-btn hidden" type="button"></button>
+    <div class="sess-top">
+      <button id="quitSession" class="sess-icon" type="button"><span data-icon="chevL"></span></button>
+      <span id="cardPos" class="sess-pos"></span>
+      <span class="sess-flex"></span>
+      <button id="cardStar" class="sess-icon hidden" type="button"></button>
     </div>
     <div id="cardBox"></div>
-    <div id="gradeRow" class="grades hidden">
+    <div id="revealRow" class="sess-foot hidden">
+      <button id="revealBtn" class="text-action" type="button">看答案</button>
+    </div>
+    <div id="gradeRow" class="sess-foot grades hidden">
       <button class="grade bad" data-g="again" type="button">不认识</button>
       <button class="grade mid" data-g="hard" type="button">模糊</button>
       <button class="grade good" data-g="good" type="button">认识</button>
     </div>
-    <div id="sessionDone" class="panel glass hidden">
+    <div id="sessionDone" class="sess-done hidden">
       <div class="big-emoji" data-icon="checkCircle"></div>
       <h2 id="doneTitle">这一轮学完了</h2>
-      <p id="doneStats" class="panel-sub"></p>
-      <button id="doneBtn" class="btn primary big" type="button">完成</button>
+      <p id="doneStats"></p>
+      <button id="doneBtn" class="text-action" type="button">完成</button>
     </div>
   </section>
 </main>

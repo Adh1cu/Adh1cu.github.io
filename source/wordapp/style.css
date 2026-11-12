@@ -239,3 +239,68 @@ h2{font-size:19px; margin:0; color:var(--ink); font-weight:700;}
 .big-emoji svg{width:54px; height:54px;}
 #playAllBtn{display:inline-flex; align-items:center; justify-content:center; gap:7px;}
 #playAllBtn svg{width:14px; height:14px;}
+
+/* ---- immersive study session (after the reference app's learn page) ---- */
+#view-session{
+  position:fixed; inset:0; z-index:40; overflow-y:auto; display:flex; flex-direction:column;
+  padding:calc(10px + env(safe-area-inset-top)) 22px calc(22px + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(130% 80% at 88% -10%, rgba(196,110,70,.50), rgba(196,110,70,0) 55%),
+    radial-gradient(120% 90% at -10% 110%, rgba(122,70,92,.32), rgba(122,70,92,0) 55%),
+    linear-gradient(168deg,#34232c 0%,#261a21 55%,#1e151b 100%);
+  color:#fff;
+}
+.sess-top{display:flex; align-items:center; gap:4px; padding:8px 0 2px;}
+.sess-icon{border:0; background:transparent; color:rgba(255,255,255,.9); display:inline-flex; padding:6px;}
+.sess-icon svg{width:21px; height:21px; display:block;}
+.sess-icon [data-icon] svg{width:21px; height:21px;}
+#cardStar.sess-icon{color:#fff;}
+#cardStar.sess-icon.on{color:var(--amber);}
+.sess-pos{color:rgba(255,255,255,.55); font-size:15px; margin-left:2px;}
+.sess-flex{flex:1;}
+#view-session .card{background:transparent; border:0; box-shadow:none; border-radius:0; padding:36px 0 0;}
+#view-session .w-word{font-family:Inter,-apple-system,"PingFang SC",sans-serif; font-size:41px; font-weight:700; color:#fff; letter-spacing:.2px; margin-top:0;}
+#view-session .p-word{color:#fff; font-size:29px; margin-top:0;}
+.ph-row{display:flex; align-items:center; gap:11px; margin-top:15px;}
+.ph-pill{display:inline-flex; align-items:center; gap:5px; border:0; border-radius:999px; padding:5px 12px; background:rgba(255,255,255,.14); color:#fff; font-size:13px;}
+.ph-pill svg{width:14px; height:14px;}
+.ph-pill.playing{background:var(--accent);}
+#view-session .ph{color:rgba(255,255,255,.55); font-size:16.5px; margin:0;}
+.cover-hint{color:rgba(255,255,255,.45); font-size:14.5px; margin-top:32px;}
+#view-session .zh{color:#fff;}
+#view-session .en-def{color:rgba(255,255,255,.55);}
+#view-session .ex{border:0; background:rgba(255,255,255,.08); border-radius:16px; padding:13px 15px;}
+#view-session .ex .e{color:#fff;}
+#view-session .ex .z{color:rgba(255,255,255,.55);}
+#view-session .w{border-bottom-color:rgba(255,255,255,.4);}
+#view-session .speak-btn{background:rgba(255,255,255,.14); color:#fff;}
+#view-session .speak-btn.playing{background:var(--accent);}
+.sess-foot{margin-top:auto; padding-top:36px; display:flex; justify-content:center; padding-bottom:8px;}
+.sess-foot.grades{gap:10px;}
+.text-action{background:transparent; border:0; color:#fff; font-size:17.5px; font-weight:500; padding:8px 20px;}
+.text-action::after{content:''; display:block; width:23px; height:4px; border-radius:99px; background:var(--accent); margin:8px auto 0;}
+#view-session .grades .grade{background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.10); color:#fff; padding:13px 0;}
+.sess-done{text-align:center; padding-top:15vh;}
+.sess-done h2{color:#fff; font-size:21px; margin-top:18px;}
+.sess-done p{color:rgba(255,255,255,.55); font-size:14.5px; line-height:1.7; margin:10px 0 30px;}
+.sess-done .big-emoji{color:#35d99a;}
+
+/* ---- global size diet (quieter, smaller chrome) ---- */
+.hub{padding:16px;}
+.hub-ic{width:46px; height:46px; border-radius:15px;}
+.hub-ic svg{width:24px; height:24px;}
+.hub-tx b{font-size:17px;}
+.strip{padding:15px 18px;}
+.strip-num b{font-size:22px;}
+.scene-item{padding:15px 16px;}
+.scene-item .ic svg{width:24px; height:24px;}
+.scene-item .tt{font-size:16.5px;}
+.speak-btn{width:40px; height:40px;}
+.speak-btn.sm{width:32px; height:32px;}
+.tabbar button [data-icon] svg{width:21px; height:21px;}
+.brand{font-size:21px;}
+.big-num{font-size:44px;}
+.sh-word{font-size:27px;}
+.sent{padding:13px 15px;}
+.fav-row{padding:12px 15px;}
+:root{--shadow:0 6px 20px rgba(41,47,68,.07);}

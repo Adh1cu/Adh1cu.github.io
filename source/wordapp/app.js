@@ -163,6 +163,7 @@ function startSession(origin, items, title) {
   S = { origin, title, queue: items.slice(), idx: 0, counts: { again: 0, hard: 0, good: 0 }, total: items.length };
   showView('session');
   $('#sessionDone').classList.add('hidden');
+  $('#revealRow').classList.add('hidden');
   $('#cardBox').classList.remove('hidden');
   if (!S.queue.length) { finishSession(); return; }
   renderCard();
@@ -183,17 +184,16 @@ $('#cardStar').addEventListener('click', () => {
 function renderCard() {
   const it = currentItem(); if (!it) return finishSession();
   $('#cardPos').textContent = (S.idx + 1) + ' / ' + S.queue.length;
-  $('#sessBar').style.width = (S.total ? Math.round(S.idx / S.queue.length * 100) : 0) + '%';
   $('#gradeRow').classList.add('hidden');
+  $('#revealRow').classList.remove('hidden');
   syncCardStar();
   const box = $('#cardBox');
   if (it.t === 'w') {
     const e = WORDMAP[it.word];
-    box.innerHTML = `<div class="card glass">
-      <div class="kick">Word</div>
-      <div class="word-top"><div><div class="w-word">${esc(e.w)}</div><div class="ph">${e.ph ? '/' + esc(e.ph) + '/' : ''}</div></div>
-      <button class="speak-btn" data-speak="${esc(e.w)}" type="button">${icon('speaker')}</button></div>
-      <div id="coverArea"><div class="cover">先想一想：它是什么意思？<br><button class="btn primary" id="revealBtn" type="button">显示释义</button></div></div>
+    box.innerHTML = `<div class="card">
+      <div class="w-word">${esc(e.w)}</div>
+      <div class="ph-row"><button class="ph-pill" data-speak="${esc(e.w)}" type="button">美 ${icon('speaker')}</button><span class="ph">${e.ph ? '/' + esc(e.ph) + '/' : ''}</span></div>
+      <div id="coverArea"><div class="cover-hint">先回想一下词义，想不起来就「看答案」</div></div>
       <div id="backArea" class="hidden">
         <div class="zh">${esc(cleanZh(e.zh))}</div>
         ${e.en ? `<div class="en-def">${esc(e.en)}</div>` : ''}
@@ -201,23 +201,23 @@ function renderCard() {
       </div></div>`;
   } else {
     const p = it.pack.phrases[it.idx];
-    box.innerHTML = `<div class="card glass">
-      <div class="kick">Phrase · ${esc(it.pack.title)}</div>
-      <div class="word-top"><div><div class="p-word">${tokenize(p.en)}</div></div>
-      <button class="speak-btn" data-speak="${esc(p.en)}" type="button">${icon('speaker')}</button></div>
-      <div id="coverArea"><div class="cover">先想一想：中文是什么意思？<br><button class="btn primary" id="revealBtn" type="button">显示释义</button></div></div>
+    box.innerHTML = `<div class="card">
+      <div class="p-word">${tokenize(p.en)}</div>
+      <div class="ph-row"><button class="ph-pill" data-speak="${esc(p.en)}" type="button">${icon('speaker')} 朗读</button><span class="ph">${esc(it.pack.title)}</span></div>
+      <div id="coverArea"><div class="cover-hint">先回想一下中文意思，想不起来就「看答案」</div></div>
       <div id="backArea" class="hidden">
         <div class="zh">${esc(p.zh)}</div>
         <div class="ex-list"><div class="ex"><div class="tx"><div class="e">${tokenize(p.ex.en)}</div><div class="z">${esc(p.ex.zh)}</div></div><button class="speak-btn sm" data-speak="${esc(p.ex.en)}" type="button">${icon('speaker')}</button></div></div>
       </div></div>`;
   }
   bindSpeak(box);
-  $('#revealBtn').onclick = () => {
-    $('#coverArea').classList.add('hidden');
-    $('#backArea').classList.remove('hidden');
-    $('#gradeRow').classList.remove('hidden');
-  };
 }
+$('#revealBtn').addEventListener('click', () => {
+  $('#revealRow').classList.add('hidden');
+  const ca = $('#coverArea'); if (ca) ca.classList.add('hidden');
+  const ba = $('#backArea'); if (ba) ba.classList.remove('hidden');
+  $('#gradeRow').classList.remove('hidden');
+});
 $$('#gradeRow .grade').forEach(b => b.addEventListener('click', () => {
   if (!S) return;
   const it = currentItem(); const g = b.dataset.g;
@@ -234,8 +234,8 @@ function finishSession() {
   stopAllSpeech();
   $('#cardBox').classList.add('hidden');
   $('#gradeRow').classList.add('hidden');
+  $('#revealRow').classList.add('hidden');
   $('#cardStar').classList.add('hidden');
-  $('#sessBar').style.width = '100%';
   $('#cardPos').textContent = '';
   const d = $('#sessionDone');
   d.classList.remove('hidden');
