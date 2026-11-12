@@ -188,7 +188,7 @@ function renderCard() {
   if (it.t === 'w') {
     const e = WORDMAP[it.word];
     box.innerHTML = `<div class="card glass">
-      <div class="kick">单词 WORD</div>
+      <div class="kick">Word</div>
       <div class="word-top"><div><div class="w-word">${esc(e.w)}</div><div class="ph">${e.ph ? '/' + esc(e.ph) + '/' : ''}</div></div>
       <button class="speak-btn" data-speak="${esc(e.w)}" type="button">🔊</button></div>
       <div id="coverArea"><div class="cover">先想一想：它是什么意思？<br><button class="btn primary" id="revealBtn" type="button">显示释义</button></div></div>
@@ -200,7 +200,7 @@ function renderCard() {
   } else {
     const p = it.pack.phrases[it.idx];
     box.innerHTML = `<div class="card glass">
-      <div class="kick">短语 PHRASE · ${esc(it.pack.title)}</div>
+      <div class="kick">Phrase · ${esc(it.pack.title)}</div>
       <div class="word-top"><div><div class="p-word">${tokenize(p.en)}</div></div>
       <button class="speak-btn" data-speak="${esc(p.en)}" type="button">🔊</button></div>
       <div id="coverArea"><div class="cover">先想一想：中文是什么意思？<br><button class="btn primary" id="revealBtn" type="button">显示释义</button></div></div>
