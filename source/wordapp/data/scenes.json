@@ -1,1 +1,486 @@
-[{"icon": "📦", "id": "pickup", "sentences": [{"en": "I'm here to pick up a package.", "zh": "我来取一个快递。"}, {"en": "The tracking number ends in 4839.", "zh": "运单号尾号是 4839。"}, {"en": "Here's my ID.", "zh": "这是我的证件。"}, {"en": "The pickup code is 7-2-4839.", "zh": "取件码是 7-2-4839。"}, {"en": "I think there's a package under my name.", "zh": "应该有一个我名下的包裹。"}, {"en": "Could you check again, please? It's from Amazon.", "zh": "能再帮我查一下吗？是亚马逊的。"}, {"en": "This box is damaged. Can I open it and check?", "zh": "这个箱子破损了，我能打开检查吗？"}, {"en": "I need to return this. How do I do that?", "zh": "我要退这个，怎么退？"}, {"en": "Where can I drop off a return package?", "zh": "退货包裹放哪里？"}, {"en": "Do you have a cart I can borrow? The box is heavy.", "zh": "能借个推车吗？箱子很重。"}], "sub": "Package Pickup", "title": "取快递"}, {"icon": "🍔", "id": "food", "sentences": [{"en": "Hi, a table for two, please.", "zh": "你好，两位。"}, {"en": "Can I see the menu, please?", "zh": "能看一下菜单吗？"}, {"en": "What do you recommend?", "zh": "你推荐什么？"}, {"en": "I'll have the grilled chicken sandwich.", "zh": "我要烤鸡三明治。"}, {"en": "Can I get that without onions?", "zh": "可以不要洋葱吗？"}, {"en": "How spicy is it?", "zh": "这个有多辣？"}, {"en": "Can I get a refill?", "zh": "可以续杯吗？"}, {"en": "Could we have the check, please?", "zh": "买单，谢谢。"}, {"en": "Can I pay by card?", "zh": "可以刷卡吗？"}, {"en": "Can I get this to go?", "zh": "这个可以打包吗？"}, {"en": "Excuse me, I think there's a mistake in the bill.", "zh": "不好意思，账单好像有错。"}], "sub": "Ordering Food", "title": "餐厅订餐"}, {"icon": "💈", "id": "haircut", "sentences": [{"en": "I'd like a haircut, please.", "zh": "我想理发。"}, {"en": "Just a trim, please. Keep the length.", "zh": "稍微修一下，长度别动。"}, {"en": "Short on the sides, a little longer on top.", "zh": "两边短一点，上面留长一点。"}, {"en": "Please don't cut it too short.", "zh": "别剪太短。"}, {"en": "Can you show me some styles?", "zh": "能给我看几款发型参考吗？"}, {"en": "I want it like this photo.", "zh": "照这张照片剪。"}, {"en": "Please wash my hair first.", "zh": "先帮我洗一下。"}, {"en": "That looks great, thank you.", "zh": "很好看，谢谢。"}, {"en": "How much is it in total?", "zh": "一共多少钱？"}, {"en": "Do I need an appointment next time?", "zh": "下次需要预约吗？"}], "sub": "Haircut", "title": "理发"}, {"icon": "🩺", "id": "doctor", "sentences": [{"en": "I have an appointment at ten.", "zh": "我预约了十点的。"}, {"en": "I've had a fever since yesterday.", "zh": "我从昨天开始发烧。"}, {"en": "My throat hurts and I keep coughing.", "zh": "我嗓子疼，还一直咳嗽。"}, {"en": "It hurts here when I press it.", "zh": "按这里会疼。"}, {"en": "I'm allergic to penicillin.", "zh": "我对青霉素过敏。"}, {"en": "How many times a day should I take this medicine?", "zh": "这药一天吃几次？"}, {"en": "Should I take it before or after meals?", "zh": "饭前吃还是饭后吃？"}, {"en": "Do I need to come back for a follow-up?", "zh": "需要复诊吗？"}, {"en": "Can I get a doctor's note for work?", "zh": "能给我开一张病假条吗？"}, {"en": "How much will it cost with my insurance?", "zh": "用我的保险要付多少？"}], "sub": "Seeing a Doctor", "title": "看病"}, {"icon": "🛂", "id": "airport", "sentences": [{"en": "I'm here for the Summer Work Travel program.", "zh": "我是来参加暑期打工旅行项目的。"}, {"en": "I'll stay for about three months.", "zh": "我大概待三个月。"}, {"en": "Here's my passport and my DS-2019 form.", "zh": "这是我的护照和 DS-2019 表。"}, {"en": "I'll be working at a restaurant in Florida.", "zh": "我会在佛罗里达一家餐厅工作。"}, {"en": "This is the address where I'll live.", "zh": "这是我要住的地址。"}, {"en": "I have nothing to declare.", "zh": "我没有要申报的东西。"}, {"en": "It's just clothes and personal items.", "zh": "只有衣服和个人用品。"}, {"en": "Where is the baggage claim?", "zh": "行李提取处在哪？"}, {"en": "My luggage is missing. What should I do?", "zh": "我的行李不见了，怎么办？"}, {"en": "Where can I get a taxi?", "zh": "在哪打车？"}], "sub": "Airport & Customs", "title": "机场与海关"}, {"icon": "🏨", "id": "hotel", "sentences": [{"en": "I have a reservation under the name Jia.", "zh": "我用贾这个姓订了房。"}, {"en": "I'd like to check in, please.", "zh": "我要办理入住。"}, {"en": "Is breakfast included?", "zh": "含早餐吗？"}, {"en": "What time is breakfast?", "zh": "早餐几点开始？"}, {"en": "Can I get a room on a higher floor?", "zh": "能给我高一点楼层的房间吗？"}, {"en": "The air conditioner in my room doesn't work.", "zh": "我房间的空调坏了。"}, {"en": "Could I have two more towels, please?", "zh": "能多给我两条毛巾吗？"}, {"en": "What time is check-out?", "zh": "退房是几点？"}, {"en": "Can I leave my luggage here after check-out?", "zh": "退房后行李能先寄存吗？"}, {"en": "The Wi-Fi password isn't working.", "zh": "Wi-Fi 密码连不上。"}], "sub": "Hotel Check-in", "title": "酒店入住"}, {"icon": "🛒", "id": "grocery", "sentences": [{"en": "Excuse me, where are the eggs?", "zh": "请问鸡蛋在哪？"}, {"en": "Do you have this in a smaller size?", "zh": "这个有小包装的吗？"}, {"en": "Is this on sale?", "zh": "这个在打折吗？"}, {"en": "How much is this per pound?", "zh": "这个每磅多少钱？"}, {"en": "Can I try a sample?", "zh": "可以试吃一下吗？"}, {"en": "Where can I find shopping carts?", "zh": "购物车在哪？"}, {"en": "I don't need a bag, thanks.", "zh": "不用袋子，谢谢。"}, {"en": "The card reader isn't working.", "zh": "刷卡机好像坏了。"}, {"en": "Can I get a rain check for the sale item?", "zh": "特价品卖完了，能给我一张延期优惠券吗？"}, {"en": "Is there a restroom in the store?", "zh": "店里有洗手间吗？"}], "sub": "Grocery Shopping", "title": "超市购物"}, {"icon": "🧭", "id": "directions", "sentences": [{"en": "Excuse me, how do I get to the train station?", "zh": "请问去火车站怎么走？"}, {"en": "Is it within walking distance?", "zh": "走路能到吗？"}, {"en": "Which bus goes downtown?", "zh": "哪路公交车去市中心？"}, {"en": "Where is the nearest bus stop?", "zh": "最近的公交站在哪？"}, {"en": "How much is a one-way ticket?", "zh": "单程票多少钱？"}, {"en": "Could you drop me off here, please?", "zh": "请在这里让我下车。"}, {"en": "I think we're lost. Can you show me on the map?", "zh": "我们好像迷路了，能在地图上指给我看吗？"}, {"en": "How long does it take by bus?", "zh": "坐公交要多久？"}, {"en": "Does this bus stop at the airport?", "zh": "这车在机场停吗？"}, {"en": "Please slow down, I'm new here.", "zh": "请慢点说，我刚来这里。"}], "sub": "Directions & Getting Around", "title": "问路与交通"}, {"icon": "🧑‍🍳", "id": "interview", "sentences": [{"en": "Hello, I'm here for the interview. My name is Alex.", "zh": "你好，我是来面试的，我叫 Alex。"}, {"en": "I can work from June to September.", "zh": "我六月到九月都能工作。"}, {"en": "I'm available on weekends and holidays.", "zh": "周末和节假日我都可以上班。"}, {"en": "I worked in a school cafeteria before.", "zh": "我以前在学校食堂干过。"}, {"en": "I'm a fast learner and I work well with a team.", "zh": "我学得快，也能配合团队。"}, {"en": "How many hours a week can I get?", "zh": "我每周能排多少小时？"}, {"en": "What is the hourly pay?", "zh": "时薪是多少？"}, {"en": "When would I start?", "zh": "我什么时候能开始？"}, {"en": "Do you provide training?", "zh": "提供培训吗？"}, {"en": "Thank you for your time. I'm looking forward to working here.", "zh": "谢谢您的时间，期待能在这里工作。"}], "sub": "Job Interview", "title": "入职面试"}, {"icon": "🗓️", "id": "supervisor", "sentences": [{"en": "Excuse me, can I check my schedule for next week?", "zh": "打扰一下，我能看一下下周的排班吗？"}, {"en": "I'm scheduled for two shifts at the same time that day. Can we change it?", "zh": "那天我两个班撞了，能调一下吗？"}, {"en": "Can I swap shifts with Tom this Friday?", "zh": "这周五我能和汤姆换班吗？"}, {"en": "I'm not feeling well today. Can I take the day off?", "zh": "我今天不舒服，能请一天假吗？"}, {"en": "My paycheck seems short this week. Who should I ask?", "zh": "这周工资好像少了，我该问谁？"}, {"en": "Could you show me how to do this again?", "zh": "能再教我一遍这个怎么做吗？"}, {"en": "I finished the task. What's next?", "zh": "这个活干完了，接下来做什么？"}, {"en": "There's a problem with the machine. It stopped working.", "zh": "机器出问题了，停了。"}, {"en": "I need to leave early on Thursday for a bank appointment.", "zh": "周四我要去银行办事，得早走一会儿。"}, {"en": "Thank you for understanding.", "zh": "谢谢理解。"}], "sub": "Talking to Your Supervisor", "title": "跟主管沟通"}]
+[
+ {
+  "icon": "shippingbox",
+  "id": "pickup",
+  "sentences": [
+   {
+    "en": "I'm here to pick up a package.",
+    "zh": "我来取一个快递。"
+   },
+   {
+    "en": "The tracking number ends in 4839.",
+    "zh": "运单号尾号是 4839。"
+   },
+   {
+    "en": "Here's my ID.",
+    "zh": "这是我的证件。"
+   },
+   {
+    "en": "The pickup code is 7-2-4839.",
+    "zh": "取件码是 7-2-4839。"
+   },
+   {
+    "en": "I think there's a package under my name.",
+    "zh": "应该有一个我名下的包裹。"
+   },
+   {
+    "en": "Could you check again, please? It's from Amazon.",
+    "zh": "能再帮我查一下吗？是亚马逊的。"
+   },
+   {
+    "en": "This box is damaged. Can I open it and check?",
+    "zh": "这个箱子破损了，我能打开检查吗？"
+   },
+   {
+    "en": "I need to return this. How do I do that?",
+    "zh": "我要退这个，怎么退？"
+   },
+   {
+    "en": "Where can I drop off a return package?",
+    "zh": "退货包裹放哪里？"
+   },
+   {
+    "en": "Do you have a cart I can borrow? The box is heavy.",
+    "zh": "能借个推车吗？箱子很重。"
+   }
+  ],
+  "sub": "Package Pickup",
+  "title": "取快递"
+ },
+ {
+  "icon": "forkknife",
+  "id": "food",
+  "sentences": [
+   {
+    "en": "Hi, a table for two, please.",
+    "zh": "你好，两位。"
+   },
+   {
+    "en": "Can I see the menu, please?",
+    "zh": "能看一下菜单吗？"
+   },
+   {
+    "en": "What do you recommend?",
+    "zh": "你推荐什么？"
+   },
+   {
+    "en": "I'll have the grilled chicken sandwich.",
+    "zh": "我要烤鸡三明治。"
+   },
+   {
+    "en": "Can I get that without onions?",
+    "zh": "可以不要洋葱吗？"
+   },
+   {
+    "en": "How spicy is it?",
+    "zh": "这个有多辣？"
+   },
+   {
+    "en": "Can I get a refill?",
+    "zh": "可以续杯吗？"
+   },
+   {
+    "en": "Could we have the check, please?",
+    "zh": "买单，谢谢。"
+   },
+   {
+    "en": "Can I pay by card?",
+    "zh": "可以刷卡吗？"
+   },
+   {
+    "en": "Can I get this to go?",
+    "zh": "这个可以打包吗？"
+   },
+   {
+    "en": "Excuse me, I think there's a mistake in the bill.",
+    "zh": "不好意思，账单好像有错。"
+   }
+  ],
+  "sub": "Ordering Food",
+  "title": "餐厅订餐"
+ },
+ {
+  "icon": "scissors",
+  "id": "haircut",
+  "sentences": [
+   {
+    "en": "I'd like a haircut, please.",
+    "zh": "我想理发。"
+   },
+   {
+    "en": "Just a trim, please. Keep the length.",
+    "zh": "稍微修一下，长度别动。"
+   },
+   {
+    "en": "Short on the sides, a little longer on top.",
+    "zh": "两边短一点，上面留长一点。"
+   },
+   {
+    "en": "Please don't cut it too short.",
+    "zh": "别剪太短。"
+   },
+   {
+    "en": "Can you show me some styles?",
+    "zh": "能给我看几款发型参考吗？"
+   },
+   {
+    "en": "I want it like this photo.",
+    "zh": "照这张照片剪。"
+   },
+   {
+    "en": "Please wash my hair first.",
+    "zh": "先帮我洗一下。"
+   },
+   {
+    "en": "That looks great, thank you.",
+    "zh": "很好看，谢谢。"
+   },
+   {
+    "en": "How much is it in total?",
+    "zh": "一共多少钱？"
+   },
+   {
+    "en": "Do I need an appointment next time?",
+    "zh": "下次需要预约吗？"
+   }
+  ],
+  "sub": "Haircut",
+  "title": "理发"
+ },
+ {
+  "icon": "stethoscope",
+  "id": "doctor",
+  "sentences": [
+   {
+    "en": "I have an appointment at ten.",
+    "zh": "我预约了十点的。"
+   },
+   {
+    "en": "I've had a fever since yesterday.",
+    "zh": "我从昨天开始发烧。"
+   },
+   {
+    "en": "My throat hurts and I keep coughing.",
+    "zh": "我嗓子疼，还一直咳嗽。"
+   },
+   {
+    "en": "It hurts here when I press it.",
+    "zh": "按这里会疼。"
+   },
+   {
+    "en": "I'm allergic to penicillin.",
+    "zh": "我对青霉素过敏。"
+   },
+   {
+    "en": "How many times a day should I take this medicine?",
+    "zh": "这药一天吃几次？"
+   },
+   {
+    "en": "Should I take it before or after meals?",
+    "zh": "饭前吃还是饭后吃？"
+   },
+   {
+    "en": "Do I need to come back for a follow-up?",
+    "zh": "需要复诊吗？"
+   },
+   {
+    "en": "Can I get a doctor's note for work?",
+    "zh": "能给我开一张病假条吗？"
+   },
+   {
+    "en": "How much will it cost with my insurance?",
+    "zh": "用我的保险要付多少？"
+   }
+  ],
+  "sub": "Seeing a Doctor",
+  "title": "看病"
+ },
+ {
+  "icon": "airplane",
+  "id": "airport",
+  "sentences": [
+   {
+    "en": "I'm here for the Summer Work Travel program.",
+    "zh": "我是来参加暑期打工旅行项目的。"
+   },
+   {
+    "en": "I'll stay for about three months.",
+    "zh": "我大概待三个月。"
+   },
+   {
+    "en": "Here's my passport and my DS-2019 form.",
+    "zh": "这是我的护照和 DS-2019 表。"
+   },
+   {
+    "en": "I'll be working at a restaurant in Florida.",
+    "zh": "我会在佛罗里达一家餐厅工作。"
+   },
+   {
+    "en": "This is the address where I'll live.",
+    "zh": "这是我要住的地址。"
+   },
+   {
+    "en": "I have nothing to declare.",
+    "zh": "我没有要申报的东西。"
+   },
+   {
+    "en": "It's just clothes and personal items.",
+    "zh": "只有衣服和个人用品。"
+   },
+   {
+    "en": "Where is the baggage claim?",
+    "zh": "行李提取处在哪？"
+   },
+   {
+    "en": "My luggage is missing. What should I do?",
+    "zh": "我的行李不见了，怎么办？"
+   },
+   {
+    "en": "Where can I get a taxi?",
+    "zh": "在哪打车？"
+   }
+  ],
+  "sub": "Airport & Customs",
+  "title": "机场与海关"
+ },
+ {
+  "icon": "bed",
+  "id": "hotel",
+  "sentences": [
+   {
+    "en": "I have a reservation under the name Jia.",
+    "zh": "我用贾这个姓订了房。"
+   },
+   {
+    "en": "I'd like to check in, please.",
+    "zh": "我要办理入住。"
+   },
+   {
+    "en": "Is breakfast included?",
+    "zh": "含早餐吗？"
+   },
+   {
+    "en": "What time is breakfast?",
+    "zh": "早餐几点开始？"
+   },
+   {
+    "en": "Can I get a room on a higher floor?",
+    "zh": "能给我高一点楼层的房间吗？"
+   },
+   {
+    "en": "The air conditioner in my room doesn't work.",
+    "zh": "我房间的空调坏了。"
+   },
+   {
+    "en": "Could I have two more towels, please?",
+    "zh": "能多给我两条毛巾吗？"
+   },
+   {
+    "en": "What time is check-out?",
+    "zh": "退房是几点？"
+   },
+   {
+    "en": "Can I leave my luggage here after check-out?",
+    "zh": "退房后行李能先寄存吗？"
+   },
+   {
+    "en": "The Wi-Fi password isn't working.",
+    "zh": "Wi-Fi 密码连不上。"
+   }
+  ],
+  "sub": "Hotel Check-in",
+  "title": "酒店入住"
+ },
+ {
+  "icon": "cart",
+  "id": "grocery",
+  "sentences": [
+   {
+    "en": "Excuse me, where are the eggs?",
+    "zh": "请问鸡蛋在哪？"
+   },
+   {
+    "en": "Do you have this in a smaller size?",
+    "zh": "这个有小包装的吗？"
+   },
+   {
+    "en": "Is this on sale?",
+    "zh": "这个在打折吗？"
+   },
+   {
+    "en": "How much is this per pound?",
+    "zh": "这个每磅多少钱？"
+   },
+   {
+    "en": "Can I try a sample?",
+    "zh": "可以试吃一下吗？"
+   },
+   {
+    "en": "Where can I find shopping carts?",
+    "zh": "购物车在哪？"
+   },
+   {
+    "en": "I don't need a bag, thanks.",
+    "zh": "不用袋子，谢谢。"
+   },
+   {
+    "en": "The card reader isn't working.",
+    "zh": "刷卡机好像坏了。"
+   },
+   {
+    "en": "Can I get a rain check for the sale item?",
+    "zh": "特价品卖完了，能给我一张延期优惠券吗？"
+   },
+   {
+    "en": "Is there a restroom in the store?",
+    "zh": "店里有洗手间吗？"
+   }
+  ],
+  "sub": "Grocery Shopping",
+  "title": "超市购物"
+ },
+ {
+  "icon": "map",
+  "id": "directions",
+  "sentences": [
+   {
+    "en": "Excuse me, how do I get to the train station?",
+    "zh": "请问去火车站怎么走？"
+   },
+   {
+    "en": "Is it within walking distance?",
+    "zh": "走路能到吗？"
+   },
+   {
+    "en": "Which bus goes downtown?",
+    "zh": "哪路公交车去市中心？"
+   },
+   {
+    "en": "Where is the nearest bus stop?",
+    "zh": "最近的公交站在哪？"
+   },
+   {
+    "en": "How much is a one-way ticket?",
+    "zh": "单程票多少钱？"
+   },
+   {
+    "en": "Could you drop me off here, please?",
+    "zh": "请在这里让我下车。"
+   },
+   {
+    "en": "I think we're lost. Can you show me on the map?",
+    "zh": "我们好像迷路了，能在地图上指给我看吗？"
+   },
+   {
+    "en": "How long does it take by bus?",
+    "zh": "坐公交要多久？"
+   },
+   {
+    "en": "Does this bus stop at the airport?",
+    "zh": "这车在机场停吗？"
+   },
+   {
+    "en": "Please slow down, I'm new here.",
+    "zh": "请慢点说，我刚来这里。"
+   }
+  ],
+  "sub": "Directions & Getting Around",
+  "title": "问路与交通"
+ },
+ {
+  "icon": "briefcase",
+  "id": "interview",
+  "sentences": [
+   {
+    "en": "Hello, I'm here for the interview. My name is Alex.",
+    "zh": "你好，我是来面试的，我叫 Alex。"
+   },
+   {
+    "en": "I can work from June to September.",
+    "zh": "我六月到九月都能工作。"
+   },
+   {
+    "en": "I'm available on weekends and holidays.",
+    "zh": "周末和节假日我都可以上班。"
+   },
+   {
+    "en": "I worked in a school cafeteria before.",
+    "zh": "我以前在学校食堂干过。"
+   },
+   {
+    "en": "I'm a fast learner and I work well with a team.",
+    "zh": "我学得快，也能配合团队。"
+   },
+   {
+    "en": "How many hours a week can I get?",
+    "zh": "我每周能排多少小时？"
+   },
+   {
+    "en": "What is the hourly pay?",
+    "zh": "时薪是多少？"
+   },
+   {
+    "en": "When would I start?",
+    "zh": "我什么时候能开始？"
+   },
+   {
+    "en": "Do you provide training?",
+    "zh": "提供培训吗？"
+   },
+   {
+    "en": "Thank you for your time. I'm looking forward to working here.",
+    "zh": "谢谢您的时间，期待能在这里工作。"
+   }
+  ],
+  "sub": "Job Interview",
+  "title": "入职面试"
+ },
+ {
+  "icon": "bubbles",
+  "id": "supervisor",
+  "sentences": [
+   {
+    "en": "Excuse me, can I check my schedule for next week?",
+    "zh": "打扰一下，我能看一下下周的排班吗？"
+   },
+   {
+    "en": "I'm scheduled for two shifts at the same time that day. Can we change it?",
+    "zh": "那天我两个班撞了，能调一下吗？"
+   },
+   {
+    "en": "Can I swap shifts with Tom this Friday?",
+    "zh": "这周五我能和汤姆换班吗？"
+   },
+   {
+    "en": "I'm not feeling well today. Can I take the day off?",
+    "zh": "我今天不舒服，能请一天假吗？"
+   },
+   {
+    "en": "My paycheck seems short this week. Who should I ask?",
+    "zh": "这周工资好像少了，我该问谁？"
+   },
+   {
+    "en": "Could you show me how to do this again?",
+    "zh": "能再教我一遍这个怎么做吗？"
+   },
+   {
+    "en": "I finished the task. What's next?",
+    "zh": "这个活干完了，接下来做什么？"
+   },
+   {
+    "en": "There's a problem with the machine. It stopped working.",
+    "zh": "机器出问题了，停了。"
+   },
+   {
+    "en": "I need to leave early on Thursday for a bank appointment.",
+    "zh": "周四我要去银行办事，得早走一会儿。"
+   },
+   {
+    "en": "Thank you for understanding.",
+    "zh": "谢谢理解。"
+   }
+  ],
+  "sub": "Talking to Your Supervisor",
+  "title": "跟主管沟通"
+ }
+]

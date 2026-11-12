@@ -27,34 +27,35 @@
       </div>
 
       <div class="search-row">
-        <input id="searchInput" type="search" placeholder="🔍 查词：输入英文单词" autocomplete="off">
+        <span class="search-ic" data-icon="search"></span>
+        <input id="searchInput" type="search" placeholder="查词：输入英文单词" autocomplete="off">
       </div>
       <div id="searchResults" class="glass hidden"></div>
 
       <button class="hub glass" id="hubVocab" type="button">
-        <span class="hub-ic">📚</span>
+        <span class="hub-ic" data-icon="bookClosed"></span>
         <span class="hub-tx"><b>Vocabulary</b><small>单词 · 每天 20 个新词</small></span>
-        <span class="hub-arrow">›</span>
+        <span class="hub-arrow" data-icon="chevR"></span>
       </button>
       <button class="hub glass" id="hubScenario" type="button">
-        <span class="hub-ic">🎬</span>
+        <span class="hub-ic" data-icon="playRect"></span>
         <span class="hub-tx"><b>Scenario</b><small>场景 · 生活场景整句练</small></span>
-        <span class="hub-arrow">›</span>
+        <span class="hub-arrow" data-icon="chevR"></span>
       </button>
       <button class="hub glass" id="hubPhrase" type="button">
-        <span class="hub-ic">💬</span>
+        <span class="hub-ic" data-icon="bubble"></span>
         <span class="hub-tx"><b>Phrase</b><small>短语 · 高频口头短句</small></span>
-        <span class="hub-arrow">›</span>
+        <span class="hub-arrow" data-icon="chevR"></span>
       </button>
       <p class="hint">学习时点例句里的任意单词，都能展开详解并收藏。</p>
     </div>
 
     <div id="scenarioSection" class="hidden">
-      <div class="subhead"><button class="back" id="scBack" type="button">‹</button><h2>Scenario 场景</h2></div>
+      <div class="subhead"><button class="back" id="scBack" type="button"><span data-icon="chevL"></span></button><h2>Scenario 场景</h2></div>
       <div id="sceneList"></div>
       <div id="sceneDetail" class="hidden">
         <div class="scene-actions">
-          <button id="playAllBtn" class="btn primary" type="button">▶ 整场连读</button>
+          <button id="playAllBtn" class="btn primary" type="button"></button>
           <button id="hideZhBtn" class="btn" type="button">遮住中文自测</button>
         </div>
         <div id="sentList"></div>
@@ -62,7 +63,7 @@
     </div>
 
     <div id="phraseSection" class="hidden">
-      <div class="subhead"><button class="back" id="phBack" type="button">‹</button><h2>Phrase 短语</h2></div>
+      <div class="subhead"><button class="back" id="phBack" type="button"><span data-icon="chevL"></span></button><h2>Phrase 短语</h2></div>
       <div id="phraseList"></div>
       <div id="phraseDetail" class="hidden">
         <div class="scene-actions">
@@ -103,10 +104,10 @@
   <!-- ========== SESSION ========== -->
   <section id="view-session" class="view hidden">
     <div class="session-top">
-      <button id="quitSession" class="back" type="button">✕</button>
+      <button id="quitSession" class="back" type="button"><span data-icon="xmark"></span></button>
       <div class="strip-bar grow"><div id="sessBar"></div></div>
       <span id="cardPos" class="pos"></span>
-      <button id="cardStar" class="star-btn hidden" type="button">☆</button>
+      <button id="cardStar" class="star-btn hidden" type="button"></button>
     </div>
     <div id="cardBox"></div>
     <div id="gradeRow" class="grades hidden">
@@ -115,7 +116,7 @@
       <button class="grade good" data-g="good" type="button">认识</button>
     </div>
     <div id="sessionDone" class="panel glass hidden">
-      <div class="big-emoji">🎆</div>
+      <div class="big-emoji" data-icon="checkCircle"></div>
       <h2 id="doneTitle">这一轮学完了</h2>
       <p id="doneStats" class="panel-sub"></p>
       <button id="doneBtn" class="btn primary big" type="button">完成</button>
@@ -133,9 +134,9 @@
         <span id="shPh" class="ph"></span>
       </div>
       <div class="sheet-btns">
-        <button id="shSpeak" class="speak-btn" type="button">🔊</button>
-        <button id="shStar" class="star-btn" type="button">☆</button>
-        <button id="shClose" class="speak-btn" type="button">✕</button>
+        <button id="shSpeak" class="speak-btn" type="button" data-icon="speaker"></button>
+        <button id="shStar" class="star-btn" type="button"></button>
+        <button id="shClose" class="speak-btn" type="button" data-icon="xmark"></button>
       </div>
     </div>
     <div id="shTo" class="sh-to hidden"></div>
@@ -146,9 +147,9 @@
 </div>
 
 <nav class="tabbar glass">
-  <button data-tab="learn" class="on" type="button"><span>📖</span>Learn</button>
-  <button data-tab="review" type="button"><span>🔄</span>Review</button>
-  <button data-tab="collection" type="button"><span>⭐</span>Collection</button>
+  <button data-tab="learn" class="on" type="button"><span data-icon="bookFill"></span>Learn</button>
+  <button data-tab="review" type="button"><span data-icon="review"></span>Review</button>
+  <button data-tab="collection" type="button"><span data-icon="starFill"></span>Collection</button>
 </nav>
 
 <script src="app.js"></script>

@@ -210,3 +210,32 @@ h2{font-size:19px; margin:0; color:var(--ink); font-weight:700;}
 .tabbar button{flex:1; border:0; background:transparent; color:var(--sub); font-size:12.5px; font-weight:600; padding:7px 0 5px; border-radius:19px; display:flex; flex-direction:column; align-items:center; gap:2px;}
 .tabbar button span{font-size:20px;}
 .tabbar button.on{color:var(--accent); background:rgba(255,104,0,.12);}
+
+/* ---- SF Symbols icons ---- */
+[data-icon]{display:inline-flex; flex:none;}
+[data-icon] svg{display:block;}
+.tabbar button [data-icon] svg{width:23px; height:23px;}
+.hub-ic{color:var(--accent);}
+#hubScenario .hub-ic{color:var(--blue);}
+#hubPhrase .hub-ic{color:#c07f0a;}
+@media (prefers-color-scheme: dark){ #hubPhrase .hub-ic{color:var(--amber);} }
+.hub-ic svg{width:27px; height:27px;}
+.hub-arrow{display:flex;}
+.hub-arrow svg{width:19px; height:19px;}
+.scene-item .ic{display:flex; color:var(--accent);}
+.scene-item .ic svg{width:27px; height:27px;}
+.speak-btn{display:inline-flex; align-items:center; justify-content:center;}
+.speak-btn svg{width:21px; height:21px;}
+.speak-btn.sm svg{width:16px; height:16px;}
+.star-btn{display:inline-flex; align-items:center; justify-content:center;}
+.star-btn svg{width:25px; height:25px;}
+.back [data-icon] svg{width:21px; height:21px;}
+#quitSession [data-icon] svg{width:17px; height:17px;}
+.search-row{position:relative;}
+.search-ic{position:absolute; left:17px; top:50%; transform:translateY(-50%); color:var(--sub); display:flex;}
+.search-ic svg{width:18px; height:18px;}
+.search-row input{padding-left:45px;}
+.big-emoji{color:var(--accent); display:flex; justify-content:center;}
+.big-emoji svg{width:54px; height:54px;}
+#playAllBtn{display:inline-flex; align-items:center; justify-content:center; gap:7px;}
+#playAllBtn svg{width:14px; height:14px;}

@@ -1,1 +1,834 @@
-[{"icon":"🤝","id":"greet","phrases":[{"en":"How's it going?","ex":{"en":"Hey Mike, how's it going?","zh":"嘿迈克，最近怎么样？"},"zh":"最近怎么样？（熟人打招呼）"},{"en":"Long time no see.","ex":{"en":"Long time no see! How have you been?","zh":"好久不见！你最近怎么样？"},"zh":"好久不见。"},{"en":"Nice to meet you.","ex":{"en":"I'm Alex. Nice to meet you.","zh":"我是 Alex，很高兴认识你。"},"zh":"很高兴认识你。"},{"en":"Where are you from?","ex":{"en":"Where are you from? I'm from China.","zh":"你来自哪里？我来自中国。"},"zh":"你来自哪里？"},{"en":"What do you do?","ex":{"en":"What do you do? — I'm a student.","zh":"你是做什么的？——我是个学生。"},"zh":"你是做什么工作的？"},{"en":"Sounds good.","ex":{"en":"Let's meet at five. — Sounds good.","zh":"五点见吧。——可以。"},"zh":"听起来不错／可以。"},{"en":"No worries.","ex":{"en":"Sorry I'm late. — No worries.","zh":"抱歉我迟到了。——没关系。"},"zh":"没关系／别担心。"},{"en":"Take care.","ex":{"en":"See you next week. Take care!","zh":"下周见，保重！"},"zh":"保重（告别时说）。"},{"en":"Have a good one.","ex":{"en":"Thanks, bye! — Have a good one.","zh":"谢谢，拜！——祝你愉快。"},"zh":"祝你一天愉快（美式告别）。"},{"en":"I'm just looking around.","ex":{"en":"Can I help you? — I'm just looking around, thanks.","zh":"需要帮忙吗？——我随便看看，谢谢。"},"zh":"我随便看看（逛街时）。"},{"en":"That makes sense.","ex":{"en":"Oh, that makes sense now.","zh":"哦，这样就说得通了。"},"zh":"有道理／说得通。"},{"en":"By the way...","ex":{"en":"By the way, are you free this weekend?","zh":"顺便问一下，你这周末有空吗？"},"zh":"顺便说一下……"}],"sub":"Greetings & Small Talk","title":"打招呼与寒暄"},{"icon":"🙏","id":"polite","phrases":[{"en":"Excuse me.","ex":{"en":"Excuse me, is this seat taken?","zh":"打扰一下，这个座位有人吗？"},"zh":"打扰一下／借过。"},{"en":"Could you say that again?","ex":{"en":"Sorry, could you say that again, please?","zh":"抱歉，您能再说一遍吗？"},"zh":"您能再说一遍吗？"},{"en":"Could you speak more slowly?","ex":{"en":"My English is not very good. Could you speak more slowly?","zh":"我英语不太好，您能说慢点吗？"},"zh":"您能说慢一点吗？"},{"en":"What does this mean?","ex":{"en":"What does this word mean?","zh":"这个词是什么意思？"},"zh":"这是什么意思？"},{"en":"How do you say this in English?","ex":{"en":"How do you say '筷子' in English?","zh":"'筷子'用英语怎么说？"},"zh":"这个用英语怎么说？"},{"en":"Thank you anyway.","ex":{"en":"I can't help you with that. — Thank you anyway.","zh":"这我帮不了你。——还是谢谢你。"},"zh":"还是谢谢你。"},{"en":"You're welcome.","ex":{"en":"Thanks a lot! — You're welcome.","zh":"太谢谢了！——不客气。"},"zh":"不客气。"},{"en":"No problem at all.","ex":{"en":"Can you help me carry this? — No problem at all.","zh":"能帮我搬一下吗？——没问题。"},"zh":"一点问题都没有（很乐意）。"},{"en":"I appreciate it.","ex":{"en":"Thanks for your help. I really appreciate it.","zh":"谢谢你的帮助，我真的很感激。"},"zh":"我很感谢（比 thank you 更真诚）。"},{"en":"Sorry for the trouble.","ex":{"en":"Sorry for the trouble. — Don't worry about it.","zh":"不好意思添麻烦了。——别放在心上。"},"zh":"不好意思，给你添麻烦了。"},{"en":"After you.","ex":{"en":"Please, after you.","zh":"请，您先走。"},"zh":"您先请（让路/让门）。"},{"en":"Help yourself.","ex":{"en":"There are drinks in the fridge. Help yourself.","zh":"冰箱里有饮料，随便拿。"},"zh":"请自便／随便吃、随便拿。"}],"sub":"Being Polite","title":"礼貌用语"},{"icon":"🧭","id":"around","phrases":[{"en":"How do I get to the airport?","ex":{"en":"Excuse me, how do I get to the airport from here?","zh":"打扰一下，从这儿去机场怎么走？"},"zh":"去机场怎么走？"},{"en":"Is it within walking distance?","ex":{"en":"Is the hotel within walking distance?","zh":"酒店走路能到吗？"},"zh":"走路能到吗？"},{"en":"Which bus goes downtown?","ex":{"en":"Which bus goes downtown, please?","zh":"请问哪路公交去市中心？"},"zh":"哪路公交去市中心？"},{"en":"Where is the nearest subway station?","ex":{"en":"Where is the nearest subway station?","zh":"最近的地铁站在哪儿？"},"zh":"最近的地铁站在哪？"},{"en":"Please drop me off here.","ex":{"en":"You can drop me off here, thanks.","zh":"在这儿让我下就行，谢谢。"},"zh":"请让我在这里下车。"},{"en":"How long does it take?","ex":{"en":"How long does it take to get there by bus?","zh":"坐公交去那儿要多久？"},"zh":"要花多长时间？"},{"en":"I'm lost.","ex":{"en":"Excuse me, I'm lost. Can you help me?","zh":"打扰一下，我迷路了，能帮帮我吗？"},"zh":"我迷路了。"},{"en":"Go straight and turn left.","ex":{"en":"Go straight for two blocks and turn left.","zh":"直走两个街区然后左转。"},"zh":"一直走然后左转。"},{"en":"It's on your right.","ex":{"en":"The bank is on your right, next to the park.","zh":"银行在你右手边，公园旁边。"},"zh":"它在你右手边。"},{"en":"Can I walk there?","ex":{"en":"Can I walk there, or should I take a taxi?","zh":"我能走过去吗，还是打车比较好？"},"zh":"我能走过去吗？"},{"en":"Is this the right way to...?","ex":{"en":"Is this the right way to the station?","zh":"去车站是这条路吗？"},"zh":"去…是这条路吗？"},{"en":"Please keep the change.","ex":{"en":"Here's twenty dollars. Please keep the change.","zh":"这是二十美元，不用找了。"},"zh":"不用找零了。"}],"sub":"Getting Around","title":"问路与交通"},{"icon":"🍔","id":"food","phrases":[{"en":"A table for two, please.","ex":{"en":"Good evening. A table for two, please.","zh":"晚上好，请给张两人的桌子。"},"zh":"请给我们两个人的桌子。"},{"en":"Can I see the menu?","ex":{"en":"Can I see the menu, please?","zh":"能给我看下菜单吗？"},"zh":"能看一下菜单吗？"},{"en":"What do you recommend?","ex":{"en":"What do you recommend here?","zh":"你们这儿有什么推荐的菜？"},"zh":"你有什么推荐的？"},{"en":"I'll have the same.","ex":{"en":"I'll have the same, please.","zh":"我跟他来一样的。"},"zh":"我来一份和他一样的。"},{"en":"Can I have it to go?","ex":{"en":"Can I have the burger to go?","zh":"这个汉堡可以打包带走吗？"},"zh":"可以打包带走吗？"},{"en":"Just water for me, thanks.","ex":{"en":"Anything to drink? — Just water for me, thanks.","zh":"喝点什么？——我只要水，谢谢。"},"zh":"我只要水，谢谢。"},{"en":"Can we have separate checks?","ex":{"en":"Can we have separate checks, please?","zh":"我们可以各付各的吗？"},"zh":"我们可以分开结账吗？"},{"en":"Could I get the check, please?","ex":{"en":"Excuse me, could I get the check, please?","zh":"打扰一下，麻烦结账。"},"zh":"麻烦结账。"},{"en":"Is the tip included?","ex":{"en":"Is the tip included in the bill?","zh":"小费已经算在账单里了吗？"},"zh":"小费包含在里面了吗？"},{"en":"No onions, please.","ex":{"en":"Can I get the salad with no onions, please?","zh":"沙拉可以不放洋葱吗？"},"zh":"请不要放洋葱。"},{"en":"Medium rare, please.","ex":{"en":"How would you like your steak? — Medium rare, please.","zh":"牛排要几分熟？——三分熟，谢谢。"},"zh":"三分熟，谢谢（牛排熟度）。"},{"en":"Everything was delicious.","ex":{"en":"How was everything? — Everything was delicious, thank you.","zh":"吃得怎么样？——都特别好吃，谢谢。"},"zh":"一切都很好吃。"}],"sub":"At the Restaurant","title":"餐厅与点餐"},{"icon":"🛍️","id":"shop","phrases":[{"en":"How much is this?","ex":{"en":"Excuse me, how much is this jacket?","zh":"打扰一下，这件夹克多少钱？"},"zh":"这个多少钱？"},{"en":"Do you have a smaller size?","ex":{"en":"Do you have this in a smaller size?","zh":"这个有小一号的吗？"},"zh":"有小一号的吗？"},{"en":"Can I try this on?","ex":{"en":"Can I try this on? Where is the fitting room?","zh":"我能试一下吗？试衣间在哪儿？"},"zh":"我能试穿一下吗？"},{"en":"I'm just browsing.","ex":{"en":"Let me know if you need help. — Thanks, I'm just browsing.","zh":"需要帮助随时叫我。——谢谢，我随便看看。"},"zh":"我随便看看。"},{"en":"Is this on sale?","ex":{"en":"Is this on sale or full price?","zh":"这个是折扣价还是原价？"},"zh":"这个在打折吗？"},{"en":"Do you take credit cards?","ex":{"en":"Do you take credit cards, or is it cash only?","zh":"你们收信用卡吗，还是只能现金？"},"zh":"你们收信用卡吗？"},{"en":"Can I get a bag?","ex":{"en":"Can I get a bag for this, please?","zh":"能给我个袋子装一下吗？"},"zh":"能给我一个袋子吗？"},{"en":"I'd like to return this.","ex":{"en":"I'd like to return this shirt. Here's the receipt.","zh":"我想退这件衬衫，这是小票。"},"zh":"我想退这个。"},{"en":"Do you have this in stock?","ex":{"en":"Do you have this phone case in stock?","zh":"这个手机壳有货吗？"},"zh":"这个有货吗？"},{"en":"That's too expensive for me.","ex":{"en":"Two hundred dollars? That's too expensive for me.","zh":"两百美元？对我来说太贵了。"},"zh":"对我来说太贵了。"},{"en":"I'll think about it.","ex":{"en":"Thanks, I'll think about it and come back later.","zh":"谢谢，我考虑一下，晚点再来。"},"zh":"我再考虑一下。"},{"en":"Where can I find milk?","ex":{"en":"Excuse me, where can I find milk?","zh":"打扰一下，牛奶在哪个区？"},"zh":"牛奶在哪儿能找到？"}],"sub":"Shopping","title":"购物"},{"icon":"🧑‍🍳","id":"work","phrases":[{"en":"I'm here for the interview.","ex":{"en":"Hi, I'm here for the interview at ten.","zh":"你好，我是来参加十点面试的。"},"zh":"我是来面试的。"},{"en":"When do I start?","ex":{"en":"Thank you! When do I start?","zh":"谢谢！我什么时候开始？"},"zh":"我什么时候开始上班？"},{"en":"What's my schedule this week?","ex":{"en":"What's my schedule this week?","zh":"我这周都排了哪些班？"},"zh":"我这周的排班是怎样的？"},{"en":"Can I switch shifts with him?","ex":{"en":"Can I switch shifts with Tom on Friday?","zh":"周五我能和汤姆换班吗？"},"zh":"我能和他换班吗？"},{"en":"I'm available on weekends.","ex":{"en":"I'm available on weekends and evenings.","zh":"我周末和晚上都有空。"},"zh":"我周末有空（可以排班）。"},{"en":"Could you show me how to do this?","ex":{"en":"I'm new here. Could you show me how to do this?","zh":"我是新来的，你能教我这个怎么做吗？"},"zh":"你能教我一下这个怎么做吗？"},{"en":"I'll take care of it.","ex":{"en":"Don't worry, I'll take care of it.","zh":"别担心，交给我。"},"zh":"这事交给我来办。"},{"en":"I'm on my break.","ex":{"en":"I'm on my break. I'll be back in ten minutes.","zh":"我在休息，十分钟后回来。"},"zh":"我在休息（工间休息）。"},{"en":"Is there anything else I can do?","ex":{"en":"I'm done with the tables. Is there anything else I can do?","zh":"桌子收拾完了，还有别的要我做的吗？"},"zh":"还有什么我能做的吗？"},{"en":"Sorry, I'm running late.","ex":{"en":"Sorry, I'm running late. The bus was slow today.","zh":"抱歉我要迟到了，今天公交特别慢。"},"zh":"抱歉，我要迟到了。"},{"en":"I'll be right there.","ex":{"en":"We need you at the counter. — I'll be right there.","zh":"柜台需要你。——马上就来。"},"zh":"我马上就到／马上就来。"},{"en":"Let me check with my manager.","ex":{"en":"I'm not sure about that. Let me check with my manager.","zh":"这个我不确定，我问一下经理。"},"zh":"我问一下我的经理。"}],"sub":"At Work","title":"工作场合"},{"icon":"📞","id":"phone","phrases":[{"en":"I'd like to make an appointment.","ex":{"en":"Hello, I'd like to make an appointment for a haircut.","zh":"你好，我想预约理发。"},"zh":"我想预约一下。"},{"en":"Is Friday available?","ex":{"en":"Is Friday morning available?","zh":"周五上午还有空位吗？"},"zh":"周五有空位吗？"},{"en":"I need to reschedule.","ex":{"en":"I need to reschedule my appointment to next Monday.","zh":"我需要把预约改到下周一。"},"zh":"我需要改期。"},{"en":"Can I leave a message?","ex":{"en":"He's not here. Can I leave a message?","zh":"他不在，我能留个口信吗？"},"zh":"我可以留个口信吗？"},{"en":"Please call me back.","ex":{"en":"Please call me back when you're free.","zh":"你方便的时候请给我回电话。"},"zh":"请给我回个电话。"},{"en":"The line is busy.","ex":{"en":"I tried to call you, but the line was busy.","zh":"我打给你了，但一直在占线。"},"zh":"电话占线。"},{"en":"You're breaking up.","ex":{"en":"Sorry, you're breaking up. Can you hear me now?","zh":"抱歉，信号断断续续的，现在能听到吗？"},"zh":"你那边信号断断续续。"},{"en":"Can you hold on a second?","ex":{"en":"Can you hold on a second? Someone is at the door.","zh":"稍等一下，有人敲门。"},"zh":"你能稍等一下吗？"},{"en":"Let me confirm the time.","ex":{"en":"Let me confirm the time: three p.m. tomorrow, right?","zh":"我确认一下：明天下午三点，对吗？"},"zh":"我确认一下时间。"},{"en":"I'll text you the address.","ex":{"en":"I'll text you the address and my phone number.","zh":"我把地址和我的手机号短信发你。"},"zh":"我把地址短信发你。"},{"en":"My phone is about to die.","ex":{"en":"My phone is about to die. I'll call you later.","zh":"我手机快没电了，晚点打给你。"},"zh":"我手机快没电了。"},{"en":"What's the Wi-Fi password?","ex":{"en":"Excuse me, what's the Wi-Fi password here?","zh":"打扰一下，这儿的 Wi-Fi 密码是多少？"},"zh":"Wi-Fi 密码是多少？"}],"sub":"Phone & Appointments","title":"电话与预约"},{"icon":"🆘","id":"help","phrases":[{"en":"I need help.","ex":{"en":"Please, I need help. My friend is hurt.","zh":"求你了，我需要帮助，我朋友受伤了。"},"zh":"我需要帮助。"},{"en":"Call 911, please!","ex":{"en":"Call 911, please! There's been an accident.","zh":"请打 911！出事故了。"},"zh":"请打 911！（美国报警/急救）"},{"en":"I don't feel well.","ex":{"en":"I don't feel well. I think I have a fever.","zh":"我不舒服，我觉得我发烧了。"},"zh":"我感觉不舒服。"},{"en":"I lost my passport.","ex":{"en":"I lost my passport. Where is the police station?","zh":"我护照丢了，警察局在哪儿？"},"zh":"我把护照弄丢了。"},{"en":"I locked myself out.","ex":{"en":"I locked myself out of my room.","zh":"我把自己锁在房间外面了。"},"zh":"我把自己锁在门外了。"},{"en":"It's an emergency.","ex":{"en":"Please hurry, it's an emergency.","zh":"请快点，这是紧急情况。"},"zh":"这是紧急情况。"},{"en":"I need a doctor.","ex":{"en":"I need a doctor. Is there a clinic near here?","zh":"我需要看医生，附近有诊所吗？"},"zh":"我需要看医生。"},{"en":"I'm allergic to peanuts.","ex":{"en":"I'm allergic to peanuts. Does this dish have any?","zh":"我对花生过敏，这道菜里有花生吗？"},"zh":"我对花生过敏。"},{"en":"Watch out!","ex":{"en":"Watch out! The floor is wet.","zh":"小心！地板是湿的。"},"zh":"小心！"},{"en":"Is everyone okay?","ex":{"en":"Is everyone okay after the accident?","zh":"事故之后大家都没事吧？"},"zh":"大家都没事吧？"},{"en":"Can you call my manager?","ex":{"en":"I'm sick today. Can you call my manager for me?","zh":"我今天生病了，能帮我给经理打个电话吗？"},"zh":"你能帮我给我经理打个电话吗？"},{"en":"Where is the nearest hospital?","ex":{"en":"Where is the nearest hospital? We need to go now.","zh":"最近的医院在哪儿？我们得马上过去。"},"zh":"最近的医院在哪里？"}],"sub":"Help & Emergencies","title":"求助与紧急情况"}]
+[
+ {
+  "icon": "handwave",
+  "id": "greet",
+  "phrases": [
+   {
+    "en": "How's it going?",
+    "ex": {
+     "en": "Hey Mike, how's it going?",
+     "zh": "嘿迈克，最近怎么样？"
+    },
+    "zh": "最近怎么样？（熟人打招呼）"
+   },
+   {
+    "en": "Long time no see.",
+    "ex": {
+     "en": "Long time no see! How have you been?",
+     "zh": "好久不见！你最近怎么样？"
+    },
+    "zh": "好久不见。"
+   },
+   {
+    "en": "Nice to meet you.",
+    "ex": {
+     "en": "I'm Alex. Nice to meet you.",
+     "zh": "我是 Alex，很高兴认识你。"
+    },
+    "zh": "很高兴认识你。"
+   },
+   {
+    "en": "Where are you from?",
+    "ex": {
+     "en": "Where are you from? I'm from China.",
+     "zh": "你来自哪里？我来自中国。"
+    },
+    "zh": "你来自哪里？"
+   },
+   {
+    "en": "What do you do?",
+    "ex": {
+     "en": "What do you do? — I'm a student.",
+     "zh": "你是做什么的？——我是个学生。"
+    },
+    "zh": "你是做什么工作的？"
+   },
+   {
+    "en": "Sounds good.",
+    "ex": {
+     "en": "Let's meet at five. — Sounds good.",
+     "zh": "五点见吧。——可以。"
+    },
+    "zh": "听起来不错／可以。"
+   },
+   {
+    "en": "No worries.",
+    "ex": {
+     "en": "Sorry I'm late. — No worries.",
+     "zh": "抱歉我迟到了。——没关系。"
+    },
+    "zh": "没关系／别担心。"
+   },
+   {
+    "en": "Take care.",
+    "ex": {
+     "en": "See you next week. Take care!",
+     "zh": "下周见，保重！"
+    },
+    "zh": "保重（告别时说）。"
+   },
+   {
+    "en": "Have a good one.",
+    "ex": {
+     "en": "Thanks, bye! — Have a good one.",
+     "zh": "谢谢，拜！——祝你愉快。"
+    },
+    "zh": "祝你一天愉快（美式告别）。"
+   },
+   {
+    "en": "I'm just looking around.",
+    "ex": {
+     "en": "Can I help you? — I'm just looking around, thanks.",
+     "zh": "需要帮忙吗？——我随便看看，谢谢。"
+    },
+    "zh": "我随便看看（逛街时）。"
+   },
+   {
+    "en": "That makes sense.",
+    "ex": {
+     "en": "Oh, that makes sense now.",
+     "zh": "哦，这样就说得通了。"
+    },
+    "zh": "有道理／说得通。"
+   },
+   {
+    "en": "By the way...",
+    "ex": {
+     "en": "By the way, are you free this weekend?",
+     "zh": "顺便问一下，你这周末有空吗？"
+    },
+    "zh": "顺便说一下……"
+   }
+  ],
+  "sub": "Greetings & Small Talk",
+  "title": "打招呼与寒暄"
+ },
+ {
+  "icon": "heart",
+  "id": "polite",
+  "phrases": [
+   {
+    "en": "Excuse me.",
+    "ex": {
+     "en": "Excuse me, is this seat taken?",
+     "zh": "打扰一下，这个座位有人吗？"
+    },
+    "zh": "打扰一下／借过。"
+   },
+   {
+    "en": "Could you say that again?",
+    "ex": {
+     "en": "Sorry, could you say that again, please?",
+     "zh": "抱歉，您能再说一遍吗？"
+    },
+    "zh": "您能再说一遍吗？"
+   },
+   {
+    "en": "Could you speak more slowly?",
+    "ex": {
+     "en": "My English is not very good. Could you speak more slowly?",
+     "zh": "我英语不太好，您能说慢点吗？"
+    },
+    "zh": "您能说慢一点吗？"
+   },
+   {
+    "en": "What does this mean?",
+    "ex": {
+     "en": "What does this word mean?",
+     "zh": "这个词是什么意思？"
+    },
+    "zh": "这是什么意思？"
+   },
+   {
+    "en": "How do you say this in English?",
+    "ex": {
+     "en": "How do you say '筷子' in English?",
+     "zh": "'筷子'用英语怎么说？"
+    },
+    "zh": "这个用英语怎么说？"
+   },
+   {
+    "en": "Thank you anyway.",
+    "ex": {
+     "en": "I can't help you with that. — Thank you anyway.",
+     "zh": "这我帮不了你。——还是谢谢你。"
+    },
+    "zh": "还是谢谢你。"
+   },
+   {
+    "en": "You're welcome.",
+    "ex": {
+     "en": "Thanks a lot! — You're welcome.",
+     "zh": "太谢谢了！——不客气。"
+    },
+    "zh": "不客气。"
+   },
+   {
+    "en": "No problem at all.",
+    "ex": {
+     "en": "Can you help me carry this? — No problem at all.",
+     "zh": "能帮我搬一下吗？——没问题。"
+    },
+    "zh": "一点问题都没有（很乐意）。"
+   },
+   {
+    "en": "I appreciate it.",
+    "ex": {
+     "en": "Thanks for your help. I really appreciate it.",
+     "zh": "谢谢你的帮助，我真的很感激。"
+    },
+    "zh": "我很感谢（比 thank you 更真诚）。"
+   },
+   {
+    "en": "Sorry for the trouble.",
+    "ex": {
+     "en": "Sorry for the trouble. — Don't worry about it.",
+     "zh": "不好意思添麻烦了。——别放在心上。"
+    },
+    "zh": "不好意思，给你添麻烦了。"
+   },
+   {
+    "en": "After you.",
+    "ex": {
+     "en": "Please, after you.",
+     "zh": "请，您先走。"
+    },
+    "zh": "您先请（让路/让门）。"
+   },
+   {
+    "en": "Help yourself.",
+    "ex": {
+     "en": "There are drinks in the fridge. Help yourself.",
+     "zh": "冰箱里有饮料，随便拿。"
+    },
+    "zh": "请自便／随便吃、随便拿。"
+   }
+  ],
+  "sub": "Being Polite",
+  "title": "礼貌用语"
+ },
+ {
+  "icon": "location",
+  "id": "around",
+  "phrases": [
+   {
+    "en": "How do I get to the airport?",
+    "ex": {
+     "en": "Excuse me, how do I get to the airport from here?",
+     "zh": "打扰一下，从这儿去机场怎么走？"
+    },
+    "zh": "去机场怎么走？"
+   },
+   {
+    "en": "Is it within walking distance?",
+    "ex": {
+     "en": "Is the hotel within walking distance?",
+     "zh": "酒店走路能到吗？"
+    },
+    "zh": "走路能到吗？"
+   },
+   {
+    "en": "Which bus goes downtown?",
+    "ex": {
+     "en": "Which bus goes downtown, please?",
+     "zh": "请问哪路公交去市中心？"
+    },
+    "zh": "哪路公交去市中心？"
+   },
+   {
+    "en": "Where is the nearest subway station?",
+    "ex": {
+     "en": "Where is the nearest subway station?",
+     "zh": "最近的地铁站在哪儿？"
+    },
+    "zh": "最近的地铁站在哪？"
+   },
+   {
+    "en": "Please drop me off here.",
+    "ex": {
+     "en": "You can drop me off here, thanks.",
+     "zh": "在这儿让我下就行，谢谢。"
+    },
+    "zh": "请让我在这里下车。"
+   },
+   {
+    "en": "How long does it take?",
+    "ex": {
+     "en": "How long does it take to get there by bus?",
+     "zh": "坐公交去那儿要多久？"
+    },
+    "zh": "要花多长时间？"
+   },
+   {
+    "en": "I'm lost.",
+    "ex": {
+     "en": "Excuse me, I'm lost. Can you help me?",
+     "zh": "打扰一下，我迷路了，能帮帮我吗？"
+    },
+    "zh": "我迷路了。"
+   },
+   {
+    "en": "Go straight and turn left.",
+    "ex": {
+     "en": "Go straight for two blocks and turn left.",
+     "zh": "直走两个街区然后左转。"
+    },
+    "zh": "一直走然后左转。"
+   },
+   {
+    "en": "It's on your right.",
+    "ex": {
+     "en": "The bank is on your right, next to the park.",
+     "zh": "银行在你右手边，公园旁边。"
+    },
+    "zh": "它在你右手边。"
+   },
+   {
+    "en": "Can I walk there?",
+    "ex": {
+     "en": "Can I walk there, or should I take a taxi?",
+     "zh": "我能走过去吗，还是打车比较好？"
+    },
+    "zh": "我能走过去吗？"
+   },
+   {
+    "en": "Is this the right way to...?",
+    "ex": {
+     "en": "Is this the right way to the station?",
+     "zh": "去车站是这条路吗？"
+    },
+    "zh": "去…是这条路吗？"
+   },
+   {
+    "en": "Please keep the change.",
+    "ex": {
+     "en": "Here's twenty dollars. Please keep the change.",
+     "zh": "这是二十美元，不用找了。"
+    },
+    "zh": "不用找零了。"
+   }
+  ],
+  "sub": "Getting Around",
+  "title": "问路与交通"
+ },
+ {
+  "icon": "forkknife",
+  "id": "food",
+  "phrases": [
+   {
+    "en": "A table for two, please.",
+    "ex": {
+     "en": "Good evening. A table for two, please.",
+     "zh": "晚上好，请给张两人的桌子。"
+    },
+    "zh": "请给我们两个人的桌子。"
+   },
+   {
+    "en": "Can I see the menu?",
+    "ex": {
+     "en": "Can I see the menu, please?",
+     "zh": "能给我看下菜单吗？"
+    },
+    "zh": "能看一下菜单吗？"
+   },
+   {
+    "en": "What do you recommend?",
+    "ex": {
+     "en": "What do you recommend here?",
+     "zh": "你们这儿有什么推荐的菜？"
+    },
+    "zh": "你有什么推荐的？"
+   },
+   {
+    "en": "I'll have the same.",
+    "ex": {
+     "en": "I'll have the same, please.",
+     "zh": "我跟他来一样的。"
+    },
+    "zh": "我来一份和他一样的。"
+   },
+   {
+    "en": "Can I have it to go?",
+    "ex": {
+     "en": "Can I have the burger to go?",
+     "zh": "这个汉堡可以打包带走吗？"
+    },
+    "zh": "可以打包带走吗？"
+   },
+   {
+    "en": "Just water for me, thanks.",
+    "ex": {
+     "en": "Anything to drink? — Just water for me, thanks.",
+     "zh": "喝点什么？——我只要水，谢谢。"
+    },
+    "zh": "我只要水，谢谢。"
+   },
+   {
+    "en": "Can we have separate checks?",
+    "ex": {
+     "en": "Can we have separate checks, please?",
+     "zh": "我们可以各付各的吗？"
+    },
+    "zh": "我们可以分开结账吗？"
+   },
+   {
+    "en": "Could I get the check, please?",
+    "ex": {
+     "en": "Excuse me, could I get the check, please?",
+     "zh": "打扰一下，麻烦结账。"
+    },
+    "zh": "麻烦结账。"
+   },
+   {
+    "en": "Is the tip included?",
+    "ex": {
+     "en": "Is the tip included in the bill?",
+     "zh": "小费已经算在账单里了吗？"
+    },
+    "zh": "小费包含在里面了吗？"
+   },
+   {
+    "en": "No onions, please.",
+    "ex": {
+     "en": "Can I get the salad with no onions, please?",
+     "zh": "沙拉可以不放洋葱吗？"
+    },
+    "zh": "请不要放洋葱。"
+   },
+   {
+    "en": "Medium rare, please.",
+    "ex": {
+     "en": "How would you like your steak? — Medium rare, please.",
+     "zh": "牛排要几分熟？——三分熟，谢谢。"
+    },
+    "zh": "三分熟，谢谢（牛排熟度）。"
+   },
+   {
+    "en": "Everything was delicious.",
+    "ex": {
+     "en": "How was everything? — Everything was delicious, thank you.",
+     "zh": "吃得怎么样？——都特别好吃，谢谢。"
+    },
+    "zh": "一切都很好吃。"
+   }
+  ],
+  "sub": "At the Restaurant",
+  "title": "餐厅与点餐"
+ },
+ {
+  "icon": "bag",
+  "id": "shop",
+  "phrases": [
+   {
+    "en": "How much is this?",
+    "ex": {
+     "en": "Excuse me, how much is this jacket?",
+     "zh": "打扰一下，这件夹克多少钱？"
+    },
+    "zh": "这个多少钱？"
+   },
+   {
+    "en": "Do you have a smaller size?",
+    "ex": {
+     "en": "Do you have this in a smaller size?",
+     "zh": "这个有小一号的吗？"
+    },
+    "zh": "有小一号的吗？"
+   },
+   {
+    "en": "Can I try this on?",
+    "ex": {
+     "en": "Can I try this on? Where is the fitting room?",
+     "zh": "我能试一下吗？试衣间在哪儿？"
+    },
+    "zh": "我能试穿一下吗？"
+   },
+   {
+    "en": "I'm just browsing.",
+    "ex": {
+     "en": "Let me know if you need help. — Thanks, I'm just browsing.",
+     "zh": "需要帮助随时叫我。——谢谢，我随便看看。"
+    },
+    "zh": "我随便看看。"
+   },
+   {
+    "en": "Is this on sale?",
+    "ex": {
+     "en": "Is this on sale or full price?",
+     "zh": "这个是折扣价还是原价？"
+    },
+    "zh": "这个在打折吗？"
+   },
+   {
+    "en": "Do you take credit cards?",
+    "ex": {
+     "en": "Do you take credit cards, or is it cash only?",
+     "zh": "你们收信用卡吗，还是只能现金？"
+    },
+    "zh": "你们收信用卡吗？"
+   },
+   {
+    "en": "Can I get a bag?",
+    "ex": {
+     "en": "Can I get a bag for this, please?",
+     "zh": "能给我个袋子装一下吗？"
+    },
+    "zh": "能给我一个袋子吗？"
+   },
+   {
+    "en": "I'd like to return this.",
+    "ex": {
+     "en": "I'd like to return this shirt. Here's the receipt.",
+     "zh": "我想退这件衬衫，这是小票。"
+    },
+    "zh": "我想退这个。"
+   },
+   {
+    "en": "Do you have this in stock?",
+    "ex": {
+     "en": "Do you have this phone case in stock?",
+     "zh": "这个手机壳有货吗？"
+    },
+    "zh": "这个有货吗？"
+   },
+   {
+    "en": "That's too expensive for me.",
+    "ex": {
+     "en": "Two hundred dollars? That's too expensive for me.",
+     "zh": "两百美元？对我来说太贵了。"
+    },
+    "zh": "对我来说太贵了。"
+   },
+   {
+    "en": "I'll think about it.",
+    "ex": {
+     "en": "Thanks, I'll think about it and come back later.",
+     "zh": "谢谢，我考虑一下，晚点再来。"
+    },
+    "zh": "我再考虑一下。"
+   },
+   {
+    "en": "Where can I find milk?",
+    "ex": {
+     "en": "Excuse me, where can I find milk?",
+     "zh": "打扰一下，牛奶在哪个区？"
+    },
+    "zh": "牛奶在哪儿能找到？"
+   }
+  ],
+  "sub": "Shopping",
+  "title": "购物"
+ },
+ {
+  "icon": "briefcase",
+  "id": "work",
+  "phrases": [
+   {
+    "en": "I'm here for the interview.",
+    "ex": {
+     "en": "Hi, I'm here for the interview at ten.",
+     "zh": "你好，我是来参加十点面试的。"
+    },
+    "zh": "我是来面试的。"
+   },
+   {
+    "en": "When do I start?",
+    "ex": {
+     "en": "Thank you! When do I start?",
+     "zh": "谢谢！我什么时候开始？"
+    },
+    "zh": "我什么时候开始上班？"
+   },
+   {
+    "en": "What's my schedule this week?",
+    "ex": {
+     "en": "What's my schedule this week?",
+     "zh": "我这周都排了哪些班？"
+    },
+    "zh": "我这周的排班是怎样的？"
+   },
+   {
+    "en": "Can I switch shifts with him?",
+    "ex": {
+     "en": "Can I switch shifts with Tom on Friday?",
+     "zh": "周五我能和汤姆换班吗？"
+    },
+    "zh": "我能和他换班吗？"
+   },
+   {
+    "en": "I'm available on weekends.",
+    "ex": {
+     "en": "I'm available on weekends and evenings.",
+     "zh": "我周末和晚上都有空。"
+    },
+    "zh": "我周末有空（可以排班）。"
+   },
+   {
+    "en": "Could you show me how to do this?",
+    "ex": {
+     "en": "I'm new here. Could you show me how to do this?",
+     "zh": "我是新来的，你能教我这个怎么做吗？"
+    },
+    "zh": "你能教我一下这个怎么做吗？"
+   },
+   {
+    "en": "I'll take care of it.",
+    "ex": {
+     "en": "Don't worry, I'll take care of it.",
+     "zh": "别担心，交给我。"
+    },
+    "zh": "这事交给我来办。"
+   },
+   {
+    "en": "I'm on my break.",
+    "ex": {
+     "en": "I'm on my break. I'll be back in ten minutes.",
+     "zh": "我在休息，十分钟后回来。"
+    },
+    "zh": "我在休息（工间休息）。"
+   },
+   {
+    "en": "Is there anything else I can do?",
+    "ex": {
+     "en": "I'm done with the tables. Is there anything else I can do?",
+     "zh": "桌子收拾完了，还有别的要我做的吗？"
+    },
+    "zh": "还有什么我能做的吗？"
+   },
+   {
+    "en": "Sorry, I'm running late.",
+    "ex": {
+     "en": "Sorry, I'm running late. The bus was slow today.",
+     "zh": "抱歉我要迟到了，今天公交特别慢。"
+    },
+    "zh": "抱歉，我要迟到了。"
+   },
+   {
+    "en": "I'll be right there.",
+    "ex": {
+     "en": "We need you at the counter. — I'll be right there.",
+     "zh": "柜台需要你。——马上就来。"
+    },
+    "zh": "我马上就到／马上就来。"
+   },
+   {
+    "en": "Let me check with my manager.",
+    "ex": {
+     "en": "I'm not sure about that. Let me check with my manager.",
+     "zh": "这个我不确定，我问一下经理。"
+    },
+    "zh": "我问一下我的经理。"
+   }
+  ],
+  "sub": "At Work",
+  "title": "工作场合"
+ },
+ {
+  "icon": "phone",
+  "id": "phone",
+  "phrases": [
+   {
+    "en": "I'd like to make an appointment.",
+    "ex": {
+     "en": "Hello, I'd like to make an appointment for a haircut.",
+     "zh": "你好，我想预约理发。"
+    },
+    "zh": "我想预约一下。"
+   },
+   {
+    "en": "Is Friday available?",
+    "ex": {
+     "en": "Is Friday morning available?",
+     "zh": "周五上午还有空位吗？"
+    },
+    "zh": "周五有空位吗？"
+   },
+   {
+    "en": "I need to reschedule.",
+    "ex": {
+     "en": "I need to reschedule my appointment to next Monday.",
+     "zh": "我需要把预约改到下周一。"
+    },
+    "zh": "我需要改期。"
+   },
+   {
+    "en": "Can I leave a message?",
+    "ex": {
+     "en": "He's not here. Can I leave a message?",
+     "zh": "他不在，我能留个口信吗？"
+    },
+    "zh": "我可以留个口信吗？"
+   },
+   {
+    "en": "Please call me back.",
+    "ex": {
+     "en": "Please call me back when you're free.",
+     "zh": "你方便的时候请给我回电话。"
+    },
+    "zh": "请给我回个电话。"
+   },
+   {
+    "en": "The line is busy.",
+    "ex": {
+     "en": "I tried to call you, but the line was busy.",
+     "zh": "我打给你了，但一直在占线。"
+    },
+    "zh": "电话占线。"
+   },
+   {
+    "en": "You're breaking up.",
+    "ex": {
+     "en": "Sorry, you're breaking up. Can you hear me now?",
+     "zh": "抱歉，信号断断续续的，现在能听到吗？"
+    },
+    "zh": "你那边信号断断续续。"
+   },
+   {
+    "en": "Can you hold on a second?",
+    "ex": {
+     "en": "Can you hold on a second? Someone is at the door.",
+     "zh": "稍等一下，有人敲门。"
+    },
+    "zh": "你能稍等一下吗？"
+   },
+   {
+    "en": "Let me confirm the time.",
+    "ex": {
+     "en": "Let me confirm the time: three p.m. tomorrow, right?",
+     "zh": "我确认一下：明天下午三点，对吗？"
+    },
+    "zh": "我确认一下时间。"
+   },
+   {
+    "en": "I'll text you the address.",
+    "ex": {
+     "en": "I'll text you the address and my phone number.",
+     "zh": "我把地址和我的手机号短信发你。"
+    },
+    "zh": "我把地址短信发你。"
+   },
+   {
+    "en": "My phone is about to die.",
+    "ex": {
+     "en": "My phone is about to die. I'll call you later.",
+     "zh": "我手机快没电了，晚点打给你。"
+    },
+    "zh": "我手机快没电了。"
+   },
+   {
+    "en": "What's the Wi-Fi password?",
+    "ex": {
+     "en": "Excuse me, what's the Wi-Fi password here?",
+     "zh": "打扰一下，这儿的 Wi-Fi 密码是多少？"
+    },
+    "zh": "Wi-Fi 密码是多少？"
+   }
+  ],
+  "sub": "Phone & Appointments",
+  "title": "电话与预约"
+ },
+ {
+  "icon": "emergency",
+  "id": "help",
+  "phrases": [
+   {
+    "en": "I need help.",
+    "ex": {
+     "en": "Please, I need help. My friend is hurt.",
+     "zh": "求你了，我需要帮助，我朋友受伤了。"
+    },
+    "zh": "我需要帮助。"
+   },
+   {
+    "en": "Call 911, please!",
+    "ex": {
+     "en": "Call 911, please! There's been an accident.",
+     "zh": "请打 911！出事故了。"
+    },
+    "zh": "请打 911！（美国报警/急救）"
+   },
+   {
+    "en": "I don't feel well.",
+    "ex": {
+     "en": "I don't feel well. I think I have a fever.",
+     "zh": "我不舒服，我觉得我发烧了。"
+    },
+    "zh": "我感觉不舒服。"
+   },
+   {
+    "en": "I lost my passport.",
+    "ex": {
+     "en": "I lost my passport. Where is the police station?",
+     "zh": "我护照丢了，警察局在哪儿？"
+    },
+    "zh": "我把护照弄丢了。"
+   },
+   {
+    "en": "I locked myself out.",
+    "ex": {
+     "en": "I locked myself out of my room.",
+     "zh": "我把自己锁在房间外面了。"
+    },
+    "zh": "我把自己锁在门外了。"
+   },
+   {
+    "en": "It's an emergency.",
+    "ex": {
+     "en": "Please hurry, it's an emergency.",
+     "zh": "请快点，这是紧急情况。"
+    },
+    "zh": "这是紧急情况。"
+   },
+   {
+    "en": "I need a doctor.",
+    "ex": {
+     "en": "I need a doctor. Is there a clinic near here?",
+     "zh": "我需要看医生，附近有诊所吗？"
+    },
+    "zh": "我需要看医生。"
+   },
+   {
+    "en": "I'm allergic to peanuts.",
+    "ex": {
+     "en": "I'm allergic to peanuts. Does this dish have any?",
+     "zh": "我对花生过敏，这道菜里有花生吗？"
+    },
+    "zh": "我对花生过敏。"
+   },
+   {
+    "en": "Watch out!",
+    "ex": {
+     "en": "Watch out! The floor is wet.",
+     "zh": "小心！地板是湿的。"
+    },
+    "zh": "小心！"
+   },
+   {
+    "en": "Is everyone okay?",
+    "ex": {
+     "en": "Is everyone okay after the accident?",
+     "zh": "事故之后大家都没事吧？"
+    },
+    "zh": "大家都没事吧？"
+   },
+   {
+    "en": "Can you call my manager?",
+    "ex": {
+     "en": "I'm sick today. Can you call my manager for me?",
+     "zh": "我今天生病了，能帮我给经理打个电话吗？"
+    },
+    "zh": "你能帮我给我经理打个电话吗？"
+   },
+   {
+    "en": "Where is the nearest hospital?",
+    "ex": {
+     "en": "Where is the nearest hospital? We need to go now.",
+     "zh": "最近的医院在哪儿？我们得马上过去。"
+    },
+    "zh": "最近的医院在哪里？"
+   }
+  ],
+  "sub": "Help & Emergencies",
+  "title": "求助与紧急情况"
+ }
+]
