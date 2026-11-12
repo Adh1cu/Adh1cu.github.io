@@ -1,0 +1,201 @@
+# Butterfly theme config override for Adh1cu 的博客
+# Only the options we deliberately set live here; everything else falls back
+# to the theme's own defaults. Never edit node_modules/hexo-theme-butterfly.
+
+# --------------------------------------
+# Avatar & banner images
+# --------------------------------------
+avatar:
+  img: /img/avatar.jpg
+  effect: false
+
+# Banner image for all pages that don't set their own
+default_top_img: /img/sea-bg.jpg
+# Homepage banner
+index_img: /img/sea-bg.jpg
+# Homepage header height: 500px on desktop (bigger than the old 300px);
+# on mobile the header fills the screen — see the media query at the
+# end of source/css/custom.css (100vh minus the 52px music bar).
+index_top_img_height: 500px
+
+# --------------------------------------
+# Menu
+# --------------------------------------
+menu:
+  首页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
+  标签: /tags/ || fas fa-tags
+  分类 || fas fa-folder-open:
+    政治经济: /categories/政治经济/ || fas fa-inbox
+    科技分享: /categories/科技分享/ || fas fa-inbox
+    碎碎念: /categories/碎碎念/ || fas fa-inbox
+
+# --------------------------------------
+# Code blocks
+# --------------------------------------
+code_blocks:
+  theme: darker
+  macStyle: true
+  height_limit: false
+  word_wrap: false
+  copy: true
+  language: true
+  shrink: false
+  fullpage: false
+
+# --------------------------------------
+# Social links
+# --------------------------------------
+social:
+  fab fa-github: https://github.com/Adh1cu || Github || '#24292e'
+
+# --------------------------------------
+# Theme colour — deep teal / dark blue accent
+# (values must be double-quoted)
+# --------------------------------------
+theme_color:
+  enable: true
+  main: "#0e7490"
+  paginator: "#14b8a6"
+  button_hover: "#FF7242"
+  text_selection: "#14b8a6"
+  link_color: "#0e7490"
+  meta_color: "#858585"
+  hr_color: "#67e8f9"
+  code_foreground: "#F47466"
+  code_background: "rgba(27, 31, 35, .05)"
+  toc_color: "#14b8a6"
+  blockquote_padding_color: "#0e7490"
+  blockquote_background_color: "#0e7490"
+  scrollbar_color: "#0e7490"
+
+# Rounded corners for UI elements
+rounded_corners_ui: true
+
+# --------------------------------------
+# Homepage subtitle — the bio, shown statically under the title in
+# the banner. (effect: false = no typewriter, first line of `sub` only;
+# `true` would start the Typed.js typewriter instead.)
+# --------------------------------------
+subtitle:
+  enable: true
+  effect: false
+  source: false
+  sub: 自由派，教育改革者，阅历复杂，各种东西都略懂一二
+
+# Homepage layout: 3 = cover and info alternate left/right
+index_layout: 3
+
+# Category / tag pages use the same large-card list as the homepage
+# (theme built-in: index = homepage UI, empty = archives timeline UI)
+category_ui: index
+tag_ui: index
+
+# --------------------------------------
+# Dark mode
+# --------------------------------------
+darkmode:
+  enable: true
+  button: true
+  # 1 = follow system setting
+  autoChangeMode: 1
+
+# --------------------------------------
+# Search — local search (hexo-generator-search builds search.xml)
+# --------------------------------------
+search:
+  use: local_search
+  placeholder: 搜索文章
+  local_search:
+    preload: false
+    top_n_per_article: 1
+    unescape: false
+
+# --------------------------------------
+# Word count & reading time
+# --------------------------------------
+wordcount:
+  enable: true
+  post_wordcount: true
+  min2read: true
+  total_wordcount: true
+
+# --------------------------------------
+# Footer
+# --------------------------------------
+footer:
+  owner:
+    enable: true
+    since: 2026
+  copyright:
+    enable: true
+    version: true
+  custom_text:
+
+# --------------------------------------
+# Aside (sidebar)
+# --------------------------------------
+aside:
+  enable: true
+  button: true
+  mobile: true
+  position: right
+  card_author:
+    enable: true
+    description: 偶尔分享搞机科技，生活琐事
+    button:
+      enable: true
+      icon: fab fa-github
+      text: Follow Me
+      link: https://github.com/Adh1cu
+  card_announcement:
+    enable: true
+    content: |
+      <div style="font-size:14px;line-height:1.7">如果这里的内容对你有帮助，欢迎打赏支持 ☕</div>
+      <div style="margin-top:8px;font-size:12px;opacity:.65">Aptos 网络</div>
+      <code style="display:block;word-break:break-all;font-size:12px;background:rgba(127,127,127,.12);padding:8px;border-radius:8px;margin-top:4px">0xf7f328515e2045c469c7fadb256be4976c80e61cdd2f5e0b5a650ffbccfd5486</code>
+      <button onclick="navigator.clipboard.writeText('0xf7f328515e2045c469c7fadb256be4976c80e61cdd2f5e0b5a650ffbccfd5486').then(()=>{this.textContent='已复制 ✓';setTimeout(()=>this.textContent='复制地址',2000)})" style="margin-top:8px;padding:6px 14px;border:none;border-radius:20px;background:#0e7490;color:#fff;cursor:pointer;font-size:13px">复制地址</button>
+  card_recent_post:
+    enable: true
+    limit: 5
+
+# --------------------------------------
+# Image lazyload
+# --------------------------------------
+lazyload:
+  enable: true
+
+# --------------------------------------
+# Comments — not configured yet (pick Twikoo / Giscus later)
+# --------------------------------------
+comments:
+  use:
+  text: true
+  lazyload: false
+  count: false
+  card_post_count: false
+
+# --------------------------------------
+# Custom CSS injection (source/css/custom.css)
+# --------------------------------------
+inject:
+  head:
+    - <link rel="stylesheet" href="/css/custom.css">
+    - <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    - <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  bottom:
+    - <script src="/js/click-effect.js"></script>
+    - <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    - <div id="music-topbar"><div id="music-player-wrap"></div><button id="music-close" title="收起播放器">×</button><button id="music-show" title="打开播放器">🎵</button></div>
+    - <script src="/js/music.js"></script>
+    - <script src="/js/home.js"></script>
+    - <script src="/js/card-click.js"></script>
+    - <script src="/js/related-order.js"></script>
+    - <script src="/js/lang-toggle.js"></script>
+
+# --------------------------------------
+# PJAX: page navigation without full reload, so the music bar keeps
+# playing when moving between the homepage and articles.
+# --------------------------------------
+pjax:
+  enable: true

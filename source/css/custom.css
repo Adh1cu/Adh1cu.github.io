@@ -1,0 +1,405 @@
+/* Custom tweaks for Adhcu1 的博客 — loaded via Butterfly inject.head.
+   Theme source is untouched; all overrides live here. */
+
+:root {
+  --adhcu1-accent: #0e7490;
+  --adhcu1-accent-light: #14b8a6;
+}
+
+/* Article cards: gentle lift on hover */
+#recent-posts > .recent-post-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+#recent-posts > .recent-post-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(14, 116, 144, 0.16);
+}
+
+/* Post content links use the accent colour */
+#article-container a:not(.headerlink):hover {
+  color: var(--adhcu1-accent-light);
+}
+
+/* Sidebar author card avatar: soft ring in accent colour */
+#aside-content .card-info .author-info__avatar img {
+  border: 2px solid var(--adhcu1-accent);
+}
+
+/* Tag cloud chips: rounder, accent on hover */
+#aside-content .card-tag-cloud a:hover {
+  background: var(--adhcu1-accent);
+  color: #fff !important;
+}
+
+/* Selection colour matches the accent */
+::selection {
+  background: var(--adhcu1-accent-light);
+  color: #fff;
+}
+
+/* Click effect: socialist core values words float up and fade out */
+.click-effect-word {
+  position: fixed;
+  z-index: 9999;
+  font-size: 18px;
+  font-weight: bold;
+  pointer-events: none;
+  user-select: none;
+  animation: click-float-up 1.5s ease-out forwards;
+}
+@keyframes click-float-up {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -80px);
+  }
+}
+
+/* Music player: slim bar pinned to the very top of the screen.
+   It owns a 52px strip: the page is pushed down by the same amount and
+   the fixed nav slides in below it, so the bar never covers site UI. */
+body {
+  padding-top: 52px;
+}
+/* Butterfly's nav slides in fixed at top:0 when scrolling up; move it
+   below the music strip in both of its visible states. */
+#page-header.nav-fixed.fixed #nav {
+  top: 52px;
+}
+#page-header.nav-visible:not(.fixed) #nav {
+  transform: translate3d(0, 112px, 0);
+}
+#music-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+  backdrop-filter: blur(12px) saturate(1.5);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
+}
+/* Mobile sidebar menu (hamburger, top right) must cover the music bar
+   when open: theme gives the mask 102 / panel 103, below the bar's 1000.
+   The mask also needs an explicit top: it has no top set, so it falls to
+   its static position — which the body's 52px top padding pushed down
+   to y=52, leaving the bar's top-left corner uncovered. */
+#sidebar #menu-mask {
+  top: 0;
+  left: 0;
+  z-index: 1001;
+}
+#sidebar #sidebar-menus {
+  z-index: 1002;
+}
+#music-player-wrap {
+  flex: 1;
+  min-width: 0;
+  height: 52px;
+}
+#music-topbar .aplayer {
+  width: 100%;
+  height: 52px;
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+}
+#music-topbar .aplayer-body {
+  height: 52px;
+}
+#music-topbar .aplayer-pic {
+  width: 40px !important;
+  height: 40px !important;
+  margin: 6px 0 6px 12px;
+  border-radius: 8px;
+}
+#music-topbar .aplayer-info {
+  margin-left: 58px;
+  height: 52px;
+  padding: 6px 10px 0 0;
+}
+#music-topbar .aplayer-music {
+  height: 18px;
+  margin: 0 0 6px 5px;
+}
+#music-topbar .aplayer-lrc {
+  display: none !important;
+}
+/* Playlist drops down below the bar on demand (list icon in the bar) */
+#music-topbar .aplayer-list {
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+#music-close {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  margin: 0 10px 0 4px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08);
+  color: #555;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+#music-show {
+  display: none;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  margin-right: 12px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 22px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+/* Closed: only the 🎵 pill stays in the reserved strip; the page never jumps */
+#music-topbar.closed {
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+#music-topbar.closed #music-player-wrap,
+#music-topbar.closed #music-close {
+  display: none;
+}
+#music-topbar.closed #music-show {
+  display: flex;
+}
+@media (max-width: 768px) {
+  /* Narrow screens: same top bar, slimmer controls */
+  #music-topbar .aplayer-volume-wrap,
+  #music-topbar .aplayer-icon-loop,
+  #music-topbar .aplayer-time {
+    display: none;
+  }
+}
+[data-theme='dark'] #music-topbar {
+  background: rgba(24, 24, 24, 0.85);
+}
+[data-theme='dark'] #music-topbar .aplayer-title {
+  color: #eee;
+}
+[data-theme='dark'] #music-topbar .aplayer-author {
+  color: #aaa;
+}
+[data-theme='dark'] #music-topbar .aplayer-time {
+  color: #aaa;
+}
+[data-theme='dark'] #music-topbar .aplayer-list {
+  background: rgba(24, 24, 24, 0.97);
+}
+[data-theme='dark'] #music-topbar .aplayer-list li {
+  color: #ddd;
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme='dark'] #music-close {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ddd;
+}
+[data-theme='dark'] #music-show {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ---------- Homepage: category cards at the bottom ---------- */
+/* home.js builds #home-sections after #recent-posts (below the
+   chronological article list). The old hero carousel is gone
+   (removed 2026-11-08); the article list is the theme's own. */
+
+#home-sections .home-section {
+  margin-bottom: 28px;
+}
+
+#home-sections .home-section-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 6px 0 14px;
+  padding-left: 10px;
+  border-left: 4px solid #0e7490;
+}
+
+/* Category cards: flat row on desktop (auto-fit, so a 4th category later
+   just joins the row); on mobile 2 on top, the last one centred below. */
+#home-sections .cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+#home-sections .cat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px 12px 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#home-sections .cat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+#home-sections .cat-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+#home-sections .cat-card h3 {
+  font-size: 1.05rem;
+  margin: 0 0 4px;
+}
+
+#home-sections .cat-desc {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #666;
+  margin: 0 0 8px;
+}
+
+#home-sections .cat-count {
+  font-size: 0.8rem;
+  color: #0e7490;
+  background: rgba(14, 116, 144, 0.1);
+  border-radius: 999px;
+  padding: 2px 12px;
+}
+
+@media screen and (max-width: 768px) {
+  #home-sections .cat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Odd one out (e.g. the 3rd card) drops below and centres itself. */
+  #home-sections .cat-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    justify-self: center;
+  }
+}
+
+[data-theme='dark'] #home-sections .cat-card {
+  background: #1d1e22;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme='dark'] #home-sections .cat-desc {
+  color: #aaa;
+}
+
+[data-theme='dark'] #home-sections .cat-count {
+  background: rgba(14, 116, 144, 0.25);
+}
+
+#home-sections .cat-card.cat-empty {
+  opacity: 0.75;
+  cursor: default;
+}
+
+#home-sections .cat-card.cat-empty:hover {
+  transform: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* ---------- Homepage header height on mobile ---------- */
+/* Fill the screen: 100vh minus the 52px music bar fixed at the top,
+   so the banner's bottom edge lands exactly at the viewport bottom.
+   (Desktop height comes from index_top_img_height in the config.) */
+@media screen and (max-width: 768px) {
+  #page-header.full_page {
+    height: calc(100vh - 52px);
+  }
+}
+
+/* ---------- Homepage banner subtitle ---------- */
+/* The bio is split into two lines by home.js (a <br> after 阅历复杂）:
+   on desktop the <br> is hidden (one line); on mobile it shows and the
+   text is bigger, so the two lines are neat instead of leaving two
+   characters dangling alone on the second line. */
+@media screen and (min-width: 769px) {
+  #page-header #site-subtitle br {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  #page-header #site-subtitle {
+    font-size: 1.5em;
+  }
+}
+
+/* Nav contrast fix (2026-11-08): theme nav links are light-grey on the
+   bright sea banner, and the scrolled bar is only 70% white — both read
+   poorly. Make every nav state solid and crisp. */
+/* Over a banner image (top of page): dark scrim behind the bar + white links. */
+#page-header:not(.nav-fixed):not(.not-top-img) #nav {
+  background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0));
+}
+#page-header:not(.nav-fixed):not(.not-top-img) #nav a,
+#page-header:not(.nav-fixed):not(.not-top-img) #nav span.site-page,
+#page-header:not(.nav-fixed):not(.not-top-img) #nav #blog-info {
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+/* Scrolled bar: nearly solid white (was 70%) + stronger blur. */
+#page-header.nav-fixed #nav {
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+/* Dropdown menus: fully opaque, solid background, clear border. */
+#nav .menus_items .menus_item .menus_item_child {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.35);
+}
+#nav .menus_items .menus_item .menus_item_child li a {
+  color: #4c4948 !important;
+}
+[data-theme='dark'] #page-header:not(.nav-fixed):not(.not-top-img) #nav {
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+}
+[data-theme='dark'] #page-header.nav-fixed #nav {
+  background: rgba(18, 18, 18, 0.92);
+}
+[data-theme='dark'] #nav .menus_items .menus_item .menus_item_child {
+  background-color: #1d1e22;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+[data-theme='dark'] #nav .menus_items .menus_item .menus_item_child li a {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Article cards: the whole card opens the article (see card-click.js). */
+.recent-post-item {
+  cursor: pointer;
+}
+
+/* Bilingual toggle (see lang-toggle.js): the "EN" / "中" button inside the
+   settings panel, next to Reading Mode and Dark Mode. The theme already
+   sizes #rightside buttons at 35px; the label just needs to be smaller. */
+#lang-toggle {
+  font-size: 13px !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
