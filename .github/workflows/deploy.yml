@@ -1,0 +1,49 @@
+name: Deploy Hexo to GitHub Pages
+
+# Builds the Hexo site from the source branch (main) and publishes the
+# generated static files (public/) to the gh-pages branch.
+# Repo settings needed once (after the repo exists):
+#   Settings -> Pages -> Build and deployment -> Source: "Deploy from a branch",
+#   Branch: gh-pages / (root).
+# The live site is then https://adh1cu.github.io/ (user site).
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        # No package-lock.json is committed, so install (not ci).
+        run: npm install
+
+      - name: Generate static site
+        run: npx hexo clean && npx hexo generate
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          # Keep the gh-pages history tidy: each deploy is a single commit.
+          force_orphan: true
+          # Avoid Jekyll processing on the published branch.
+          enable_jekyll: false
