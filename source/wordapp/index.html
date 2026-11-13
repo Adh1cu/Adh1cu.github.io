@@ -3,178 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title>背词 · WordApp</title>
+<meta name="theme-color" content="#f4f4f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#212532" media="(prefers-color-scheme: dark)">
+<title>场景演练 · AI 英语对话</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="topbar glass">
-  <div class="brand">背词<span class="brand-dot">.</span></div>
-  <div class="rate-toggle" role="group" aria-label="朗读语速">
-    <button id="rateSlow" type="button">慢</button>
-    <button id="rateNorm" type="button">常</button>
-  </div>
+
+<header id="topbar">
+  <div class="brand">场景演练</div>
+  <button id="gearBtn" class="icon-btn" aria-label="设置"></button>
 </header>
 
 <main>
-  <!-- ========== LEARN ========== -->
-  <section id="view-learn" class="view">
-    <div id="learnHome">
-      <div class="strip glass">
-        <div class="strip-num"><b id="newLeft">–</b><span>今日新词</span></div>
-        <div class="strip-bar"><div id="todayBar"></div></div>
-        <div class="strip-num"><b id="dueBadge">–</b><span>到期复习</span></div>
-      </div>
-
-      <button id="bookBtn" class="book-strip glass" type="button">
-        <span class="search-ic" data-icon="book"></span>
-        <span class="book-strip-tx">当前词书：<b id="stripBook">雅思词书</b></span>
-        <span class="hub-arrow" data-icon="chevR"></span>
-      </button>
-
-      <div class="search-row">
-        <span class="search-ic" data-icon="search"></span>
-        <input id="searchInput" type="search" placeholder="查词：全部词书都能查" autocomplete="off">
-      </div>
-      <div id="searchResults" class="glass hidden"></div>
-
-      <button class="hub glass" id="hubVocab" type="button">
-        <span class="hub-ic" data-icon="bookClosed"></span>
-        <span class="hub-tx"><b>Vocabulary</b><small id="vocabSub">单词 · 每天 20 个新词</small></span>
-        <span class="hub-arrow" data-icon="chevR"></span>
-      </button>
-      <button class="hub glass" id="hubScenario" type="button">
-        <span class="hub-ic" data-icon="playRect"></span>
-        <span class="hub-tx"><b>Scenario</b><small>场景 · 生活场景整句练</small></span>
-        <span class="hub-arrow" data-icon="chevR"></span>
-      </button>
-      <button class="hub glass" id="hubPhrase" type="button">
-        <span class="hub-ic" data-icon="bubble"></span>
-        <span class="hub-tx"><b>Phrase</b><small>短语 · 高频口头短句</small></span>
-        <span class="hub-arrow" data-icon="chevR"></span>
-      </button>
-      <p class="hint">学习时点例句里的任意单词，都能展开详解并收藏。</p>
+  <!-- ============ HOME ============ -->
+  <section id="view-home" class="view">
+    <div id="keyBanner" class="banner hidden">
+      <div class="banner-tx"><b>先连上大模型</b><span>填入你自己的 API key 才能开始演练，key 只存在这台设备上。</span></div>
+      <button id="bannerGo" class="btn primary small">去设置</button>
     </div>
 
-    <div id="scenarioSection" class="hidden">
-      <div class="subhead"><button class="back" id="scBack" type="button"><span data-icon="chevL"></span></button><h2>Scenario 场景</h2></div>
-      <div class="search-row">
-        <span class="search-ic" data-icon="search"></span>
-        <input id="sceneSearch" type="search" placeholder="搜场景：银行、退货、驾照、请假…" autocomplete="off">
-      </div>
-      <div id="sceneList"></div>
-      <div id="sceneDetail" class="hidden">
-        <div class="scene-actions">
-          <button id="playAllBtn" class="btn primary" type="button"></button>
-          <button id="hideZhBtn" class="btn" type="button">遮住中文自测</button>
-        </div>
-        <div id="sentList"></div>
-      </div>
+    <div class="hero">
+      <h1>想练哪个场景？</h1>
+      <p class="hero-sub">随便写，AI 扮演对方，全程英文跟你演。</p>
     </div>
 
-    <div id="booksSection" class="hidden">
-      <div class="subhead"><button class="back" id="bookBack" type="button"><span data-icon="chevL"></span></button><h2>词书</h2></div>
-      <div id="bookList"></div>
-      <p class="hint">进度按词算：在任何一本书里学会的词，在其他书里也算已学。</p>
+    <div class="scene-box card">
+      <textarea id="sceneInput" rows="3" placeholder="比如：在洛杉矶机场过海关 / 跟房东说空调坏了 / 餐馆打工第一天，店长交代工作"></textarea>
+      <button id="startBtn" class="btn primary big block">开始演练</button>
     </div>
 
-    <div id="phraseSection" class="hidden">
-      <div class="subhead"><button class="back" id="phBack" type="button"><span data-icon="chevL"></span></button><h2>Phrase 短语</h2></div>
-      <div id="phraseList"></div>
-      <div id="phraseDetail" class="hidden">
-        <div class="scene-actions">
-          <button id="learnPackBtn" class="btn primary" type="button">开始学这一包</button>
-        </div>
-        <div id="phraseRows"></div>
-      </div>
+    <div id="historyWrap" class="hidden">
+      <div class="sec-title">最近演练</div>
+      <div id="historyList"></div>
     </div>
   </section>
 
-  <!-- ========== REVIEW ========== -->
-  <section id="view-review" class="view hidden">
-    <div class="panel glass">
-      <div class="big-num" id="reviewCount">–</div>
-      <div class="panel-sub" id="reviewSub">个到期要复习</div>
-      <button id="reviewStart" class="btn primary big" type="button">开始复习</button>
-      <p class="hint" id="nextDueHint"></p>
+  <!-- ============ CHAT ============ -->
+  <section id="view-chat" class="view hidden">
+    <div class="chat-head">
+      <button id="chatBack" class="icon-btn"></button>
+      <div id="chatTitle" class="chat-title"></div>
+      <button id="endBtn" class="btn ghost small">结束并小结</button>
     </div>
-    <div class="panel glass stats">
-      <div><b id="statWords">0</b><span>已学单词</span></div>
-      <div><b id="statPhrases">0</b><span>已学短语</span></div>
-      <div><b id="statMastered">0</b><span>已掌握</span></div>
-      <div><b id="statFav">0</b><span>收藏</span></div>
-    </div>
-    <button id="resetBtn" class="btn danger" type="button">清空全部进度</button>
-  </section>
-
-  <!-- ========== COLLECTION ========== -->
-  <section id="view-collection" class="view hidden">
-    <div class="coll-head">
-      <h2>我的收藏</h2>
-      <button id="favLearnBtn" class="btn primary" type="button">学习收藏词</button>
-    </div>
-    <div id="favList"></div>
-    <p class="hint" id="favEmpty">还没有收藏。学习、查词或点开例句里的单词，都能点 ☆ 收藏。</p>
-  </section>
-
-  <!-- ========== SESSION ========== -->
-  <section id="view-session" class="view hidden">
-    <div class="sess-top">
-      <button id="quitSession" class="sess-icon" type="button"><span data-icon="chevL"></span></button>
-      <span id="cardPos" class="sess-pos"></span>
-      <span class="sess-flex"></span>
-      <button id="cardStar" class="sess-icon hidden" type="button"></button>
-    </div>
-    <div id="cardBox"></div>
-    <div id="revealRow" class="sess-foot hidden">
-      <button id="revealBtn" class="text-action" type="button">看答案</button>
-    </div>
-    <div id="nextRow" class="sess-foot hidden">
-      <button id="nextBtn" class="text-action teal" type="button">下一词</button>
-    </div>
-    <div id="blitzRow" class="sess-foot hidden">
-      <div class="blitz-btns">
-        <button id="blitzDont" class="blitz-btn" type="button">不认识</button>
-        <button id="blitzKnow" class="blitz-btn" type="button">认识</button>
+    <div id="msgList" class="msg-list"></div>
+    <div id="hintBar" class="hint-bar hidden">
+      <div class="hint-tx"><span class="hint-label">可以这样说</span><span id="hintEn"></span><span id="hintZh" class="hint-zh"></span></div>
+      <div class="hint-actions">
+        <button id="hintSpeak" class="mini-btn">朗读</button>
+        <button id="hintUse" class="mini-btn strong">用这句</button>
+        <button id="hintClose" class="mini-btn">关</button>
       </div>
     </div>
-    <div id="sessionDone" class="sess-done hidden">
-      <div class="big-emoji" data-icon="checkCircle"></div>
-      <h2 id="doneTitle">这一轮学完了</h2>
-      <p id="doneStats"></p>
-      <button id="moreBtn" class="btn primary" type="button">继续下一组</button>
-      <button id="doneBtn" class="text-action" type="button">完成</button>
+    <div class="composer">
+      <button id="hintBtn" class="btn ghost">提示</button>
+      <input id="msgInput" type="text" placeholder="用英文回复…" autocomplete="off" enterkeyhint="send">
+      <button id="sendBtn" class="btn primary">发送</button>
+    </div>
+  </section>
+
+  <!-- ============ SUMMARY ============ -->
+  <section id="view-summary" class="view hidden">
+    <div class="sec-title big">演练小结</div>
+    <div id="summaryBody" class="card summary-body"></div>
+    <button id="sumHome" class="btn primary big block">回首页</button>
+    <button id="sumAgain" class="btn ghost big block">再练一个场景</button>
+  </section>
+
+  <!-- ============ SETTINGS ============ -->
+  <section id="view-settings" class="view hidden">
+    <div class="set-head">
+      <button id="setBack" class="icon-btn"></button>
+      <div class="sec-title big">大模型设置</div>
+    </div>
+
+    <div class="card set-card">
+      <label class="fld-label">服务商</label>
+      <div id="providerRow" class="chip-row"></div>
+
+      <label class="fld-label">接口地址（Base URL）</label>
+      <input id="baseInput" class="fld" type="url" placeholder="https://api.openai.com/v1" autocomplete="off" spellcheck="false">
+
+      <label class="fld-label">API Key</label>
+      <input id="keyInput" class="fld" type="password" placeholder="sk-…" autocomplete="off" spellcheck="false">
+
+      <label class="fld-label">模型</label>
+      <input id="modelInput" class="fld" list="modelList" placeholder="gpt-4o-mini" autocomplete="off" spellcheck="false">
+      <datalist id="modelList"></datalist>
+
+      <button id="testBtn" class="btn ghost big block">测试连接</button>
+      <div id="testStatus" class="test-status"></div>
+      <p class="set-note">key 只保存在这台设备的浏览器里，请求从你的设备直连服务商，不经过任何中间服务器。</p>
     </div>
   </section>
 </main>
 
-<!-- ========== WORD DETAIL SHEET ========== -->
-<div id="sheetWrap" class="sheet-wrap hidden">
-  <div class="sheet-backdrop" id="sheetBackdrop"></div>
-  <div class="sheet glass">
-    <div class="sheet-head">
-      <div>
-        <span id="shWord" class="sh-word"></span>
-        <span id="shPh" class="ph"></span>
-      </div>
-      <div class="sheet-btns">
-        <button id="shSpeak" class="speak-btn" type="button" data-icon="speaker"></button>
-        <button id="shStar" class="star-btn" type="button"></button>
-        <button id="shClose" class="speak-btn" type="button" data-icon="xmark"></button>
-      </div>
-    </div>
-    <div id="shTo" class="sh-to hidden"></div>
-    <div id="shZh" class="zh"></div>
-    <div id="shEn" class="en-def"></div>
-    <div id="shExamples"></div>
-  </div>
-</div>
-
-<nav class="tabbar glass">
-  <button data-tab="learn" class="on" type="button"><span data-icon="bookFill"></span>Learn</button>
-  <button data-tab="review" type="button"><span data-icon="review"></span>Review</button>
-  <button data-tab="collection" type="button"><span data-icon="starFill"></span>Collection</button>
-</nav>
+<div id="toast" class="toast hidden"></div>
 
 <script src="app.js"></script>
 </body>
