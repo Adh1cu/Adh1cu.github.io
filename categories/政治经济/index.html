@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>分类: 政治经济 | Adh1cu 的博客</title><meta name="author" content="Adh1cu"><meta name="copyright" content="Adh1cu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Adh1cu 的个人博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Adh1cu 的博客">
+<meta property="og:url" content="https://adh1cu.github.io/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/index.html">
+<meta property="og:site_name" content="Adh1cu 的博客">
+<meta property="og:description" content="Adh1cu 的个人博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adh1cu.github.io/img/avatar.jpg">
+<meta property="article:author" content="Adh1cu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adh1cu.github.io/img/avatar.jpg"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://adh1cu.github.io/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        try {
+          const data = { value }
+
+          if (ttl != null) {
+            data.expiry = Date.now() + ttl * 86400000
+          }
+
+          localStorage.setItem(key, JSON.stringify(data))
+        } catch (e) {
+          console.error(e)
+        }
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const start = 6
+              const end = 18
+              const isNight =
+                start < end
+                    ? hour < start || hour >= end
+                    : hour >= start || hour < end
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '分类: 政治经济',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'category'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png"><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Adh1cu 的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">67</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/"><i class="fa-fw fas fa-inbox"></i><span> 政治经济</span></a></li><li><a class="site-page child" href="/categories/%E7%A7%91%E6%8A%80%E5%88%86%E4%BA%AB/"><i class="fa-fw fas fa-inbox"></i><span> 科技分享</span></a></li><li><a class="site-page child" href="/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"><i class="fa-fw fas fa-inbox"></i><span> 碎碎念</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background-image: url(/img/sea-bg.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Adh1cu 的博客</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/"><i class="fa-fw fas fa-inbox"></i><span> 政治经济</span></a></li><li><a class="site-page child" href="/categories/%E7%A7%91%E6%8A%80%E5%88%86%E4%BA%AB/"><i class="fa-fw fas fa-inbox"></i><span> 科技分享</span></a></li><li><a class="site-page child" href="/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"><i class="fa-fw fas fa-inbox"></i><span> 碎碎念</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">政治经济</h1></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2026/11/13/xian-not-for-young-people/" title="西安为什么不适合年轻人：三个案子就够了"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-xian-not-for-young-people.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="西安为什么不适合年轻人：三个案子就够了"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/13/xian-not-for-young-people/" title="西安为什么不适合年轻人：三个案子就够了">西安为什么不适合年轻人：三个案子就够了</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-13T17:55:00.000Z" title="发表于 2026-11-14 01:55:00">2026-11-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/">政治经济</a></span></div><div class="content">张小平的公文、地铁三号线的电缆、打了十四年的千亿矿权案——三个全国闻名的案子，讲的是同一件事。 判断一座城市适不适合年轻人，不用看宣传片，看三样东西就够了：它怎么给人才定价，它怎么执行规则，它认不认自己签过的合同。 不巧的是，这三样，西安各有一个全国闻名的案子。 张小平：一个人的价格，由级别说了算2018 年 9 月，一份盖着公章的公文在网上流传，把西安航天动力研究所推上了全国头条。 张小平，1994 年入所，干了 24 年航天发动机，做到低温推进剂发动机型号副主任设计师、研究员，参与研制的包括面向载人登月的 480 吨级液氧煤油发动机。2018 年 3 月，他辞职去了北京的民营火箭公司蓝箭航天。按当时引爆舆论的那篇文章的说法，他在研究所的年薪是 12 万，新东家开出的价码据说接近百万。 研究所急了。它走的不是市场路数——不是涨薪，不是挽留谈判——而是向西安市劳动人事争议仲裁委员会提交了那份公文：《张小平参与我所型号研制情况》。公文里，张小平突然成了不可替代的灵魂人物：他的离职“从某种程度上会影响到中国载人登月工程的进程”。 请注意这个荒诞的对照：在他走之前，他是一个拿着十几万年...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/11/11/wang-juyan-logic-2-deconstruction/" title="逻辑拆解：夸一句外企守规矩，就是给敌人递刀子吗？"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-wang-juyan-logic-2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="逻辑拆解：夸一句外企守规矩，就是给敌人递刀子吗？"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/11/wang-juyan-logic-2-deconstruction/" title="逻辑拆解：夸一句外企守规矩，就是给敌人递刀子吗？">逻辑拆解：夸一句外企守规矩，就是给敌人递刀子吗？</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-11T16:07:00.000Z" title="发表于 2026-11-12 00:07:00">2026-11-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/">政治经济</a></span></div><div class="content">最近有种说法很火：尽管我们有了六代机、航母和各种装备，但是还是不够安全；最近一段时间被抓到的间谍案件，让人触目惊心；我们手机上天天刷的短视频，也是国家之间舆论交锋的战场；有的同胞会在不知不觉当中站错队，给敌人递刀子。 先吓住你，再讲道理。这套开场白里，第一个逻辑谬误就出现了。 一、诉诸恐惧：先吓住你，你就不会独立思考了观点：  尽管我们有了六代机、航母和各种装备，但是还是不够安全。最近被抓到的间谍案件让人触目惊心。我们手机上天天刷的短视频，也是国家之间舆论交锋的战场。而且特别让人难过的是，有的同胞会在不知不觉当中站错队，给敌人递刀子。  驳斥： 这里的逻辑谬误叫做诉诸恐惧。开篇先给观众来个下马威：先说社交媒体是舆论战场，再说有些同胞站错了队、给别人递刀子。当观众接受恐惧后，最容易降低自己的独立判断能力。 二、一句话里三个谬误：稻草人、偷换概念、偷换论题观点：  前两天，日本佳能中山工厂关闭，工人拿到了高额的补偿，评论区铺天盖地地赞美：外企有良心、有契约精神，我们要学习。你们是假酒喝多了吗？外企给中国员工经济补偿，难道是因为资本家比我们更加仁慈、更加慷慨吗？  驳斥： 这里有三个逻...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/11/11/wang-juyan-logic-deconstruction/" title="逻辑拆解：把援非的钱发给老百姓，真的会通货膨胀吗？"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-wang-juyan-logic.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="逻辑拆解：把援非的钱发给老百姓，真的会通货膨胀吗？"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/11/wang-juyan-logic-deconstruction/" title="逻辑拆解：把援非的钱发给老百姓，真的会通货膨胀吗？">逻辑拆解：把援非的钱发给老百姓，真的会通货膨胀吗？</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-11T15:05:00.000Z" title="发表于 2026-11-11 23:05:00">2026-11-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/">政治经济</a></span></div><div class="content">最近网上有两种声音很火。一种说，把援助非洲的那些钱全部拿回来发给老百姓多好，几千亿美金的投资，发下来每个人都有不少钱。另一种说，特朗普都给美国老百姓发了 2000 美金，为什么我们不能？ 这些说法听起来很有道理，但里面藏着几个逻辑谬误。下面一个一个拆。 一、发钱就会通胀？观点：  通货膨胀的原理很简单：商品总量不变，市场上流通的钱变多了，东西就会越来越贵。比如有 10 个面包，100 块钱，一个面包就是 10 块钱；如果变成 1000 块钱还是 10 个面包，面包就会变成 100 块钱一个。所以如果把每年贸易顺差赚回来的美金全部换算成人民币发下去，东西肯定会越来越贵，钱就不值钱了。  驳斥： 这里既有经济学的错误，又有逻辑学的错误。先说经济学，用一个很简单的例子： 如果你有一头牛，对方有一头羊，你们打算交换，但觉得以物易物太麻烦了，于是用一张纸，上面写上 10 元。这张纸既可以换一头牛，也可以换一头羊。这张纸就叫货币，它只起一个方便交换的作用，并不重要。重要的是牛和羊背后你们花的心血——这就叫生产力。 也就是说，你用 10 生产力养出了一头牛，换了别人 10 生产力养出的羊。什么...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/11/10/huang-renxun-identity/" title="黄仁勋事件：当一个华人同时无法获得两个世界的信任"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-huang-renxun.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="黄仁勋事件：当一个华人同时无法获得两个世界的信任"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/10/huang-renxun-identity/" title="黄仁勋事件：当一个华人同时无法获得两个世界的信任">黄仁勋事件：当一个华人同时无法获得两个世界的信任</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-10T17:25:00.000Z" title="发表于 2026-11-11 01:25:00">2026-11-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/">政治经济</a></span></div><div class="content">从一场硅谷政治风波，谈谈华人的身份困境、国家安全叙事与个人自由。 最近，黄仁勋身上的一连串风波让我产生了一种很复杂的感受。 最初看到相关消息时，我以为这不过是一次普通的商业人物丑闻。但随着更多报道出现，我逐渐意识到，这件事远远不只是一个企业家与某位女性之间的私人关系问题。 它牵扯到了美国两党政治、硅谷科技资本、中美科技竞争、情报机构，甚至一个更值得深思的问题： 一个出生于中国、拥有华人面孔、在美国取得巨大成功的人，究竟需要付出多大的代价，才能证明自己只是一个普通的美国公民和企业家？ 我并不打算为黄仁勋的私人生活辩护，也不准备替任何商业利益站台。但这件事让我看到了某种令人不安的趋势：当国际政治越来越被安全与忠诚的叙事所支配，个人的身份似乎正在变成一种无法摆脱的政治标签。 ⸻ 一、黄仁勋究竟经历了什么？先简单梳理一下事件。 黄仁勋是英伟达（NVIDIA）的创始人兼CEO，也是当今全球人工智能产业最有影响力的人物之一。 他出生于台湾，童年时期移居美国，后来在美国接受教育、创业并建立起全球最具影响力的半导体公司之一。 他长期反对美国对中国实施过于严厉的AI芯片出口限制。 他的核心观点并不...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/11/10/ma-army-story/" title="马家军背后的故事：神话与药魔"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-ma-army.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="马家军背后的故事：神话与药魔"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/10/ma-army-story/" title="马家军背后的故事：神话与药魔">马家军背后的故事：神话与药魔</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-10T05:50:00.000Z" title="发表于 2026-11-10 13:50:00">2026-11-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/">政治经济</a></span></div><div class="content">本文根据抖音博主神秘档案的视频《第 53 集 | 马家军背后的故事！》（2026 年 11 月 9 日）整理。视频链接：https://v.douyin.com/BJpg3FPzn9U/ 为了破纪录，他们被教练套上绳子，用三轮车拉着跑。为了创造佳绩，他们被注射超级量的兴奋剂。 上世纪 90 年代，一群中国姑娘横扫世界田径赛场，连破世界纪录，让全世界为之震撼。可谁也想不到，这耀眼的神话背后，藏着一段不堪回首的黑暗往事。 今天我们讲马家军背后的故事。 一、1993 年，斯图加特的红色旋风1993 年，德国斯图加特世界田径锦标赛，女子中长跑赛场刮起了一股红色旋风。 王军霞、曲云霞、张林丽这群姑娘，一口气拿下三金一银一铜。同年的七运会，赛场更是变成了她们的主场。一场比赛下来，她们接连刷新亚洲纪录、全国纪录，甚至多次改写尘封多年的世界纪录，全年一共 66 次刷新各级纪录。 王军霞创造的女子 1 万米 29 分 31 秒 78 的成绩，曾经震撼整个世界田坛。 一夜之间，马家军成了全国的英雄，大街小巷全是她们的报道。教练马俊仁被捧上神坛，媒体争相报道，春晚也向她们发出邀请。马俊仁放出豪言：想破...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/11/09/5-30-am-child/" title="凌晨五点半的孩子：当努力不再意味着更好的未来"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-5-30-am-girl.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="凌晨五点半的孩子：当努力不再意味着更好的未来"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/09/5-30-am-child/" title="凌晨五点半的孩子：当努力不再意味着更好的未来">凌晨五点半的孩子：当努力不再意味着更好的未来</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-09T17:30:00.000Z" title="发表于 2026-11-10 01:30:00">2026-11-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/">政治经济</a></span></div><div class="content">今天刷到一个只有短短三秒的视频。 画面里，一个中国初中女生坐在汽车后座，正在吃早饭。时间是凌晨五点半。她似乎已经习惯了这样的生活，坐在车里，空洞的眼神望着车窗外还未拂晓的天空，机械地咀嚼着早餐，眼神里看不到活力，疲惫和麻木穿透了空间，直击我的灵魂。 开车的是她的父亲，做饭送她的以及拍摄者是她的母亲。  短短三秒钟，背后却是一个中国家庭每天都在重复的生活。 我不知道这个女孩每天几点睡觉，也不知道她的成绩究竟如何，更不知道她的父母为了她的教育付出了多少。但我几乎可以想象，这个画面背后存在着怎样的一套生活秩序。 孩子需要早起，需要上课，需要考试，需要完成堆积如山的作业。父母需要早起，需要准备早餐，需要开车接送，需要为孩子的学习操心，还要继续承担自己的工作和生活。 一家人像一台精密运转的机器，每个人都在自己的位置上不停地工作。 所有人都很努力。 但我突然想问：他们究竟是在奔向一个怎样的未来？ 一、一个家庭的努力，为什么变成了全家的消耗？在中国，教育从来不只是一个孩子的事情。 它往往是整个家庭的工程。 从幼儿园开始，家长就需要考虑学校、成绩、兴趣班和各种各样的教育资源。到了小学、初中、高中...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/11/09/2001-land-green-smoke/" title="二〇〇一年的土地与青烟"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/lu-guang-2001.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="二〇〇一年的土地与青烟"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/09/2001-land-green-smoke/" title="二〇〇一年的土地与青烟">二〇〇一年的土地与青烟</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-09T17:15:00.000Z" title="发表于 2026-11-10 01:15:00">2026-11-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/">政治经济</a></span></div><div class="content">本文转载自抖音博主佯想云彩（抖音号：2241227819）。  这张照片，我一直不太敢看第二眼。这倒不是因为我心软，心软的人看了会难受，我看了只会觉得自己不是东西；主要是看了也没用，所以就更不敢看。但后来我又想，看一眼和看两眼，对照片里的人其实没有分别，有分别的是我，所以我还是把它调出来，看了很久。 照片是卢广在2001年末在河南上蔡拍的。那地方那几年在新闻里有个名字，叫艾滋村。 事情得从九十年代说起。那时候有人下乡收血，抽一点，给钱。农民算了算，觉得这事跟去河里挑水差不多，水是身上的，抽出去还能长回来，几十块钱可是实打实的，够给娃买双新鞋，够割两斤猪肉，于是排队。 血站的操作，我后来看过一些记载：血抽出来，用离心机把血浆分走，血浆值钱；剩下的是红细胞，红细胞不值钱，不值钱的东西不能扔，扔了可惜，于是兑上生理盐水，再输回各人的血管。这里头有个技术问题，几百个人的红细胞混在一个桶里，只要其中有一个人带着病毒，这一桶就全废了。不，比全废还糟，这一桶会均匀地把病毒分给每一个人，一个不落。 按理说，这个道理不难懂，可当时没人往这上头想。我替他们想过，一根针头几毛钱，换一根，一年也花不了多...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/11/09/republican-defeat-japan-reaction/" title="共和党大败后，日本网上出现荒唐一幕！"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/japan-5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="共和党大败后，日本网上出现荒唐一幕！"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/09/republican-defeat-japan-reaction/" title="共和党大败后，日本网上出现荒唐一幕！">共和党大败后，日本网上出现荒唐一幕！</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-09T17:05:00.000Z" title="发表于 2026-11-10 01:05:00">2026-11-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/">政治经济</a></span></div><div class="content">本文根据环球时报视频号“瞎白话”栏目视频《共和党大败后，日本网上出现荒唐一幕！》（2026 年 11 月 6 日）整理。视频链接：https://weixin.qq.com/sph/ArzaFIDerz 当地时间 11 月 3 日，美国中期选举以共和党的大败落幕。而在海外，日本成为了对此反应相当激烈的国家之一。不仅日本官方有人担心地缘利益受损，部分日本右翼账号更在社交平台上肆意攻击胜选的美国少数族裔参选人，甚至叫嚣“昨天是欧洲，今天是美国，明天就是日本”。 由于相关社交平台都配有“自动翻译”功能，这些极端言论已经引起了美国和其他国家网民的围观。 从路透社和日本时事通信社等媒体的报道来看，日本政府目前的担忧在于，失去了对国内政治议题控制力的美国总统特朗普，可能会将更多力量用于外交事务，但这可能会损害日本的利益。  有日本官方人员就对这些媒体透露，如果特朗普为了给自己任期的最后两年打造一些“政治遗产”，寻求进一步改善与俄罗斯、朝鲜等国的关系，可能导致日本被排除在外交议程之外，在东亚地缘政治中被边缘化。 与此同时，日本网络右翼民粹账号则陷入了另一种狂欢。他们宣称“外国移民”已经夺舍了美...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/11/09/biden-promise-me-america/" title="拜登：答应我，美国"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-biden-promise.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="拜登：答应我，美国"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/09/biden-promise-me-america/" title="拜登：答应我，美国">拜登：答应我，美国</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-09T12:15:00.000Z" title="发表于 2026-11-09 20:15:00">2026-11-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/">政治经济</a></span></div><div class="content">本文转载自尊敬的前总统拜登先生（Joe Biden）2026 年 11 月 9 日在 X 上发布的帖子。原文链接：https://x.com/joebiden/status/2119566187986120705 我想和大家分享一个简短的近况。 我的总统回忆录《答应我，美国》（PROMISE ME, AMERICA）将于 11 月 17 日出版。希望你们能读一读。它记录了我担任总统的那些年。我们面临的挑战，我做出的决定，以及我做出这些决定的原因。它讲的是我们作为一个国家是谁，我们坚守什么，以及美国在世界上的角色。最重要的是，它讲的是我对美国人民的信念，以及对美国这场自治与民主伟大实验的信念。 在写这本书的过程中，我被诊断出患有癌症——这种病，数百万美国人及其家庭都再熟悉不过。我的医生们对我接受治疗后的反应一直感到鼓舞。而你们这么多人的祈祷、暖心话语和美好祝愿，对我、吉尔和我们全家而言，意义远超你们所能想象。 有些日子好一些，有些差一些。它没有阻止我。但有时，它会让我慢下来。这意味着，很遗憾，我无法像希望的那样，围绕这本书进行那么多对谈。不过，我相信书页上的文字自会说话。 展望未来...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/11/09/four-people-four-disobediences/" title="四个人，四种不服从"><img class="post-bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-four-people.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="四个人，四种不服从"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/09/four-people-four-disobediences/" title="四个人，四种不服从">四个人，四种不服从</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-09T11:10:00.000Z" title="发表于 2026-11-09 19:10:00">2026-11-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/">政治经济</a></span></div><div class="content">何智丽，1987年世乒赛，教练让她让球，她没让。她上场赢了比赛，拿了冠军。然后她被除名了。 焦志敏，八年国际比赛让了五次球。第五次让完，她站在季军领奖台上哭了。回国后领导说“你走在最前面”，她说“你不觉得这样很虚伪吗”。然后她退役了。 樊振东，WTT说不参赛就罚款，他签了退出文件。但他没有退役，他去了德甲，打出92%的胜率，拿了三冠王。 博扎，一名记者，71岁，在伦敦世乒赛发布会上问了一个所有人都想问但没人敢问的问题。工作人员说“这不是个问题”。他说“我还会继续问”。 四个人，四个年代，四种选择。 何智丽选择了赢。代价是被自己的国家除名，被叫了三十年汉奸。她后来去了日本，改名小山智丽，1994年亚运会代表日本击败邓亚萍。国内舆论把她钉在耻辱柱上。但很少有人提起一件事：当年让她让球的那个决定，后来被体委明令禁止了。制度改了。她的名誉没有恢复。改制度的人没有感谢她。 焦志敏选择了离开。她嫁去了韩国，从此再也没有代表任何国家参加过比赛。很多年后有人采访她，她说“现在的运动员真幸福，不用让球，可以凭自己的实力去争冠”。说这话的时候她语气平静，但她大概不知道，2024年还有一个中国运动员因...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/page/2/">2</a><a class="extend next" rel="next" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/page/2/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Adh1cu</div><div class="author-info-description">偶尔分享搞机科技，生活琐事</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">67</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adh1cu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Adh1cu" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div style="font-size:14px;line-height:1.7">如果这里的内容对你有帮助，欢迎打赏支持 ☕</div>
+<div style="margin-top:8px;font-size:12px;opacity:.65">Aptos 网络</div>
+<code style="display:block;word-break:break-all;font-size:12px;background:rgba(127,127,127,.12);padding:8px;border-radius:8px;margin-top:4px">0xf7f328515e2045c469c7fadb256be4976c80e61cdd2f5e0b5a650ffbccfd5486</code>
+<button onclick="navigator.clipboard.writeText('0xf7f328515e2045c469c7fadb256be4976c80e61cdd2f5e0b5a650ffbccfd5486').then(()=>{this.textContent='已复制 ✓';setTimeout(()=>this.textContent='复制地址',2000)})" style="margin-top:8px;padding:6px 14px;border:none;border-radius:20px;background:#0e7490;color:#fff;cursor:pointer;font-size:13px">复制地址</button>
+</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/11/13/xian-not-for-young-people/" title="西安为什么不适合年轻人：三个案子就够了"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-xian-not-for-young-people.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="西安为什么不适合年轻人：三个案子就够了"/></a><div class="content"><a class="title" href="/2026/11/13/xian-not-for-young-people/" title="西安为什么不适合年轻人：三个案子就够了">西安为什么不适合年轻人：三个案子就够了</a><time datetime="2026-11-13T17:55:00.000Z" title="发表于 2026-11-14 01:55:00">2026-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/11/wang-juyan-logic-2-deconstruction/" title="逻辑拆解：夸一句外企守规矩，就是给敌人递刀子吗？"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-wang-juyan-logic-2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="逻辑拆解：夸一句外企守规矩，就是给敌人递刀子吗？"/></a><div class="content"><a class="title" href="/2026/11/11/wang-juyan-logic-2-deconstruction/" title="逻辑拆解：夸一句外企守规矩，就是给敌人递刀子吗？">逻辑拆解：夸一句外企守规矩，就是给敌人递刀子吗？</a><time datetime="2026-11-11T16:07:00.000Z" title="发表于 2026-11-12 00:07:00">2026-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/11/wang-juyan-logic-deconstruction/" title="逻辑拆解：把援非的钱发给老百姓，真的会通货膨胀吗？"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-wang-juyan-logic.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="逻辑拆解：把援非的钱发给老百姓，真的会通货膨胀吗？"/></a><div class="content"><a class="title" href="/2026/11/11/wang-juyan-logic-deconstruction/" title="逻辑拆解：把援非的钱发给老百姓，真的会通货膨胀吗？">逻辑拆解：把援非的钱发给老百姓，真的会通货膨胀吗？</a><time datetime="2026-11-11T15:05:00.000Z" title="发表于 2026-11-11 23:05:00">2026-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/10/huang-renxun-identity/" title="黄仁勋事件：当一个华人同时无法获得两个世界的信任"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-huang-renxun.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="黄仁勋事件：当一个华人同时无法获得两个世界的信任"/></a><div class="content"><a class="title" href="/2026/11/10/huang-renxun-identity/" title="黄仁勋事件：当一个华人同时无法获得两个世界的信任">黄仁勋事件：当一个华人同时无法获得两个世界的信任</a><time datetime="2026-11-10T17:25:00.000Z" title="发表于 2026-11-11 01:25:00">2026-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/10/ma-army-story/" title="马家军背后的故事：神话与药魔"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-ma-army.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="马家军背后的故事：神话与药魔"/></a><div class="content"><a class="title" href="/2026/11/10/ma-army-story/" title="马家军背后的故事：神话与药魔">马家军背后的故事：神话与药魔</a><time datetime="2026-11-10T05:50:00.000Z" title="发表于 2026-11-10 13:50:00">2026-11-10</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/"><span class="card-category-list-name">政治经济</span><span class="card-category-list-count">20</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"><span class="card-category-list-name">碎碎念</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E6%8A%80%E5%88%86%E4%BA%AB/"><span class="card-category-list-name">科技分享</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E9%80%BB%E8%BE%91/" style="font-size: 1.5em; color: #99a9bf">逻辑</a> <a href="/tags/%E5%81%A5%E5%BA%B7/" style="font-size: 1.1em; color: #999">健康</a> <a href="/tags/%E7%BE%8E%E8%82%A1/" style="font-size: 1.1em; color: #999">美股</a> <a href="/tags/%E5%A4%96%E4%BC%81/" style="font-size: 1.1em; color: #999">外企</a> <a href="/tags/K%E5%9E%8B%E5%88%86%E5%8C%96/" style="font-size: 1.1em; color: #999">K型分化</a> <a href="/tags/FlClash/" style="font-size: 1.1em; color: #999">FlClash</a> <a href="/tags/%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BF%86/" style="font-size: 1.1em; color: #999">历史记忆</a> <a href="/tags/%E6%8C%87%E6%95%B0%E5%9F%BA%E9%87%91/" style="font-size: 1.1em; color: #999">指数基金</a> <a href="/tags/%E9%AD%94%E6%B3%95/" style="font-size: 1.1em; color: #999">魔法</a> <a href="/tags/%E6%8A%95%E8%B5%84/" style="font-size: 1.1em; color: #999">投资</a> <a href="/tags/%E9%A9%AC%E5%AE%B6%E5%86%9B/" style="font-size: 1.1em; color: #999">马家军</a> <a href="/tags/%E6%B0%91%E8%90%A5%E7%BB%8F%E6%B5%8E/" style="font-size: 1.1em; color: #999">民营经济</a> <a href="/tags/%E5%A5%91%E7%BA%A6/" style="font-size: 1.1em; color: #999">契约</a> <a href="/tags/%E8%B4%A7%E5%B8%81%E6%88%98%E4%BA%89/" style="font-size: 1.1em; color: #999">货币战争</a> <a href="/tags/%E5%8D%83%E4%BA%BF%E7%9F%BF%E6%9D%83%E6%A1%88/" style="font-size: 1.1em; color: #999">千亿矿权案</a> <a href="/tags/%E4%B9%92%E4%B9%93%E7%90%83/" style="font-size: 1.1em; color: #999">乒乓球</a> <a href="/tags/%E5%8F%B3%E7%BF%BC/" style="font-size: 1.1em; color: #999">右翼</a> <a href="/tags/%E4%BD%93%E8%82%B2/" style="font-size: 1.1em; color: #999">体育</a> <a href="/tags/%E5%8D%8E%E4%BA%BA/" style="font-size: 1.1em; color: #999">华人</a> <a href="/tags/%E5%BC%A0%E5%B0%8F%E5%B9%B3/" style="font-size: 1.1em; color: #999">张小平</a> <a href="/tags/%E4%B8%AD%E8%8D%AF/" style="font-size: 1.1em; color: #999">中药</a> <a href="/tags/%E5%A5%91%E7%BA%A6%E7%B2%BE%E7%A5%9E/" style="font-size: 1.1em; color: #999">契约精神</a> <a href="/tags/%E4%B8%AD%E7%BE%8E%E5%85%B3%E7%B3%BB/" style="font-size: 1.1em; color: #999">中美关系</a> <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" style="font-size: 1.1em; color: #999">科学上网</a> <a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 1.1em; color: #999">历史</a> <a href="/tags/%E6%95%99%E8%82%B2/" style="font-size: 1.1em; color: #999">教育</a> <a href="/tags/%E9%80%9A%E8%B4%A7%E8%86%A8%E8%83%80/" style="font-size: 1.1em; color: #999">通货膨胀</a> <a href="/tags/%E5%85%B4%E5%A5%8B%E5%89%82/" style="font-size: 1.1em; color: #999">兴奋剂</a> <a href="/tags/%E9%BB%84%E4%BB%81%E5%8B%8B/" style="font-size: 1.1em; color: #999">黄仁勋</a> <a href="/tags/%E6%B0%91%E9%97%B4%E6%8A%95%E8%B5%84/" style="font-size: 1.1em; color: #999">民间投资</a> <a href="/tags/%E5%9B%9E%E5%BF%86%E5%BD%95/" style="font-size: 1.1em; color: #999">回忆录</a> <a href="/tags/%E9%BB%84%E4%BA%9A%E7%94%9F/" style="font-size: 1.1em; color: #999">黄亚生</a> <a href="/tags/%E8%A5%BF%E5%AE%89/" style="font-size: 1.1em; color: #999">西安</a> <a href="/tags/%E6%8F%B4%E9%9D%9E/" style="font-size: 1.1em; color: #999">援非</a> <a href="/tags/%E6%B6%88%E8%B4%B9/" style="font-size: 1.5em; color: #99a9bf">消费</a> <a href="/tags/%E9%9F%A9%E5%9B%BD/" style="font-size: 1.1em; color: #999">韩国</a> <a href="/tags/%E7%AB%A5%E5%B9%B4/" style="font-size: 1.1em; color: #999">童年</a> <a href="/tags/%E6%9C%8D%E4%BB%8E%E6%80%A7/" style="font-size: 1.1em; color: #999">服从性</a> <a href="/tags/%E5%A4%96%E5%8D%96%E5%91%98/" style="font-size: 1.1em; color: #999">外卖员</a> <a href="/tags/%E4%B9%B0%E8%BD%A6/" style="font-size: 1.1em; color: #999">买车</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/11/">
+            <span class="card-archive-list-date">
+              十一月 2026
+            </span>
+            <span class="card-archive-list-count">22</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">22</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">38107</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-11-13T18:56:06.316Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By Adh1cu</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.2"></script><script src="/js/main.js?v=5.7.2"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/click-effect.js"></script><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><div id="music-topbar"><div id="music-player-wrap"></div><button id="music-close" title="收起播放器">×</button><button id="music-show" title="打开播放器">🎵</button></div><script src="/js/music.js"></script><script src="/js/home.js"></script><script src="/js/card-click.js"></script><script src="/js/related-order.js"></script><script src="/js/lang-toggle.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([data-fancybox])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      if (!item.parentNode) return
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || ''
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    const responseURL = e.request && e.request.responseURL
+    if (e.request && e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : responseURL && (window.location.href = responseURL)
+    } else if (responseURL) {
+      window.location.href = responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.2"></script></div></div></body></html>
