@@ -26,15 +26,21 @@
         <div class="strip-num"><b id="dueBadge">–</b><span>到期复习</span></div>
       </div>
 
+      <button id="bookBtn" class="book-strip glass" type="button">
+        <span class="search-ic" data-icon="book"></span>
+        <span class="book-strip-tx">当前词书：<b id="stripBook">雅思词书</b></span>
+        <span class="hub-arrow" data-icon="chevR"></span>
+      </button>
+
       <div class="search-row">
         <span class="search-ic" data-icon="search"></span>
-        <input id="searchInput" type="search" placeholder="查词：输入英文单词" autocomplete="off">
+        <input id="searchInput" type="search" placeholder="查词：全部词书都能查" autocomplete="off">
       </div>
       <div id="searchResults" class="glass hidden"></div>
 
       <button class="hub glass" id="hubVocab" type="button">
         <span class="hub-ic" data-icon="bookClosed"></span>
-        <span class="hub-tx"><b>Vocabulary</b><small>单词 · 每天 20 个新词</small></span>
+        <span class="hub-tx"><b>Vocabulary</b><small id="vocabSub">单词 · 每天 20 个新词</small></span>
         <span class="hub-arrow" data-icon="chevR"></span>
       </button>
       <button class="hub glass" id="hubScenario" type="button">
@@ -52,6 +58,10 @@
 
     <div id="scenarioSection" class="hidden">
       <div class="subhead"><button class="back" id="scBack" type="button"><span data-icon="chevL"></span></button><h2>Scenario 场景</h2></div>
+      <div class="search-row">
+        <span class="search-ic" data-icon="search"></span>
+        <input id="sceneSearch" type="search" placeholder="搜场景：银行、退货、驾照、请假…" autocomplete="off">
+      </div>
       <div id="sceneList"></div>
       <div id="sceneDetail" class="hidden">
         <div class="scene-actions">
@@ -60,6 +70,12 @@
         </div>
         <div id="sentList"></div>
       </div>
+    </div>
+
+    <div id="booksSection" class="hidden">
+      <div class="subhead"><button class="back" id="bookBack" type="button"><span data-icon="chevL"></span></button><h2>词书</h2></div>
+      <div id="bookList"></div>
+      <p class="hint">进度按词算：在任何一本书里学会的词，在其他书里也算已学。</p>
     </div>
 
     <div id="phraseSection" class="hidden">
