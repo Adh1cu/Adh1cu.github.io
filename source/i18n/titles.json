@@ -94,5 +94,9 @@
   "ont-firmware-surveillance": {
     "title_en": "66 Surveillance Threads Live Inside Your Home Modem's 256MB of RAM",
     "excerpt_en": "66 resident monitoring threads, a traffic-sniffing engine that only gives up after 20 overload alarms, and a Xinjiang Telecom reporting key hardcoded into the firmware — inside the ordinary optical modem sitting in your home's wiring box right now."
+  },
+  "tradition-younger-than-coke": {
+    "title_en": "The Tradition You Imagine Is Younger Than Coca-Cola",
+    "excerpt_en": "Coca-Cola was born in 1886. The bubbling red-oil mala hotpot you think Sichuan has eaten for centuries took shape in the 1980s — nearly a hundred years younger than Coke."
   }
 }
