@@ -471,3 +471,97 @@ body {
 [data-theme='dark'] .muse-note-sub {
   color: rgba(255, 255, 255, 0.45);
 }
+
+/* Bilibili hot comments (source/js/bili-comments.js): live, read-only
+   hot comments for reposted Bilibili videos, rendered as a light list
+   under the article. Loaded lazily by the script; styles only. */
+.bili-comments {
+  margin: 2.6em 0 0.5em;
+  padding-top: 1.4em;
+  border-top: 1px solid rgba(14, 116, 144, 0.18);
+}
+.bili-comments-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.bili-comments-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+.bili-comments-more {
+  font-size: 13px;
+  color: #0e7490;
+  white-space: nowrap;
+}
+.bili-comments-loading {
+  font-size: 14px;
+  color: #8a8f98;
+  padding: 6px 0 10px;
+}
+.bili-comments-fallback {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(14, 116, 144, 0.09), rgba(14, 116, 144, 0.02) 62%);
+  border: 1px solid rgba(14, 116, 144, 0.22);
+  font-size: 14px;
+}
+.bili-c-item {
+  display: flex;
+  gap: 11px;
+  padding: 11px 0;
+  border-bottom: 1px dashed rgba(120, 130, 140, 0.18);
+}
+.bili-c-item:last-child { border-bottom: none; }
+.bili-c-avatar-wrap {
+  position: relative;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(14, 116, 144, 0.16);
+  overflow: hidden;
+}
+.bili-c-initial {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0e7490;
+}
+#article-container .bili-c-avatar {
+  position: absolute;
+  inset: 0;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.bili-c-main { flex: 1; min-width: 0; }
+.bili-c-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+#article-container .bili-c-text {
+  font-size: 14.5px;
+  line-height: 1.75;
+  margin: 2px 0 3px;
+  word-break: break-word;
+}
+.bili-c-meta {
+  font-size: 12px;
+  color: #8a8f98;
+}
+[data-theme='dark'] .bili-comments { border-top-color: rgba(56, 189, 248, 0.25); }
+[data-theme='dark'] .bili-comments-more { color: #38bdf8; }
+[data-theme='dark'] .bili-c-avatar-wrap { background: rgba(56, 189, 248, 0.18); }
+[data-theme='dark'] .bili-c-initial { color: #38bdf8; }
+[data-theme='dark'] .bili-c-meta { color: rgba(255, 255, 255, 0.45); }
