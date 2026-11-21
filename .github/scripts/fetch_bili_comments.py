@@ -85,12 +85,21 @@ def main() -> int:
             print(f"ERROR {bvid}: {exc}")
             failed = True
             continue
+        out_file = OUT_DIR / f"{bvid}.json"
+        if out_file.exists():
+            try:
+                old = json.loads(out_file.read_text(encoding="utf-8"))
+                if old.get("comments") == comments:
+                    print(f"OK {bvid}: unchanged, keeping existing snapshot")
+                    continue
+            except Exception:  # noqa: BLE001 - unreadable old file: rewrite
+                pass
         snapshot = {
             "bvid": bvid,
             "fetched_at": int(time.time()),
             "comments": comments,
         }
-        (OUT_DIR / f"{bvid}.json").write_text(
+        out_file.write_text(
             json.dumps(snapshot, ensure_ascii=False, indent=1), encoding="utf-8"
         )
         print(f"OK {bvid}: {len(comments)} comments")
