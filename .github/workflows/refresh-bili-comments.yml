@@ -1,0 +1,28 @@
+name: Refresh Bilibili comments
+
+on:
+  schedule:
+    - cron: '20 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch hot comments
+        run: python3 .github/scripts/fetch_bili_comments.py
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add source/data/bili-comments/
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Refresh Bilibili hot comments"
+            git push
+          fi
