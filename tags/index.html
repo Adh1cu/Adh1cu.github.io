@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>标签 | Adh1cu 的博客</title><meta name="author" content="Adh1cu"><meta name="copyright" content="Adh1cu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Adh1cu 的个人博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="标签">
+<meta property="og:url" content="https://adh1cu.github.io/tags/index.html">
+<meta property="og:site_name" content="Adh1cu 的博客">
+<meta property="og:description" content="Adh1cu 的个人博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adh1cu.github.io/img/avatar.jpg">
+<meta property="article:published_time" content="2026-11-07T09:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-21T13:27:55.081Z">
+<meta property="article:author" content="Adh1cu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adh1cu.github.io/img/avatar.jpg"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://adh1cu.github.io/tags/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        try {
+          const data = { value }
+
+          if (ttl != null) {
+            data.expiry = Date.now() + ttl * 86400000
+          }
+
+          localStorage.setItem(key, JSON.stringify(data))
+        } catch (e) {
+          console.error(e)
+        }
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const start = 6
+              const end = 18
+              const isNight =
+                start < end
+                    ? hour < start || hour >= end
+                    : hour >= start || hour < end
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '标签',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png"><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Adh1cu 的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">99</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/"><i class="fa-fw fas fa-inbox"></i><span> 政治经济</span></a></li><li><a class="site-page child" href="/categories/%E7%A7%91%E6%8A%80%E5%88%86%E4%BA%AB/"><i class="fa-fw fas fa-inbox"></i><span> 科技分享</span></a></li><li><a class="site-page child" href="/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"><i class="fa-fw fas fa-inbox"></i><span> 碎碎念</span></a></li></ul></div></div></div></div><div class="page type-tags" id="body-wrap"><header class="not-home-page" id="page-header" style="background-image: url(/img/sea-bg.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Adh1cu 的博客</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/"><i class="fa-fw fas fa-inbox"></i><span> 政治经济</span></a></li><li><a class="site-page child" href="/categories/%E7%A7%91%E6%8A%80%E5%88%86%E4%BA%AB/"><i class="fa-fw fas fa-inbox"></i><span> 科技分享</span></a></li><li><a class="site-page child" href="/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"><i class="fa-fw fas fa-inbox"></i><span> 碎碎念</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">标签</h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="tag-cloud-list text-center"><a href="/tags/%E6%95%99%E8%82%B2/" style="font-size: 1.35em; background-color: rgb(137, 104, 56);">教育</a><a href="/tags/AI/" style="font-size: 1.2em; background-color: rgb(182, 50, 180);">AI</a><a href="/tags/%E9%A5%AE%E9%A3%9F%E5%8F%B2/" style="font-size: 1.2em; background-color: rgb(184, 181, 112);">饮食史</a><a href="/tags/%E6%8F%B4%E9%9D%9E/" style="font-size: 1.2em; background-color: rgb(50, 152, 50);">援非</a><a href="/tags/%E5%A5%91%E7%BA%A6/" style="font-size: 1.2em; background-color: rgb(198, 187, 168);">契约</a><a href="/tags/%E5%B0%B1%E4%B8%9A/" style="font-size: 1.35em; background-color: rgb(76, 50, 50);">就业</a><a href="/tags/%E4%BC%A0%E7%BB%9F/" style="font-size: 1.2em; background-color: rgb(50, 50, 147);">传统</a><a href="/tags/%E5%8D%83%E4%BA%BF%E7%9F%BF%E6%9D%83%E6%A1%88/" style="font-size: 1.2em; background-color: rgb(191, 78, 62);">千亿矿权案</a><a href="/tags/%E8%BF%90%E8%90%A5%E5%95%86/" style="font-size: 1.2em; background-color: rgb(177, 160, 88);">运营商</a><a href="/tags/%E4%B8%AD%E6%9C%9F%E9%80%89%E4%B8%BE/" style="font-size: 1.2em; background-color: rgb(50, 191, 127);">中期选举</a><a href="/tags/%E6%B0%9A/" style="font-size: 1.2em; background-color: rgb(62, 50, 50);">氚</a><a href="/tags/%E6%B7%B1%E5%B1%82%E6%94%BF%E5%BA%9C/" style="font-size: 1.2em; background-color: rgb(50, 83, 58);">深层政府</a><a href="/tags/%E9%9A%90%E7%A7%81/" style="font-size: 1.2em; background-color: rgb(195, 50, 74);">隐私</a><a href="/tags/%E8%96%85%E7%BE%8A%E6%AF%9B/" style="font-size: 1.2em; background-color: rgb(148, 161, 51);">薅羊毛</a><a href="/tags/FlClash/" style="font-size: 1.2em; background-color: rgb(51, 154, 61);">FlClash</a><a href="/tags/%E6%8E%92%E6%B5%B7/" style="font-size: 1.2em; background-color: rgb(195, 50, 94);">排海</a><a href="/tags/%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BF%86/" style="font-size: 1.2em; background-color: rgb(61, 149, 66);">历史记忆</a><a href="/tags/%E5%A4%96%E4%BC%81/" style="font-size: 1.2em; background-color: rgb(165, 78, 102);">外企</a><a href="/tags/%E7%A4%BE%E4%BC%9A/" style="font-size: 1.2em; background-color: rgb(50, 184, 50);">社会</a><a href="/tags/%E8%82%9D%E6%8D%9F%E4%BC%A4/" style="font-size: 1.2em; background-color: rgb(50, 50, 173);">肝损伤</a><a href="/tags/%E5%8C%BB%E4%BF%9D/" style="font-size: 1.2em; background-color: rgb(112, 56, 118);">医保</a><a href="/tags/%E6%8A%95%E8%B5%84/" style="font-size: 1.2em; background-color: rgb(146, 134, 184);">投资</a><a href="/tags/%E9%80%9A%E8%B4%A7%E8%86%A8%E8%83%80/" style="font-size: 1.2em; background-color: rgb(67, 73, 182);">通货膨胀</a><a href="/tags/1962/" style="font-size: 1.2em; background-color: rgb(50, 63, 150);">1962</a><a href="/tags/%E4%B9%B0%E8%BD%A6/" style="font-size: 1.2em; background-color: rgb(129, 50, 50);">买车</a><a href="/tags/%E9%9F%A9%E5%9B%BD/" style="font-size: 1.2em; background-color: rgb(135, 172, 184);">韩国</a><a href="/tags/%E6%B0%91%E9%97%B4%E6%8A%95%E8%B5%84/" style="font-size: 1.2em; background-color: rgb(164, 50, 137);">民间投资</a><a href="/tags/%E6%94%BF%E6%B2%BB/" style="font-size: 1.2em; background-color: rgb(145, 191, 79);">政治</a><a href="/tags/%E5%9B%9E%E5%BF%86%E5%BD%95/" style="font-size: 1.2em; background-color: rgb(177, 50, 194);">回忆录</a><a href="/tags/%E5%8F%B3%E7%BF%BC/" style="font-size: 1.2em; background-color: rgb(90, 50, 69);">右翼</a><a href="/tags/%E9%95%B0%E4%BB%93/" style="font-size: 1.2em; background-color: rgb(67, 191, 124);">镰仓</a><a href="/tags/%E5%A4%96%E4%BA%A4/" style="font-size: 1.2em; background-color: rgb(89, 182, 50);">外交</a><a href="/tags/%E5%9B%9B%E5%B7%9D/" style="font-size: 1.2em; background-color: rgb(180, 50, 121);">四川</a><a href="/tags/DPI/" style="font-size: 1.2em; background-color: rgb(50, 193, 85);">DPI</a><a href="/tags/%E5%8C%BB%E7%96%97/" style="font-size: 1.2em; background-color: rgb(141, 176, 137);">医疗</a><a href="/tags/%E9%AB%98%E8%80%83/" style="font-size: 1.2em; background-color: rgb(149, 77, 141);">高考</a><a href="/tags/%E4%B9%92%E4%B9%93%E7%90%83/" style="font-size: 1.2em; background-color: rgb(143, 155, 138);">乒乓球</a><a href="/tags/%E7%83%88%E9%85%92/" style="font-size: 1.2em; background-color: rgb(50, 50, 177);">烈酒</a><a href="/tags/%E5%85%B4%E5%A5%8B%E5%89%82/" style="font-size: 1.2em; background-color: rgb(55, 90, 67);">兴奋剂</a><a href="/tags/%E6%B8%85%E5%8C%97/" style="font-size: 1.2em; background-color: rgb(50, 95, 113);">清北</a><a href="/tags/%E9%AD%94%E6%B3%95/" style="font-size: 1.2em; background-color: rgb(50, 86, 50);">魔法</a><a href="/tags/%E9%80%BB%E8%BE%91/" style="font-size: 1.35em; background-color: rgb(64, 75, 178);">逻辑</a><a href="/tags/%E7%A6%8F%E5%B2%9B/" style="font-size: 1.2em; background-color: rgb(50, 50, 50);">福岛</a><a href="/tags/K%E5%9E%8B%E5%88%86%E5%8C%96/" style="font-size: 1.2em; background-color: rgb(135, 188, 50);">K型分化</a><a href="/tags/%E7%AB%A5%E5%B9%B4/" style="font-size: 1.35em; background-color: rgb(162, 50, 50);">童年</a><a href="/tags/%E7%BE%8E%E8%82%A1/" style="font-size: 1.2em; background-color: rgb(55, 192, 179);">美股</a><a href="/tags/%E5%8E%86%E5%8F%B2/" style="font-size: 1.2em; background-color: rgb(91, 104, 169);">历史</a><a href="/tags/%E9%BB%84%E4%BA%9A%E7%94%9F/" style="font-size: 1.2em; background-color: rgb(128, 166, 50);">黄亚生</a><a href="/tags/%E6%A0%B8%E7%94%B5%E7%AB%99/" style="font-size: 1.2em; background-color: rgb(168, 165, 50);">核电站</a><a href="/tags/%E4%BD%93%E8%82%B2/" style="font-size: 1.2em; background-color: rgb(73, 85, 151);">体育</a><a href="/tags/%E5%BC%A0%E5%B0%8F%E5%B9%B3/" style="font-size: 1.2em; background-color: rgb(50, 93, 50);">张小平</a><a href="/tags/%E8%B4%A2%E9%98%80/" style="font-size: 1.2em; background-color: rgb(50, 103, 56);">财阀</a><a href="/tags/%E5%A4%A7%E5%8E%82/" style="font-size: 1.2em; background-color: rgb(189, 80, 50);">大厂</a><a href="/tags/%E9%BB%84%E4%BB%81%E5%8B%8B/" style="font-size: 1.2em; background-color: rgb(50, 70, 103);">黄仁勋</a><a href="/tags/%E9%A9%AC%E5%AE%B6%E5%86%9B/" style="font-size: 1.2em; background-color: rgb(56, 50, 133);">马家军</a><a href="/tags/%E7%9C%8B%E7%97%85%E8%B4%B5/" style="font-size: 1.2em; background-color: rgb(186, 81, 50);">看病贵</a><a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/" style="font-size: 1.2em; background-color: rgb(169, 99, 88);">经济学</a><a href="/tags/%E6%8C%87%E6%95%B0%E5%9F%BA%E9%87%91/" style="font-size: 1.2em; background-color: rgb(187, 82, 91);">指数基金</a><a href="/tags/%E8%B4%A7%E5%B8%81%E6%88%98%E4%BA%89/" style="font-size: 1.2em; background-color: rgb(150, 50, 50);">货币战争</a><a href="/tags/%E6%B6%88%E8%B4%B9/" style="font-size: 1.35em; background-color: rgb(190, 147, 50);">消费</a><a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" style="font-size: 1.2em; background-color: rgb(50, 63, 151);">科学上网</a><a href="/tags/%E5%A4%96%E5%8D%96%E5%91%98/" style="font-size: 1.2em; background-color: rgb(126, 141, 152);">外卖员</a><a href="/tags/%E6%9C%8D%E4%BB%8E%E6%80%A7/" style="font-size: 1.2em; background-color: rgb(178, 50, 50);">服从性</a><a href="/tags/%E5%A2%A8%E5%B0%94%E6%9C%AC/" style="font-size: 1.2em; background-color: rgb(173, 50, 66);">墨尔本</a><a href="/tags/%E6%B0%91%E8%90%A5%E7%BB%8F%E6%B5%8E/" style="font-size: 1.2em; background-color: rgb(199, 141, 50);">民营经济</a><a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.2em; background-color: rgb(67, 92, 151);">数学</a><a href="/tags/%E6%8B%9C%E7%99%BB/" style="font-size: 1.2em; background-color: rgb(165, 118, 188);">拜登</a><a href="/tags/%E7%99%BD%E9%85%92/" style="font-size: 1.2em; background-color: rgb(150, 50, 185);">白酒</a><a href="/tags/%E6%97%A5%E6%9C%AC/" style="font-size: 1.35em; background-color: rgb(67, 50, 177);">日本</a><a href="/tags/%E8%B6%85%E7%BA%A7%E4%B8%AD%E5%AD%A6/" style="font-size: 1.2em; background-color: rgb(50, 127, 59);">超级中学</a><a href="/tags/%E5%8D%8E%E4%BA%BA/" style="font-size: 1.2em; background-color: rgb(165, 50, 157);">华人</a><a href="/tags/%E4%B8%AD%E7%BE%8E%E5%85%B3%E7%B3%BB/" style="font-size: 1.2em; background-color: rgb(167, 50, 168);">中美关系</a><a href="/tags/%E6%96%87%E5%AD%97/" style="font-size: 1.2em; background-color: rgb(150, 70, 193);">文字</a><a href="/tags/%E5%85%94%E5%A5%B3%E9%83%8E%E5%AD%A6%E5%A7%90/" style="font-size: 1.2em; background-color: rgb(50, 141, 143);">兔女郎学姐</a><a href="/tags/%E5%81%A5%E5%BA%B7/" style="font-size: 1.35em; background-color: rgb(105, 50, 104);">健康</a><a href="/tags/%E5%A5%91%E7%BA%A6%E7%B2%BE%E7%A5%9E/" style="font-size: 1.2em; background-color: rgb(50, 53, 157);">契约精神</a><a href="/tags/%E7%94%B5%E7%93%B6%E8%BD%A6/" style="font-size: 1.2em; background-color: rgb(50, 97, 74);">电瓶车</a><a href="/tags/%E5%86%85%E5%8D%B7/" style="font-size: 1.35em; background-color: rgb(63, 139, 88);">内卷</a><a href="/tags/%E5%B9%B4%E8%BD%BB%E4%BA%BA/" style="font-size: 1.2em; background-color: rgb(131, 51, 50);">年轻人</a><a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E5%90%8C/" style="font-size: 1.2em; background-color: rgb(161, 89, 52);">身份认同</a><a href="/tags/%E9%93%B6%E8%A1%8C/" style="font-size: 1.2em; background-color: rgb(184, 136, 121);">银行</a><a href="/tags/%E7%BB%8F%E6%B5%8E/" style="font-size: 1.35em; background-color: rgb(160, 119, 102);">经济</a><a href="/tags/%E4%BA%BA%E7%89%A9/" style="font-size: 1.2em; background-color: rgb(65, 50, 50);">人物</a><a href="/tags/%E8%81%8C%E5%9C%BA/" style="font-size: 1.2em; background-color: rgb(192, 95, 50);">职场</a><a href="/tags/%E8%A5%BF%E5%AE%89/" style="font-size: 1.2em; background-color: rgb(162, 135, 144);">西安</a><a href="/tags/A%E8%82%A1/" style="font-size: 1.2em; background-color: rgb(151, 73, 150);">A股</a><a href="/tags/%E5%BC%80%E6%88%B7%E5%A5%96%E5%8A%B1/" style="font-size: 1.2em; background-color: rgb(155, 69, 179);">开户奖励</a><a href="/tags/%E7%81%AB%E9%94%85/" style="font-size: 1.2em; background-color: rgb(185, 50, 106);">火锅</a><a href="/tags/%E9%BB%8E%E6%9B%BC%E7%8C%9C%E6%83%B3/" style="font-size: 1.2em; background-color: rgb(157, 72, 138);">黎曼猜想</a><a href="/tags/%E4%B8%AD%E8%8D%AF/" style="font-size: 1.2em; background-color: rgb(62, 125, 81);">中药</a><a href="/tags/%E5%AE%BD%E5%B8%A6/" style="font-size: 1.2em; background-color: rgb(189, 87, 85);">宽带</a><a href="/tags/%E6%B0%91%E6%97%8F%E4%B8%BB%E4%B9%89/" style="font-size: 1.2em; background-color: rgb(130, 132, 50);">民族主义</a><a href="/tags/%E9%9D%92%E6%98%A5/" style="font-size: 1.2em; background-color: rgb(128, 54, 50);">青春</a><a href="/tags/%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E7%AC%AC%E5%8D%81%E9%97%AE%E9%A2%98/" style="font-size: 1.2em; background-color: rgb(176, 197, 55);">希尔伯特第十问题</a><a href="/tags/%E8%8B%B1%E4%BC%9F%E8%BE%BE/" style="font-size: 1.2em; background-color: rgb(196, 50, 51);">英伟达</a><a href="/tags/%E5%85%89%E7%8C%AB/" style="font-size: 1.2em; background-color: rgb(188, 52, 142);">光猫</a><a href="/tags/%E9%85%92%E6%96%87%E5%8C%96/" style="font-size: 1.2em; background-color: rgb(195, 166, 153);">酒文化</a><a href="/tags/%E6%95%99%E8%82%B2%E5%85%AC%E5%B9%B3/" style="font-size: 1.2em; background-color: rgb(129, 77, 125);">教育公平</a><a href="/tags/%E7%BE%8E%E5%9B%BD/" style="font-size: 1.5em; background-color: rgb(50, 50, 185);">美国</a></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Adh1cu</div><div class="author-info-description">偶尔分享搞机科技，生活琐事</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">99</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adh1cu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Adh1cu" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div style="font-size:14px;line-height:1.7">如果这里的内容对你有帮助，欢迎打赏支持 ☕</div>
+<div style="margin-top:8px;font-size:12px;opacity:.65">Aptos 网络</div>
+<code style="display:block;word-break:break-all;font-size:12px;background:rgba(127,127,127,.12);padding:8px;border-radius:8px;margin-top:4px">0xf7f328515e2045c469c7fadb256be4976c80e61cdd2f5e0b5a650ffbccfd5486</code>
+<button onclick="navigator.clipboard.writeText('0xf7f328515e2045c469c7fadb256be4976c80e61cdd2f5e0b5a650ffbccfd5486').then(()=>{this.textContent='已复制 ✓';setTimeout(()=>this.textContent='复制地址',2000)})" style="margin-top:8px;padding:6px 14px;border:none;border-radius:20px;background:#0e7490;color:#fff;cursor:pointer;font-size:13px">复制地址</button>
+</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/11/21/big-tech-three-years/" title="死磕大厂还值吗：打工三年的真实感受"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-dachang.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="死磕大厂还值吗：打工三年的真实感受"/></a><div class="content"><a class="title" href="/2026/11/21/big-tech-three-years/" title="死磕大厂还值吗：打工三年的真实感受">死磕大厂还值吗：打工三年的真实感受</a><time datetime="2026-11-21T11:40:00.000Z" title="发表于 2026-11-21 19:40:00">2026-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/20/hilbert-tenth-problem/" title="我童年时的遗憾，叫希尔伯特第十问题"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-hilbert-tenth-problem.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我童年时的遗憾，叫希尔伯特第十问题"/></a><div class="content"><a class="title" href="/2026/11/20/hilbert-tenth-problem/" title="我童年时的遗憾，叫希尔伯特第十问题">我童年时的遗憾，叫希尔伯特第十问题</a><time datetime="2026-11-20T18:03:00.000Z" title="发表于 2026-11-21 02:03:00">2026-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/20/late-puberty-syndrome/" title="迟到的青春期综合症"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-late-puberty-syndrome.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="迟到的青春期综合症"/></a><div class="content"><a class="title" href="/2026/11/20/late-puberty-syndrome/" title="迟到的青春期综合症">迟到的青春期综合症</a><time datetime="2026-11-20T07:25:00.000Z" title="发表于 2026-11-20 15:25:00">2026-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/19/china-drinks-less/" title="中国人不是喝不动了，是终于活得像人了"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-china-drinks-less.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="中国人不是喝不动了，是终于活得像人了"/></a><div class="content"><a class="title" href="/2026/11/19/china-drinks-less/" title="中国人不是喝不动了，是终于活得像人了">中国人不是喝不动了，是终于活得像人了</a><time datetime="2026-11-19T14:53:00.000Z" title="发表于 2026-11-19 22:53:00">2026-11-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/16/us-bank-account-bonus/" title="美国银行开户，真的能薅到上万美元"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-us-bank-bonus.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="美国银行开户，真的能薅到上万美元"/></a><div class="content"><a class="title" href="/2026/11/16/us-bank-account-bonus/" title="美国银行开户，真的能薅到上万美元">美国银行开户，真的能薅到上万美元</a><time datetime="2026-11-16T18:10:00.000Z" title="发表于 2026-11-17 02:10:00">2026-11-17</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/"><span class="card-category-list-name">政治经济</span><span class="card-category-list-count">24</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"><span class="card-category-list-name">碎碎念</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E6%8A%80%E5%88%86%E4%BA%AB/"><span class="card-category-list-name">科技分享</span><span class="card-category-list-count">2</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BF%86/" style="font-size: 1.1em; color: #999">历史记忆</a> <a href="/tags/%E6%8B%9C%E7%99%BB/" style="font-size: 1.1em; color: #999">拜登</a> <a href="/tags/%E8%BF%90%E8%90%A5%E5%95%86/" style="font-size: 1.1em; color: #999">运营商</a> <a href="/tags/%E6%9C%8D%E4%BB%8E%E6%80%A7/" style="font-size: 1.1em; color: #999">服从性</a> <a href="/tags/%E9%80%BB%E8%BE%91/" style="font-size: 1.5em; color: #99a9bf">逻辑</a> <a href="/tags/%E7%99%BD%E9%85%92/" style="font-size: 1.1em; color: #999">白酒</a> <a href="/tags/%E9%BB%84%E4%BB%81%E5%8B%8B/" style="font-size: 1.1em; color: #999">黄仁勋</a> <a href="/tags/%E4%B8%AD%E8%8D%AF/" style="font-size: 1.1em; color: #999">中药</a> <a href="/tags/%E4%B8%AD%E6%9C%9F%E9%80%89%E4%B8%BE/" style="font-size: 1.1em; color: #999">中期选举</a> <a href="/tags/%E5%8D%8E%E4%BA%BA/" style="font-size: 1.1em; color: #999">华人</a> <a href="/tags/%E6%B0%9A/" style="font-size: 1.1em; color: #999">氚</a> <a href="/tags/%E4%B9%92%E4%B9%93%E7%90%83/" style="font-size: 1.1em; color: #999">乒乓球</a> <a href="/tags/%E9%9D%92%E6%98%A5/" style="font-size: 1.1em; color: #999">青春</a> <a href="/tags/%E4%BD%93%E8%82%B2/" style="font-size: 1.1em; color: #999">体育</a> <a href="/tags/%E5%8C%BB%E4%BF%9D/" style="font-size: 1.1em; color: #999">医保</a> <a href="/tags/%E5%A4%A7%E5%8E%82/" style="font-size: 1.1em; color: #999">大厂</a> <a href="/tags/%E9%85%92%E6%96%87%E5%8C%96/" style="font-size: 1.1em; color: #999">酒文化</a> <a href="/tags/%E4%BA%BA%E7%89%A9/" style="font-size: 1.1em; color: #999">人物</a> <a href="/tags/%E6%B8%85%E5%8C%97/" style="font-size: 1.1em; color: #999">清北</a> <a href="/tags/%E6%8C%87%E6%95%B0%E5%9F%BA%E9%87%91/" style="font-size: 1.1em; color: #999">指数基金</a> <a href="/tags/%E5%81%A5%E5%BA%B7/" style="font-size: 1.5em; color: #99a9bf">健康</a> <a href="/tags/%E5%A2%A8%E5%B0%94%E6%9C%AC/" style="font-size: 1.1em; color: #999">墨尔本</a> <a href="/tags/%E9%BB%8E%E6%9B%BC%E7%8C%9C%E6%83%B3/" style="font-size: 1.1em; color: #999">黎曼猜想</a> <a href="/tags/%E9%A5%AE%E9%A3%9F%E5%8F%B2/" style="font-size: 1.1em; color: #999">饮食史</a> <a href="/tags/%E5%A4%96%E4%BC%81/" style="font-size: 1.1em; color: #999">外企</a> <a href="/tags/%E6%B0%91%E6%97%8F%E4%B8%BB%E4%B9%89/" style="font-size: 1.1em; color: #999">民族主义</a> <a href="/tags/%E5%9B%9E%E5%BF%86%E5%BD%95/" style="font-size: 1.1em; color: #999">回忆录</a> <a href="/tags/%E5%B0%B1%E4%B8%9A/" style="font-size: 1.5em; color: #99a9bf">就业</a> <a href="/tags/%E4%BC%A0%E7%BB%9F/" style="font-size: 1.1em; color: #999">传统</a> <a href="/tags/%E5%AE%BD%E5%B8%A6/" style="font-size: 1.1em; color: #999">宽带</a> <a href="/tags/%E6%96%87%E5%AD%97/" style="font-size: 1.1em; color: #999">文字</a> <a href="/tags/%E7%BB%8F%E6%B5%8E/" style="font-size: 1.5em; color: #99a9bf">经济</a> <a href="/tags/AI/" style="font-size: 1.1em; color: #999">AI</a> <a href="/tags/%E6%97%A5%E6%9C%AC/" style="font-size: 1.5em; color: #99a9bf">日本</a> <a href="/tags/%E5%86%85%E5%8D%B7/" style="font-size: 1.5em; color: #99a9bf">内卷</a> <a href="/tags/%E6%A0%B8%E7%94%B5%E7%AB%99/" style="font-size: 1.1em; color: #999">核电站</a> <a href="/tags/%E8%A5%BF%E5%AE%89/" style="font-size: 1.1em; color: #999">西安</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E5%90%8C/" style="font-size: 1.1em; color: #999">身份认同</a> <a href="/tags/%E5%85%89%E7%8C%AB/" style="font-size: 1.1em; color: #999">光猫</a> <a href="/tags/A%E8%82%A1/" style="font-size: 1.1em; color: #999">A股</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/11/">
+            <span class="card-archive-list-date">
+              十一月 2026
+            </span>
+            <span class="card-archive-list-count">31</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">31</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">55809</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-11-21T13:28:12.452Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By Adh1cu</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.2"></script><script src="/js/main.js?v=5.7.2"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/click-effect.js"></script><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><div id="music-topbar"><div id="music-player-wrap"></div><button id="music-close" title="收起播放器">×</button><button id="music-show" title="打开播放器">🎵</button></div><script src="/js/music.js"></script><script src="/js/home.js"></script><script src="/js/card-click.js"></script><script src="/js/related-order.js"></script><script src="/js/lang-toggle.js"></script><script src="/js/bili-comments.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([data-fancybox])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      if (!item.parentNode) return
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || ''
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    const responseURL = e.request && e.request.responseURL
+    if (e.request && e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : responseURL && (window.location.href = responseURL)
+    } else if (responseURL) {
+      window.location.href = responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.2"></script></div></div></body></html>

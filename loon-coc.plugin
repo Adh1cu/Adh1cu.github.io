@@ -1,0 +1,9 @@
+#!name=部落冲突国际服
+#!desc=部落冲突国际服（Supercell）走代理：supercell.net、supercell.com、clashofclans.com
+#!author=Adh1cu
+
+[Rule]
+DOMAIN-SUFFIX,supercell.net,PROXY
+DOMAIN-SUFFIX,supercell.com,PROXY
+DOMAIN-SUFFIX,clashofclans.com,PROXY
+DOMAIN-SUFFIX,supercellgames.com,PROXY
