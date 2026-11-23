@@ -193,6 +193,7 @@ inject:
     - <script src="/js/related-order.js"></script>
     - <script src="/js/lang-toggle.js"></script>
     - <script src="/js/bili-comments.js"></script>
+    - <script src="/js/muse-comment.js"></script>
 
 # --------------------------------------
 # PJAX: page navigation without full reload, so the music bar keeps
