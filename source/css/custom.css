@@ -458,6 +458,7 @@ body {
   margin: 0;
   font-size: 15px;
   line-height: 1.85;
+  white-space: pre-line;
 }
 [data-theme='dark'] .muse-note {
   background: linear-gradient(135deg, rgba(56, 189, 248, 0.13), rgba(56, 189, 248, 0.04) 62%);
