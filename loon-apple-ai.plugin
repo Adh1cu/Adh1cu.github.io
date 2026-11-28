@@ -1,0 +1,28 @@
+#!name=Apple AI
+#!desc=Apple Intelligence / Siri / iCloud 隐私中继 + ChatGPT 分流，走代理（需美区节点）。规则来源：ddgksf2013/Filter（AppleIntelligence.list）+ RocM301/Apple-Rule；ChatGPT 登录需另走 OpenAI 域名
+#!author=Adh1cu
+
+[Rule]
+DOMAIN-SUFFIX,gateway.icloud.com,PROXY
+DOMAIN-SUFFIX,apple-relay.apple.com,PROXY
+DOMAIN-SUFFIX,apple-relay.fastly-edge.com,PROXY
+DOMAIN-SUFFIX,apple-relay.cloudflare.com,PROXY
+DOMAIN-SUFFIX,guzzoni.apple.com,PROXY
+DOMAIN-SUFFIX,cp4.cloudflare.com,PROXY
+DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com,PROXY
+DOMAIN-SUFFIX,smoot.apple.com,PROXY
+DOMAIN-SUFFIX,apple-relay.akamaized.net,PROXY
+DOMAIN-SUFFIX,apple-relay.mask.apple-dns.net,PROXY
+DOMAIN-SUFFIX,api-siri-prod.apple.com,PROXY
+DOMAIN,seed.siri.apple.com,PROXY
+DOMAIN,mask-api.icloud.com,PROXY
+DOMAIN,mask-api.fe2.apple-dns.net,PROXY
+DOMAIN,apple-carry-relay.cloudflare.com,PROXY
+DOMAIN,probe.icloud.com,PROXY
+DOMAIN,metrics.icloud.com,PROXY
+DOMAIN,wps.apple.com,PROXY
+DOMAIN-SUFFIX,openai.com,PROXY
+DOMAIN-SUFFIX,chatgpt.com,PROXY
+DOMAIN-SUFFIX,oaistatic.com,PROXY
+DOMAIN-SUFFIX,oaiusercontent.com,PROXY
+

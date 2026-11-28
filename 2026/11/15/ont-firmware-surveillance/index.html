@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>你家光猫的 256MB 内存里，住着 66 个监控线程 | Adh1cu 的博客</title><meta name="author" content="Adh1cu"><meta name="copyright" content="Adh1cu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="66 个常驻监控线程、一套要连续过载 20 次才肯停手的流量嗅探引擎、一行硬编码在固件底层的新疆电信上报密钥——这不是什么骨干网审查服务器的配置，而是此刻正躺在你家弱电箱里的那台普通光猫。  你以为光猫只是个把光纤转成网线的傻瓜塑料盒。有人把两台主流运营商光猫的闪存固件完整提取出来、反编译到底层字节码，看完之后结论很简单：你每个月交着宽带费和电费，其实是在自己家里，全天候供养着一台监控终端。 先">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你家光猫的 256MB 内存里，住着 66 个监控线程">
+<meta property="og:url" content="https://adh1cu.github.io/2026/11/15/ont-firmware-surveillance/index.html">
+<meta property="og:site_name" content="Adh1cu 的博客">
+<meta property="og:description" content="66 个常驻监控线程、一套要连续过载 20 次才肯停手的流量嗅探引擎、一行硬编码在固件底层的新疆电信上报密钥——这不是什么骨干网审查服务器的配置，而是此刻正躺在你家弱电箱里的那台普通光猫。  你以为光猫只是个把光纤转成网线的傻瓜塑料盒。有人把两台主流运营商光猫的闪存固件完整提取出来、反编译到底层字节码，看完之后结论很简单：你每个月交着宽带费和电费，其实是在自己家里，全天候供养着一台监控终端。 先">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://adh1cu.github.io/img/cover-ont-firmware-surveillance.jpg">
+<meta property="article:published_time" content="2026-11-15T12:19:00.000Z">
+<meta property="article:modified_time" content="2026-11-28T19:16:00.914Z">
+<meta property="article:author" content="Adh1cu">
+<meta property="article:tag" content="DPI">
+<meta property="article:tag" content="光猫">
+<meta property="article:tag" content="宽带">
+<meta property="article:tag" content="运营商">
+<meta property="article:tag" content="隐私">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://adh1cu.github.io/img/cover-ont-firmware-surveillance.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "你家光猫的 256MB 内存里，住着 66 个监控线程",
+  "url": "https://adh1cu.github.io/2026/11/15/ont-firmware-surveillance/",
+  "image": "https://adh1cu.github.io/img/cover-ont-firmware-surveillance.jpg",
+  "datePublished": "2026-11-15T12:19:00.000Z",
+  "dateModified": "2026-11-28T19:16:00.914Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Adh1cu",
+      "url": "https://adh1cu.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://adh1cu.github.io/2026/11/15/ont-firmware-surveillance/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.7.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        try {
+          const data = { value }
+
+          if (ttl != null) {
+            data.expiry = Date.now() + ttl * 86400000
+          }
+
+          localStorage.setItem(key, JSON.stringify(data))
+        } catch (e) {
+          console.error(e)
+        }
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const start = 6
+              const end = 18
+              const isNight =
+                start < end
+                    ? hour < start || hour >= end
+                    : hour >= start || hour < end
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '你家光猫的 256MB 内存里，住着 66 个监控线程',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png"><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Adh1cu 的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/"><i class="fa-fw fas fa-inbox"></i><span> 政治经济</span></a></li><li><a class="site-page child" href="/categories/%E7%A7%91%E6%8A%80%E5%88%86%E4%BA%AB/"><i class="fa-fw fas fa-inbox"></i><span> 科技分享</span></a></li><li><a class="site-page child" href="/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"><i class="fa-fw fas fa-inbox"></i><span> 碎碎念</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/cover-ont-firmware-surveillance.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Adh1cu 的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">你家光猫的 256MB 内存里，住着 66 个监控线程</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E6%94%BF%E6%B2%BB%E7%BB%8F%E6%B5%8E/"><i class="fa-fw fas fa-inbox"></i><span> 政治经济</span></a></li><li><a class="site-page child" href="/categories/%E7%A7%91%E6%8A%80%E5%88%86%E4%BA%AB/"><i class="fa-fw fas fa-inbox"></i><span> 科技分享</span></a></li><li><a class="site-page child" href="/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"><i class="fa-fw fas fa-inbox"></i><span> 碎碎念</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">你家光猫的 256MB 内存里，住着 66 个监控线程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-11-15T12:19:00.000Z" title="发表于 2026-11-15 20:19:00">2026-11-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-11-28T19:16:00.914Z" title="更新于 2026-11-29 03:16:00">2026-11-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A7%91%E6%8A%80%E5%88%86%E4%BA%AB/">科技分享</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3138</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12 分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote>
+<p>66 个常驻监控线程、一套要连续过载 20 次才肯停手的流量嗅探引擎、一行硬编码在固件底层的新疆电信上报密钥——这不是什么骨干网审查服务器的配置，而是此刻正躺在你家弱电箱里的那台普通光猫。</p>
+</blockquote>
+<p>你以为光猫只是个把光纤转成网线的傻瓜塑料盒。有人把两台主流运营商光猫的闪存固件完整提取出来、反编译到底层字节码，看完之后结论很简单：你每个月交着宽带费和电费，其实是在自己家里，全天候供养着一台监控终端。</p>
+<h2 id="先从每个人都遇到过的卡顿说起"><a href="#先从每个人都遇到过的卡顿说起" class="headerlink" title="先从每个人都遇到过的卡顿说起"></a>先从每个人都遇到过的卡顿说起</h2><p>如果你认真测过家里的网速，或者在晚高峰打过对延迟敏感的游戏，你多半察觉过某种说不出的古怪：明明办的是 300 兆、500 兆宽带，哪怕把光猫改成纯桥接、用性能强悍的独立软路由拨号，测速指针还是像撞上一堵空气墙，死死卡在 290 兆上下。更诡异的是，那台理论上只负责光电转换的光猫，外壳一年四季烫得像个暖手宝，延迟抖动还经常无缘无故飙到 15 毫秒以上。</p>
+<p>为了搞清楚这台小盒子到底在忙什么，视频作者在二手市场收购了两台国内最主流的运营商定制光猫，把固件拆解到了代码级别。第一眼就颠覆常识：一台几乎不跑任何路由转发任务的桥接光猫，双核处理器占用率常年维持在 58% 到 72% 的高位。是谁，在悄无声息地吸干你家光猫六成以上的算力？</p>
+<h2 id="256MB-的家底，被一个-Java-虚拟机吃掉一半"><a href="#256MB-的家底，被一个-Java-虚拟机吃掉一半" class="headerlink" title="256MB 的家底，被一个 Java 虚拟机吃掉一半"></a>256MB 的家底，被一个 Java 虚拟机吃掉一半</h2><p>先看看这台光猫的硬件：一颗廉价的双核嵌入式芯片，配 256MB 物理内存。在这套嵌入式 Linux 里，正常的内核加二层网桥转发只需要不到 40MB 内存，CPU 占用连 1% 都不到。</p>
+<p>然而进程表里赫然盘踞着一个名叫 Felix.jar 的庞然大物。运营商在这台巴掌大的缩水硬件里，硬生生塞进了一整套完整的 Java OSGi 虚拟机容器。实测显示，单单这一个 Java 进程，开机就派生出整整 66 个并发线程，常驻吞掉超过 130MB 物理内存——直接霸占了光猫一半以上的运存。</p>
+<p>把固件里的应用目录完整打包拖回本地，9 个核心 JAR 组件逐一反编译，伪装就全剥干净了：有负责云端心跳的 Management 组件，负责局域网拓扑上报的 Andlink 组件，以及最核心的一个——com.chinamobile.smartgateway.cmccdpi。DPI，全称 Deep Packet Inspection，深度报文检测。就是这个缩写，把运营商机房里的深度包检测设备，直接部署到了你家客厅。</p>
+<h2 id="桥接模式挡不住它：每个包都被复制一份"><a href="#桥接模式挡不住它：每个包都被复制一份" class="headerlink" title="桥接模式挡不住它：每个包都被复制一份"></a>桥接模式挡不住它：每个包都被复制一份</h2><p>如果有人替运营商辩解，说这套组件只是为了“智能家居服务”，那反编译出的字节码就是一封无法抵赖的供词。在 cmccdpi 的核心启动类里，它直接调用底层接口，挂钩在 Linux 内核的 br0 网桥上。这意味着：哪怕你已经把光猫改成纯桥接，自以为它只是一根透明的网线，你家里每台手机、每台电脑发出的每一个数据包，在流经网桥时依然会被强行复制一份，送进 Java 虚拟机做深度特征嗅探。</p>
+<p>更直白的证据，藏在启动类里硬编码的四行英文日志里，可以逐字读一读程序员写下的真实逻辑：</p>
+<p>第一句，hgudpi start——深度报文监控引擎启动。第二句，CPU rate over limitation, remove QoS and HTTP monitor rules——CPU 超标时，先移除服务质量与 HTTP 监控规则。第三句，CPU rate over limitation, remove TCP UDP monitor rules——CPU 继续爆表，再移除 TCP、UDP 全流量监控规则。第四句是整套代码最荒诞的高潮：CPU rate over limitation more than 20 times, disable the service monitor function——只有当 CPU 连续严重过载报警超过整整 20 次之后，才允许暂时停用监控功能。</p>
+<p>优先级写得明明白白：监控是最后一件可以放弃的事，你的网速不是。</p>
+<h2 id="它不只是看，还会点名、镜像和自保"><a href="#它不只是看，还会点名、镜像和自保" class="headerlink" title="它不只是看，还会点名、镜像和自保"></a>它不只是看，还会点名、镜像和自保</h2><p>继续反编译 Management 等组件，里面还有一整套更精密的取证机制：TCP Monitor、插件指令服务，以及一组名为 CMCC SoftProbe 的软探针接口。它的运作方式是这样的：平时，Andlink 探针像个勤勉的户籍警，定期扫描你家局域网的拓扑结构，把连上网的每部手机、电脑、平板的 MAC 地址、设备主机名、上线下线时间打包汇报给运营商云端。</p>
+<p>而一旦云端对某个家庭、甚至某台特定终端“产生兴趣”，根本不需要派人上门：通过长连接向光猫下发一条动态插件指令，光猫内部的镜像守护进程和软探针就会精确锁定目标的局域网 IP 或 MAC 地址，把这台设备发起的所有 DNS 解析请求、以及未加密的 HTTP 访问网址，实时镜像抓走，源源不断回传局端。</p>
+<p>想自己动手关掉它？固件里埋着一个看门狗脚本，每隔 60 秒巡检一次进程表，一旦发现监控进程消失，60 秒内就把它重新拉起来。</p>
+<h2 id="一行“新疆电信”的密钥，为什么躺在全国的固件里"><a href="#一行“新疆电信”的密钥，为什么躺在全国的固件里" class="headerlink" title="一行“新疆电信”的密钥，为什么躺在全国的固件里"></a>一行“新疆电信”的密钥，为什么躺在全国的固件里</h2><p>这会不会只是某一家运营商的个别行为？作者又拆了另一家主流运营商的高版本光猫固件，提取出 21 万多个文件。在一台并非部署在新疆的普通家用光猫里，有一段把家庭局域网设备 MAC 信息定期上报局端的配置：上报协议走的是毫无加密的 HTTP 明文，端口 80；而共享认证密钥那一栏，赫然写着一行字符串——Xinjiang_CTC，新疆电信。</p>
+<p>为什么一台全国千家万户都在用的普通光猫，底层硬编码的监控上报密钥会是新疆电信？视频给出的答案残酷而直白：在高压管控试验田里打磨成熟的那套网格化终端监控代码，早就作为标准化工业模板，连一行变量名都懒得改，直接复制粘贴进了全国几千万台家庭光猫的出厂固件。</p>
+<p>同一台光猫里还常驻着一套轻量容器引擎和一个每 10 分钟向云端打卡一次的守护进程，容器里预装了五个高权限插件：绘制家庭网络拓扑的、感知内网设备互通状态的、远程自动化控制引擎，以及最危险的一个——流量重定向插件。也就是说，光猫不仅能被动看你的流量，还具备在家庭网关最底层直接劫持特定业务的能力。</p>
+<h2 id="你够不到的那条暗线：TR-069"><a href="#你够不到的那条暗线：TR-069" class="headerlink" title="你够不到的那条暗线：TR-069"></a>你够不到的那条暗线：TR-069</h2><p>云端为什么能如此肆无忌惮地往你家光猫里塞插件、改配置？答案是光猫内部那条绝大多数用户看不见的暗线：TR-069 远程管理专网。入户光纤里其实并排跑着两条隔离的虚拟管道：一条是业务通道，承载你刷视频、打游戏的流量；另一条是 46 号管理 VLAN，拥有极高的系统特权，而且完全绕过你家路由器的防火墙。</p>
+<p>许多人发现，自己好不容易拿到的光猫超级管理员密码，每隔 10 到 30 分钟就莫名失效——这不是错觉。固件逆向显示，运营商布置了双层枷锁：一方面，本地固件内置随机密码程序，你一退出后台或会话超时，它就用硬编码的 AES 密钥自动刷新超级密码，防住普通用户改设置；另一方面，云端管理平台通过 46 号专网时刻巡检，一旦发现你把光猫改成了桥接模式，或者怀疑你在跑大流量上传，就会顺着这条暗道下发指令，半夜悄无声息地把你的配置重置，甚至强行推下限速策略。</p>
+<h2 id="怎么把网速和边界一起拿回来"><a href="#怎么把网速和边界一起拿回来" class="headerlink" title="怎么把网速和边界一起拿回来"></a>怎么把网速和边界一起拿回来</h2><p>面对这样一台塞满探针的黑盒网关，普通技术爱好者也不是毫无办法。视频在实验环境里做了一次彻底的净化实测：</p>
+<p>第一步，斩断监控虚拟机的算力寄生。通过底层维护接口，把拉起 66 线程 Java 虚拟机的启动脚本替换成一个零开销的休眠空壳进程，稳稳骗过每 60 秒巡检的看门狗。只这一步，奇迹就发生了：光猫 CPU 占用从 58.4% 断崖式跌到 7.8%，外壳恢复冰凉，130 多 MB 内存当场释放；软路由上重新测速，原本死死卡住的 290 兆应声碎裂，下载速率稳定跑满 375.8 兆——局端预留的那点冗余带宽被彻底释放；晚高峰延迟抖动从 15 毫秒降到 2.1 毫秒。</p>
+<p>第二步，更彻底：读取原机的 LOID 注册信息，把原厂光猫直接换成一台内存近 500MB、完全不带监控容器和云控地址的轻量纯桥接终端，空闲 CPU 负载只有 0.52%。</p>
+<p>第三步，把 PPPoE 拨号、NAT 转发和防火墙规则全部收归自己完全掌控的 OpenWrt 软路由；接光猫的物理网口保持独立，配精确的主机路由，绝不桥接进局域网，从而阻断光猫自带的 IPv6 路由广播污染。</p>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>在正常的现代通信准则里，接入设备有清晰的边界：调制解调器只负责物理层信号转换；你家局域网里有哪些设备、它们何时唤醒、彼此如何通信，属于私人住宅的延伸空间。而在这两台光猫的固件里，没有任何一处物理边界被尊重——当骨干网上的审查高墙还嫌不够精细时，触角便顺着光纤，直接伸进了千家万户的弱电箱。</p>
+<p>最黑色幽默的地方在于：这套用来监控你、分析你、随时准备劫持你流量的庞大程序，消耗的是你掏钱买的硬件内存，占用的是你按月付费的带宽，烧的是你自己交的电费。它不仅剥夺你的数字隐私，还要让你在每一次网页卡顿、每一次游戏跳 ping 时，亲身替这台粗糙而傲慢的监控机器买单。</p>
+<p>代码不会撒谎，数据包也不会撒谎。当我们亲手拆开这个只有 256MB 的小盒子、看清那些藏在角落里的字节码时，夺回的就不只是那 85 兆被克扣的网速，更是一个现代人对自己客厅里那一小方数字边界的知情权与控制权。</p>
+<p>（本文根据抖音创作者 nnnn 的固件逆向视频《256MB 里的老大哥：家用光猫底层监控固件》整理，文中技术细节为原视频作者的拆解发现。）</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://adh1cu.github.io">Adh1cu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://adh1cu.github.io/2026/11/15/ont-firmware-surveillance/">https://adh1cu.github.io/2026/11/15/ont-firmware-surveillance/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://adh1cu.github.io" target="_blank">Adh1cu 的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%85%89%E7%8C%AB/">光猫</a><a class="post-meta__tags" href="/tags/%E5%AE%BD%E5%B8%A6/">宽带</a><a class="post-meta__tags" href="/tags/%E9%9A%90%E7%A7%81/">隐私</a><a class="post-meta__tags" href="/tags/DPI/">DPI</a><a class="post-meta__tags" href="/tags/%E8%BF%90%E8%90%A5%E5%95%86/">运营商</a></div><div class="post-share"><div class="social-share" data-image="/img/cover-ont-firmware-surveillance.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/11/16/tradition-younger-than-coke/" title="你以为的传统，没有可乐命长"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-tradition-younger-than-coke.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">你以为的传统，没有可乐命长</div></div><div class="info-2"><div class="info-item-1"> 可口可乐诞生于 1886 年。而你以为川渝人吃了几百年的红油麻辣火锅，成型于 1980 年代——比可乐年轻了差不多一百岁。  先问一个问题：1980 年代之前，油脂极度匮乏，四川人是怎么吃上重油的麻辣火锅的？ 答案是：吃不上。因为在 1980 年代之前，四川压根就没有红油翻滚、以麻辣著称的火锅这种东西。注意，这里说的火锅不是“一口锅煮东西吃”——那从人类文明开始就有了——而是今天满大街的那种牛油红汤锅底。 先算一笔账：油从哪来红油锅底的本质是油。可在六七十年代，城镇居民的食用油是定量供应的：大多每人每月五两，有些省份比如辽宁、安徽，只有三两、四两。《沈阳大事记（1966—1985）》里记着，某年市里发文，从 10 月起食油定量由五两改为三两。一个月三两油，炒菜都要数着滴下锅，拿什么去打一锅牛油锅底？ 所以改开之前，川渝地区只有煮清水的素火锅。即便到了 80 年代以后，油脂依然匮乏，吃火锅全靠回收锅底——老油反复用，食材二次利用，在那个年代再正常不过，许多地方都有类似的智慧。陕西关中的浇汤面就是这样：红白喜事才吃，一碗只有几根面，几乎全是酸香的热汤，客人吃完，剩下的卤汤回收倒回大...</div></div></div></a><a class="pagination-related" href="/2026/11/15/qingbei-three-level-concentration/" title="清北名额的三级集中：站在哪里，比努力更重要"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-tsinghua-peking-concentration.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">清北名额的三级集中：站在哪里，比努力更重要</div></div><div class="info-2"><div class="info-item-1">海淀六所名校一年送进清北的人数，比大多数省份全省还多。名额不是按努力分的，是按位置分的。 先看一个数字：2026 年，北京海淀六所名校——人大附中、清华附中、北大附中、十一学校、首师大附中、一零一中学——录取到清华北大的总人数，大约 350 人。 350 人是什么概念？比全国大部分省份一个省的清北录取总人数还要多，有的省份要高出几倍，甚至十几倍。而这六所学校每届的毕业生加起来不过几千人；一个省的应届考生，是几十万人。 同样的考试，同样的试卷，一边的录取率按百分之几算，另一边按万分之几算。这中间差的不是努力，是位置。 三级集中：一层吃掉一层把视角从北京下沉到省里，画面更清楚。以高考大省四川为例：成都一座城市的清北录取人数，占了全省的大约三分之一。而拿下这些名额的学校，每届毕业生不过几百人量级；四川全省的考生，五十多万，全国前五。 六百分之一的人口，拿走三分之一的名额。剩下的五十万分之二，在地图上摊开，是几百个县、几千所中学分剩下的三分之二。 这不是四川独有的现象。放眼全国，各个城市的清北人数，基本都集中在当地最好的那一到三所学校里。只有北京、上海因为教育资源多到溢出，才能分散到四到...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Adh1cu</div><div class="author-info-description">偶尔分享搞机科技，生活琐事</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">126</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Adh1cu"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Adh1cu" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><div style="font-size:14px;line-height:1.7">如果这里的内容对你有帮助，欢迎打赏支持 ☕</div>
+<div style="margin-top:8px;font-size:12px;opacity:.65">Aptos 网络</div>
+<code style="display:block;word-break:break-all;font-size:12px;background:rgba(127,127,127,.12);padding:8px;border-radius:8px;margin-top:4px">0xf7f328515e2045c469c7fadb256be4976c80e61cdd2f5e0b5a650ffbccfd5486</code>
+<button onclick="navigator.clipboard.writeText('0xf7f328515e2045c469c7fadb256be4976c80e61cdd2f5e0b5a650ffbccfd5486').then(()=>{this.textContent='已复制 ✓';setTimeout(()=>this.textContent='复制地址',2000)})" style="margin-top:8px;padding:6px 14px;border:none;border-radius:20px;background:#0e7490;color:#fff;cursor:pointer;font-size:13px">复制地址</button>
+</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E4%BB%8E%E6%AF%8F%E4%B8%AA%E4%BA%BA%E9%83%BD%E9%81%87%E5%88%B0%E8%BF%87%E7%9A%84%E5%8D%A1%E9%A1%BF%E8%AF%B4%E8%B5%B7"><span class="toc-number">1.</span> <span class="toc-text">先从每个人都遇到过的卡顿说起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#256MB-%E7%9A%84%E5%AE%B6%E5%BA%95%EF%BC%8C%E8%A2%AB%E4%B8%80%E4%B8%AA-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%90%83%E6%8E%89%E4%B8%80%E5%8D%8A"><span class="toc-number">2.</span> <span class="toc-text">256MB 的家底，被一个 Java 虚拟机吃掉一半</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E6%8C%A1%E4%B8%8D%E4%BD%8F%E5%AE%83%EF%BC%9A%E6%AF%8F%E4%B8%AA%E5%8C%85%E9%83%BD%E8%A2%AB%E5%A4%8D%E5%88%B6%E4%B8%80%E4%BB%BD"><span class="toc-number">3.</span> <span class="toc-text">桥接模式挡不住它：每个包都被复制一份</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%83%E4%B8%8D%E5%8F%AA%E6%98%AF%E7%9C%8B%EF%BC%8C%E8%BF%98%E4%BC%9A%E7%82%B9%E5%90%8D%E3%80%81%E9%95%9C%E5%83%8F%E5%92%8C%E8%87%AA%E4%BF%9D"><span class="toc-number">4.</span> <span class="toc-text">它不只是看，还会点名、镜像和自保</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%A1%8C%E2%80%9C%E6%96%B0%E7%96%86%E7%94%B5%E4%BF%A1%E2%80%9D%E7%9A%84%E5%AF%86%E9%92%A5%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BA%BA%E5%9C%A8%E5%85%A8%E5%9B%BD%E7%9A%84%E5%9B%BA%E4%BB%B6%E9%87%8C"><span class="toc-number">5.</span> <span class="toc-text">一行“新疆电信”的密钥，为什么躺在全国的固件里</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%A0%E5%A4%9F%E4%B8%8D%E5%88%B0%E7%9A%84%E9%82%A3%E6%9D%A1%E6%9A%97%E7%BA%BF%EF%BC%9ATR-069"><span class="toc-number">6.</span> <span class="toc-text">你够不到的那条暗线：TR-069</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E6%8A%8A%E7%BD%91%E9%80%9F%E5%92%8C%E8%BE%B9%E7%95%8C%E4%B8%80%E8%B5%B7%E6%8B%BF%E5%9B%9E%E6%9D%A5"><span class="toc-number">7.</span> <span class="toc-text">怎么把网速和边界一起拿回来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%B0%BE"><span class="toc-number">8.</span> <span class="toc-text">结尾</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/11/28/peasant-life-2000-years-unchanged/" title="从秦朝到2000年，农民的日子基本没变过"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-peasant-2000-years.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从秦朝到2000年，农民的日子基本没变过"/></a><div class="content"><a class="title" href="/2026/11/28/peasant-life-2000-years-unchanged/" title="从秦朝到2000年，农民的日子基本没变过">从秦朝到2000年，农民的日子基本没变过</a><time datetime="2026-11-28T17:31:00.000Z" title="发表于 2026-11-29 01:31:00">2026-11-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/26/new-zealand-teacher-immigration-guide/" title="新西兰润学参考"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-nz-teacher.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="新西兰润学参考"/></a><div class="content"><a class="title" href="/2026/11/26/new-zealand-teacher-immigration-guide/" title="新西兰润学参考">新西兰润学参考</a><time datetime="2026-11-26T06:30:00.000Z" title="发表于 2026-11-26 14:30:00">2026-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/26/sweden-welfare-not-plunder/" title="西方的高福利，是靠六百年全球掠夺吗？"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-sweden-welfare.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="西方的高福利，是靠六百年全球掠夺吗？"/></a><div class="content"><a class="title" href="/2026/11/26/sweden-welfare-not-plunder/" title="西方的高福利，是靠六百年全球掠夺吗？">西方的高福利，是靠六百年全球掠夺吗？</a><time datetime="2026-11-26T01:30:00.000Z" title="发表于 2026-11-26 09:30:00">2026-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/26/low-cognition-traits/" title="认知水平越低的人，有什么特别明显的特征？"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-low-cognition.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="认知水平越低的人，有什么特别明显的特征？"/></a><div class="content"><a class="title" href="/2026/11/26/low-cognition-traits/" title="认知水平越低的人，有什么特别明显的特征？">认知水平越低的人，有什么特别明显的特征？</a><time datetime="2026-11-26T01:25:00.000Z" title="发表于 2026-11-26 09:25:00">2026-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/25/wuhan-biggest-mistake/" title="武汉捅的最大的篓子"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/cover-wuhan-mistake.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="武汉捅的最大的篓子"/></a><div class="content"><a class="title" href="/2026/11/25/wuhan-biggest-mistake/" title="武汉捅的最大的篓子">武汉捅的最大的篓子</a><time datetime="2026-11-25T17:35:00.000Z" title="发表于 2026-11-26 01:35:00">2026-11-26</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By Adh1cu</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.2"></script><script src="/js/main.js?v=5.7.2"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/click-effect.js"></script><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><div id="music-topbar"><div id="music-player-wrap"></div><button id="music-close" title="收起播放器">×</button><button id="music-show" title="打开播放器">🎵</button></div><script src="/js/music.js"></script><script src="/js/home.js"></script><script src="/js/card-click.js"></script><script src="/js/related-order.js"></script><script src="/js/lang-toggle.js"></script><script src="/js/bili-comments.js"></script><script src="/js/muse-comment.js"></script><script src="/js/share-buttons.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([data-fancybox])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      if (!item.parentNode) return
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || ''
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    const responseURL = e.request && e.request.responseURL
+    if (e.request && e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : responseURL && (window.location.href = responseURL)
+    } else if (responseURL) {
+      window.location.href = responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.2"></script></div></div></body></html>

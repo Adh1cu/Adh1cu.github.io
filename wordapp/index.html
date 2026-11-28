@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f4f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#212532" media="(prefers-color-scheme: dark)">
+<title>场景演练 · AI 英语对话</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="brand">场景演练</div>
+  <button id="gearBtn" class="icon-btn" aria-label="设置"></button>
+</header>
+
+<main>
+  <!-- ============ HOME ============ -->
+  <section id="view-home" class="view">
+    <div id="keyBanner" class="banner hidden">
+      <div class="banner-tx"><b>先连上大模型</b><span>填入你自己的 API key 才能开始演练，key 只存在这台设备上。</span></div>
+      <button id="bannerGo" class="btn primary small">去设置</button>
+    </div>
+
+    <div class="hero">
+      <h1>想练哪个场景？</h1>
+      <p class="hero-sub">随便写，AI 扮演对方，全程英文跟你演。</p>
+    </div>
+
+    <div class="scene-box card">
+      <textarea id="sceneInput" rows="3" placeholder="比如：在洛杉矶机场过海关 / 跟房东说空调坏了 / 餐馆打工第一天，店长交代工作"></textarea>
+      <button id="startBtn" class="btn primary big block">开始演练</button>
+    </div>
+
+    <div id="historyWrap" class="hidden">
+      <div class="sec-title">最近演练</div>
+      <div id="historyList"></div>
+    </div>
+  </section>
+
+  <!-- ============ CHAT ============ -->
+  <section id="view-chat" class="view hidden">
+    <div class="chat-head">
+      <button id="chatBack" class="icon-btn"></button>
+      <div id="chatTitle" class="chat-title"></div>
+      <button id="endBtn" class="btn ghost small">结束并小结</button>
+    </div>
+    <div id="msgList" class="msg-list"></div>
+    <div id="hintBar" class="hint-bar hidden">
+      <div class="hint-tx"><span class="hint-label">可以这样说</span><span id="hintEn"></span><span id="hintZh" class="hint-zh"></span></div>
+      <div class="hint-actions">
+        <button id="hintSpeak" class="mini-btn">朗读</button>
+        <button id="hintUse" class="mini-btn strong">用这句</button>
+        <button id="hintClose" class="mini-btn">关</button>
+      </div>
+    </div>
+    <div class="composer">
+      <button id="hintBtn" class="btn ghost">提示</button>
+      <input id="msgInput" type="text" placeholder="用英文回复…" autocomplete="off" enterkeyhint="send">
+      <button id="sendBtn" class="btn primary">发送</button>
+    </div>
+  </section>
+
+  <!-- ============ SUMMARY ============ -->
+  <section id="view-summary" class="view hidden">
+    <div class="sec-title big">演练小结</div>
+    <div id="summaryBody" class="card summary-body"></div>
+    <button id="sumHome" class="btn primary big block">回首页</button>
+    <button id="sumAgain" class="btn ghost big block">再练一个场景</button>
+  </section>
+
+  <!-- ============ SETTINGS ============ -->
+  <section id="view-settings" class="view hidden">
+    <div class="set-head">
+      <button id="setBack" class="icon-btn"></button>
+      <div class="sec-title big">大模型设置</div>
+    </div>
+
+    <div class="card set-card">
+      <label class="fld-label">服务商</label>
+      <div id="providerRow" class="chip-row"></div>
+
+      <label class="fld-label">接口地址（Base URL）</label>
+      <input id="baseInput" class="fld" type="url" placeholder="https://api.openai.com/v1" autocomplete="off" spellcheck="false">
+
+      <label class="fld-label">API Key</label>
+      <input id="keyInput" class="fld" type="password" placeholder="sk-…" autocomplete="off" spellcheck="false">
+
+      <label class="fld-label">模型</label>
+      <input id="modelInput" class="fld" list="modelList" placeholder="gpt-4o-mini" autocomplete="off" spellcheck="false">
+      <datalist id="modelList"></datalist>
+
+      <button id="testBtn" class="btn ghost big block">测试连接</button>
+      <div id="testStatus" class="test-status"></div>
+      <p class="set-note">key 只保存在这台设备的浏览器里，请求从你的设备直连服务商，不经过任何中间服务器。</p>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

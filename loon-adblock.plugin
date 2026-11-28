@@ -1,0 +1,9 @@
+#!name=广告域名屏蔽
+#!desc=屏蔽 4 个广告域名：jdstore.sz-cooleasy.com、nad.ehuoke.com、yxl.wjhad.com、api.yidianlingyi.cn
+#!author=Adh1cu
+
+[Rule]
+DOMAIN-SUFFIX,jdstore.sz-cooleasy.com,REJECT
+DOMAIN-SUFFIX,nad.ehuoke.com,REJECT
+DOMAIN-SUFFIX,yxl.wjhad.com,REJECT
+DOMAIN-SUFFIX,api.yidianlingyi.cn,REJECT
