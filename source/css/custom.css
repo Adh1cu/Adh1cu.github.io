@@ -566,3 +566,38 @@ body {
 [data-theme='dark'] .bili-c-avatar-wrap { background: rgba(56, 189, 248, 0.18); }
 [data-theme='dark'] .bili-c-initial { color: #38bdf8; }
 [data-theme='dark'] .bili-c-meta { color: rgba(255, 255, 255, 0.45); }
+
+/* Post share bar: iMessage + Telegram, mobile only.
+   Hidden on desktop: shown only on small coarse-pointer screens. */
+.share-bar {
+  display: none;
+}
+@media screen and (max-width: 768px) and (pointer: coarse) {
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 2em 0 0.5em;
+  }
+  .share-bar-label {
+    font-size: 14px;
+    color: #8a8f98;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+  }
+  .share-btn svg { flex: none; }
+  .share-imessage { background: #34c759; }
+  .share-telegram { background: #229ed9; }
+  .share-btn:active { opacity: 0.85; }
+}
+[data-theme='dark'] .share-bar-label { color: rgba(255, 255, 255, 0.45); }
